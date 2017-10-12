@@ -54,6 +54,12 @@ ${
         return false;
     }
 
+    string RemoveNamespace(string s){
+        var pos = s.LastIndexOf(".");
+       
+        return pos ==-1 ? s : s.Substring(pos+1);
+    }
+
     // generates imports in typescript
     string Imports(Class c)
     {
@@ -70,6 +76,7 @@ ${
                     // additionally removing [] from the end of the type as imports can be done only on normal class name
                     var r = new Regex(@".*typeof[(]([^.]\.)*([^)[\]]*)([[][\]])?[)].*");
                     var name = r.Replace(attr.Value, "$2");
+                    name = RemoveNamespace(name);
                     if(!IsString(name) && !IsDictionary(name)){
                         typeNameList.Add(name);
                     }
@@ -104,8 +111,8 @@ ${
 
         var sb = new StringBuilder();
         foreach(var typeName in typeNameList.Distinct()){
-		    // change this path to fit your project
-            sb.AppendLine($"import {{ I{typeName}, {typeName} }} from '../../../server/models/{typeName}';");
+            // change this path to fit your project
+            sb.AppendLine($"import {{ I{typeName}, {typeName} }} from '../models/{typeName}';");
         }
 
         return sb.ToString();
@@ -161,7 +168,7 @@ ${
 
     string GetActionNameByAttribute(Method m, string name) {    
         var value = m.Attributes.FirstOrDefault(a => a.Name == name)?.Value ?? string.Empty;
-        if(!string.IsNullOrEmpty(value)){
+        if(!string.IsNullOrEmpty(value) && !value.Contains("{")){
              return "/"+value;
         }else{
             return string.Empty;

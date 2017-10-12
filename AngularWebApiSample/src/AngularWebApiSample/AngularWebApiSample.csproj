@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup Label="Build">
-    <TargetFramework>netcoreapp1.1</TargetFramework>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
     <TypeScriptToolsVersion>2.5</TypeScriptToolsVersion>
   </PropertyGroup>
 
@@ -15,10 +15,50 @@
   </PropertyGroup>
 
   <ItemGroup Label="Package References">
-    <PackageReference Include="Microsoft.AspNetCore" Version="1.1.1" />
-    <PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="1.1.2" />
-    <PackageReference Include="Microsoft.AspNetCore.Mvc.Formatters.Json" Version="1.1.2" />
-    <PackageReference Include="Microsoft.AspNetCore.Mvc.Cors" Version="1.1.2" />
+    <PackageReference Include="Microsoft.AspNetCore" Version="2.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Formatters.Json" Version="2.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Cors" Version="2.0.0" />
+      <PackageReference Include="Microsoft.AspNetCore.Mvc.ApiExplorer" Version="2.0.0" />
+      <PackageReference Include="Microsoft.AspNetCore.Mvc.Formatters.Json" Version="2.0.0" />
+      <PackageReference Include="Microsoft.AspNetCore.Server.IISIntegration" Version="2.0.0" />
+      <PackageReference Include="Microsoft.AspNetCore.StaticFiles" Version="2.0.0" />
+      <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="2.0.0" />
+      <PackageReference Include="Microsoft.Extensions.Configuration" Version="2.0.0" />
+      <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="2.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="src\app\api\models\CombinedModel.ts">
+      <CustomToolNamespace>Models\CombinedModel.cs</CustomToolNamespace>
+    </None>
+    <None Update="src\app\api\models\CombinedQueryModel.ts">
+      <CustomToolNamespace>Models\CombinedQueryModel.cs</CustomToolNamespace>
+    </None>
+    <None Update="src\app\api\models\CombinedResultModel.ts">
+      <CustomToolNamespace>Models\CombinedResultModel.cs</CustomToolNamespace>
+    </None>
+    <None Update="src\app\api\models\ComplexAModel.ts">
+      <CustomToolNamespace>Models\ComplexAModel.cs</CustomToolNamespace>
+    </None>
+    <None Update="src\app\api\models\ComplexBaseModel.ts">
+      <CustomToolNamespace>Models\ComplexBaseModel.cs</CustomToolNamespace>
+    </None>
+    <None Update="src\app\api\models\ComplexBModel.ts">
+      <CustomToolNamespace>Models\ComplexBModel.cs</CustomToolNamespace>
+    </None>
+    <None Update="src\app\api\models\SimpleModel.ts">
+      <CustomToolNamespace>Models\SimpleModel.cs</CustomToolNamespace>
+    </None>
+    <None Update="src\app\api\services\ComplexControler.ts">
+      <CustomToolNamespace>Controllers\ComplexControler.cs</CustomToolNamespace>
+    </None>
+    <None Update="src\app\api\services\MidService.ts">
+      <CustomToolNamespace>Controllers\MidController.cs</CustomToolNamespace>
+    </None>
+    <None Update="src\app\api\services\SimpleService.ts">
+      <CustomToolNamespace>Controllers\SimpleController.cs</CustomToolNamespace>
+    </None>
   </ItemGroup>
 
 </Project>
