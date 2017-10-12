@@ -2,6 +2,7 @@
 
   <PropertyGroup Label="Build">
     <TargetFramework>netcoreapp1.1</TargetFramework>
+    <TypeScriptToolsVersion>2.5</TypeScriptToolsVersion>
   </PropertyGroup>
 
   <PropertyGroup Label="Package">
@@ -17,7 +18,7 @@
     <PackageReference Include="Microsoft.AspNetCore" Version="1.1.1" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="1.1.2" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Formatters.Json" Version="1.1.2" />
-    <PackageReference Include="Microsoft.AspNetCore.Mvc.Cors" Version="1.1.2"  />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Cors" Version="1.1.2" />
   </ItemGroup>
 
 </Project>
