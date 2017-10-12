@@ -16,8 +16,8 @@ ${
     string Imports(Class c)
     {
         var neededImports = c.Properties
-	        .Where(p => !p.Type.IsPrimitive)
-	        .Select(p => $"import {{ {p.Type.ClassName()} }} from './{p.Type.ClassName()}';").ToList();
+            .Where(p => !p.Type.IsPrimitive)
+            .Select(p => $"import {{ {p.Type.ClassName()} }} from './{p.Type.ClassName()}';").ToList();
     
         if(c.BaseClass != null && c.BaseClass.TypeArguments != null)
         {
@@ -102,7 +102,7 @@ ${
     }
 
     string GenerateTypeInit(Class c){
-        var pos = c.FullName.IndexOf(".Dtos");
+        var pos = c.FullName.IndexOf(".Models");
        
         return $"this.$type = '{c.FullName}, {c.FullName.Substring(0, pos)}';";
     }
