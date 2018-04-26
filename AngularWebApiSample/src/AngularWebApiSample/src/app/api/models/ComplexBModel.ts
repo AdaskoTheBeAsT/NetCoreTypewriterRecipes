@@ -17,6 +17,10 @@ export class ComplexBModel extends ComplexBaseModel implements IComplexBModel {
             this.isActive = initObj.isActive || false;
             
         }
+        else {
+            this.isActive = false;
+            
+        }
     }
 }
 

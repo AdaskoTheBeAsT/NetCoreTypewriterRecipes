@@ -18,6 +18,10 @@ export class ComplexBaseModel implements IComplexBaseModel {
             this.id = initObj.id || 0;
             
         }
+        else {
+            this.id = 0;
+            
+        }
     }
 }
 

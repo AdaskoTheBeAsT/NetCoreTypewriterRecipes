@@ -11,7 +11,7 @@ namespace AngularWebApiSample.Controllers
         [ProducesResponseType(typeof(CombinedResultModel), 200)]
         public IActionResult Post([FromBody]CombinedResultModel value)
         {
-            return Ok();
+            return Ok(value);
         }
 
         [HttpGet]
@@ -20,20 +20,20 @@ namespace AngularWebApiSample.Controllers
         {
             return Ok(new CombinedResultModel
             {
-                Id = 2,
+                Id = query.Id,
                 SampleList = new List<ComplexBaseModel>
                 {
                     new ComplexAModel
                     {
                         Id = 2,
-                        Text = "OK"
+                        Text = "OK",
                     },
                     new ComplexBModel
                     {
                         Id = 3,
-                        IsActive = true
-                    }
-                }
+                        IsActive = true,
+                    },
+                },
             });
         }
     }

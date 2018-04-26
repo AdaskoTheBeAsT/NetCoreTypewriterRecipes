@@ -6,6 +6,6 @@ namespace AngularWebApiSample.Models
     {
         public int Id { get; set; }
 
-        public List<SimpleModel> SimpleModels { get; set; }
+        public List<SimpleModel> SimpleModels { get; internal set; }
     }
 }

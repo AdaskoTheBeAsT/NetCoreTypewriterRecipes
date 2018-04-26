@@ -17,6 +17,10 @@ export class ComplexAModel extends ComplexBaseModel implements IComplexAModel {
             this.text = initObj.text || null;
             
         }
+        else {
+            this.text = null;
+            
+        }
     }
 }
 

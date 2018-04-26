@@ -38,8 +38,56 @@ export class SimpleService implements ISimpleService {
             .set("Accept", "application/json")
             .set("If-Modified-Since", "0");
 
-        let params = new HttpParams()
-            ;
+       let params = new HttpParams();
+       let funcObj = {
+            addToHttpParams(key: string, elem: any): void {
+                if (typeof elem === 'undefined' || elem == null) {
+                    return;
+                }
+
+                params = params.set(key, elem);
+            },
+            processObject(key: string, obj: object, firstPass:boolean, itemFunc: (key: string, item: any) => void): void {
+                for (let property in obj) {
+                    if (!obj.hasOwnProperty(property)){
+                        continue;
+                    }
+
+                    if (property==='$type') {
+                        continue;
+                    }
+                    let name = firstPass ? property : key + "." + property;
+                    this.process(name, obj[property], false, itemFunc);
+                }
+            },
+            processArray(key:string, arr: Array<any>, itemFunc: (key:string, item:any)=>void): void {
+                for (let id in arr) {
+                    if (!arr.hasOwnProperty(id)){
+                        continue;
+                    }
+                    let itemName = key + '[' + id + ']';
+                    let item = arr[id];
+                    this.process(itemName, item, false, itemFunc);
+                }
+            },
+            process(key: string, obj: any, firstPass: boolean, itemFunc: (key: string, item: any) => void): void {
+                if (obj == null) { 
+                    return;
+                } 
+
+                if (Array.isArray(obj)) {
+                    this.processArray(key, obj, itemFunc);
+                }
+                else if (typeof obj === 'object') {
+                    this.processObject(key, obj, firstPass, itemFunc);
+                }
+                else { 
+                    itemFunc(key, obj);
+                }
+            }
+        };
+
+        let parr = [];
 
         
 
@@ -50,7 +98,7 @@ export class SimpleService implements ISimpleService {
                 params: params
             });
     }
-        
+    
     
     
     
@@ -60,14 +108,60 @@ export class SimpleService implements ISimpleService {
             .set("Accept", "application/json")
             .set("If-Modified-Since", "0");
 
-        let params = new HttpParams()
-            
-            
-            .set('id', id.toString())
-            ;
+       let params = new HttpParams();
+       let funcObj = {
+            addToHttpParams(key: string, elem: any): void {
+                if (typeof elem === 'undefined' || elem == null) {
+                    return;
+                }
+
+                params = params.set(key, elem);
+            },
+            processObject(key: string, obj: object, firstPass:boolean, itemFunc: (key: string, item: any) => void): void {
+                for (let property in obj) {
+                    if (!obj.hasOwnProperty(property)){
+                        continue;
+                    }
+
+                    if (property==='$type') {
+                        continue;
+                    }
+                    let name = firstPass ? property : key + "." + property;
+                    this.process(name, obj[property], false, itemFunc);
+                }
+            },
+            processArray(key:string, arr: Array<any>, itemFunc: (key:string, item:any)=>void): void {
+                for (let id in arr) {
+                    if (!arr.hasOwnProperty(id)){
+                        continue;
+                    }
+                    let itemName = key + '[' + id + ']';
+                    let item = arr[id];
+                    this.process(itemName, item, false, itemFunc);
+                }
+            },
+            process(key: string, obj: any, firstPass: boolean, itemFunc: (key: string, item: any) => void): void {
+                if (obj == null) { 
+                    return;
+                } 
+
+                if (Array.isArray(obj)) {
+                    this.processArray(key, obj, itemFunc);
+                }
+                else if (typeof obj === 'object') {
+                    this.processObject(key, obj, firstPass, itemFunc);
+                }
+                else { 
+                    itemFunc(key, obj);
+                }
+            }
+        };
+
+        let parr = [];
 
         
-            
+        parr.push(id);
+        funcObj.process('id', parr.pop(), true, funcObj.addToHttpParams);
 
         return this.http.get<string>(
             this.simpleServiceUrl+'',
@@ -76,12 +170,12 @@ export class SimpleService implements ISimpleService {
                 params: params
             });
     }
-        
     
     
     
+    
         
-        
+    
     
     public poststring(value: string): Observable<any> {
         const headers = new HttpHeaders()
@@ -100,12 +194,12 @@ export class SimpleService implements ISimpleService {
     
     
         
-        
+    
+    
     
     
     public deletenumber(id: number): Observable<any> {
         return this.http.delete<any>(
             this.simpleServiceUrl+'/'+id);
     }
-    
 }

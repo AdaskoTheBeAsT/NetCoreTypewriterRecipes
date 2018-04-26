@@ -13,6 +13,10 @@ ${
         return c.Name.EndsWith("Model");
     }
 
+    bool IncludeEnums(Enum e){
+        return e.Namespace.Contains("Models");
+    }
+
     string Imports(Class c)
     {
         var neededImports = c.Properties
@@ -106,22 +110,35 @@ ${
        
         return $"this.$type = '{c.FullName}, {c.FullName.Substring(0, pos)}';";
     }
+
+    string SimplifyType(Property property){
+        return property.Type.Name;
+    }
 }
-$Classes($IncludeClass)[
-$Imports
+$Enums($IncludeEnums)[
+export enum $Name {
+    $Values[$Name = "$Name"][,
+    ]
+}    
+]
+$Classes($IncludeClass)[$Imports
 
 export interface I$Name$TypeParameters$InheritInterface {$GenerateTypeForInterface
-    $Properties[$name?: $Type;
+    $Properties[$name?: $SimplifyType;
     ]
 }
 
 export class $Name$TypeParameters$InheritClass$ImplementsInterface {$GenerateTypeForClass
-    $Properties[public $name: $Type;
+    $Properties[public $name: $SimplifyType;
     ]
     constructor(initObj?: I$Name$TypeParameters) {$Super
         $GenerateTypeInit
         if(initObj) {
             $Properties[this.$name = initObj.$name || $Type[$Default];
+            ]
+        }
+        else {
+            $Properties[this.$name = $Type[$Default];
             ]
         }
     }

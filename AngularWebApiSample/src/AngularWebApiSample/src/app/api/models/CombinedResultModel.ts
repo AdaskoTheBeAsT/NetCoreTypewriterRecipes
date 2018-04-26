@@ -21,6 +21,11 @@ export class CombinedResultModel implements ICombinedResultModel {
             this.sampleList = initObj.sampleList || [];
             
         }
+        else {
+            this.id = 0;
+            this.sampleList = [];
+            
+        }
     }
 }
 

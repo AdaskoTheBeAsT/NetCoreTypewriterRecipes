@@ -33,23 +33,22 @@ export class ComplexControler implements IComplexControler {
     
     
         
-        
     
-    public postCombinedResultModel(value: CombinedResultModel): Observable<any> {
+    
+    
+    public postCombinedResultModel(value: CombinedResultModel): Observable<CombinedResultModel> {
         const headers = new HttpHeaders()
             .set("Content-Type", "application/json")
             .set("Accept", "application/json")
             .set("If-Modified-Since", "0");
 
-        return this.http.post(
+        return this.http.post<CombinedResultModel>(
             this.complexControlerUrl+'',
             value,
             {
-                headers: headers,
-                responseType: 'text'
+                headers: headers
             });
     }
-    
     
         
     public getCombinedQueryModel(query: CombinedQueryModel): Observable<CombinedResultModel> {
@@ -57,46 +56,60 @@ export class ComplexControler implements IComplexControler {
             .set("Accept", "application/json")
             .set("If-Modified-Since", "0");
 
-        let params = new HttpParams()
-            
-            ;
+       let params = new HttpParams();
+       let funcObj = {
+            addToHttpParams(key: string, elem: any): void {
+                if (typeof elem === 'undefined' || elem == null) {
+                    return;
+                }
+
+                params = params.set(key, elem);
+            },
+            processObject(key: string, obj: object, firstPass:boolean, itemFunc: (key: string, item: any) => void): void {
+                for (let property in obj) {
+                    if (!obj.hasOwnProperty(property)){
+                        continue;
+                    }
+
+                    if (property==='$type') {
+                        continue;
+                    }
+                    let name = firstPass ? property : key + "." + property;
+                    this.process(name, obj[property], false, itemFunc);
+                }
+            },
+            processArray(key:string, arr: Array<any>, itemFunc: (key:string, item:any)=>void): void {
+                for (let id in arr) {
+                    if (!arr.hasOwnProperty(id)){
+                        continue;
+                    }
+                    let itemName = key + '[' + id + ']';
+                    let item = arr[id];
+                    this.process(itemName, item, false, itemFunc);
+                }
+            },
+            process(key: string, obj: any, firstPass: boolean, itemFunc: (key: string, item: any) => void): void {
+                if (obj == null) { 
+                    return;
+                } 
+
+                if (Array.isArray(obj)) {
+                    this.processArray(key, obj, itemFunc);
+                }
+                else if (typeof obj === 'object') {
+                    this.processObject(key, obj, firstPass, itemFunc);
+                }
+                else { 
+                    itemFunc(key, obj);
+                }
+            }
+        };
+
+        let parr = [];
 
         
-            
-            let parameter = query;
-            for (let key in parameter) {
-                if (!parameter.hasOwnProperty(key)){
-                    continue;
-                }
-
-                if (key==='$type'){
-                    continue;
-                }
-
-                let elem = parameter[key];
-                if(Array.isArray(elem)){
-                    let id=0;
-                    for(let item in elem){
-                        let itemName = key+'['+id+']';
-                        for (let attr in elem[item]) {
-                            if (attr==='$type'){
-                                continue;
-                            }
-                            if (!elem[item].hasOwnProperty(attr)){
-                                continue;
-                            }
-
-                            let attrName = itemName+'.'+attr;
-                            params = params.set(attrName, elem[item][attr]);
-                        }
-                        id++;
-                    }
-                }
-                else{
-                    params = params.set(key, elem);
-                }
-                
-            }
+        parr.push(query);
+        funcObj.process('query', parr.pop(), true, funcObj.addToHttpParams);
 
         return this.http.get<CombinedResultModel>(
             this.complexControlerUrl+'',
@@ -105,7 +118,7 @@ export class ComplexControler implements IComplexControler {
                 params: params
             });
     }
-        
+    
     
     
     

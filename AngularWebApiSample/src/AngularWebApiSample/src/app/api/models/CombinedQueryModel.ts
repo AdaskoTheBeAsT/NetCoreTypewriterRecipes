@@ -21,6 +21,11 @@ export class CombinedQueryModel implements ICombinedQueryModel {
             this.simpleModels = initObj.simpleModels || [];
             
         }
+        else {
+            this.id = 0;
+            this.simpleModels = [];
+            
+        }
     }
 }
 

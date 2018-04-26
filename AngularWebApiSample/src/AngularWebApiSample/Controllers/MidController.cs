@@ -7,9 +7,10 @@ namespace AngularWebApiSample.Controllers
     public class MidController : ControllerBase
     {
         [HttpPost]
+        [ProducesResponseType(typeof(SimpleModel), 200)]
         public IActionResult Post([FromBody]SimpleModel value)
         {
-            return Ok();
+            return Ok(value);
         }
 
         [HttpGet]
