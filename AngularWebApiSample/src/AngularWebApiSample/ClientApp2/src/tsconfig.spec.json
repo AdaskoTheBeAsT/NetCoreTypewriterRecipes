@@ -1,11 +1,11 @@
 {
   "extends": "../tsconfig.json",
   "compilerOptions": {
-    "outDir": "../../wwwroot/out-tsc/spec",
+    "outDir": "../out-tsc/spec",
     "module": "commonjs",
     "types": [
-      "node",
-      "jest"
+      "jasmine",
+      "node"
     ]
   },
   "files": [

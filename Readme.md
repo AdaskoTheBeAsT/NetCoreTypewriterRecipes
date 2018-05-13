@@ -34,7 +34,12 @@ ng set --global packageManager=yarn
 ```
 
 Frontend folder is created in main folder of webapi .
-For styles scss is used.
+For styles scss is used. App is setup without inline templates and styles
 ```
-ng new ClientApp --style=scss
+ng new ClientApp --style=scss -s=false -t=false
 ```
+
+Angular way of testing was modified base on article
+[Use React tools for better Angular apps](https://medium.com/@martin_hotell/use-react-tools-for-better-angular-apps-b0f14f3f8114)
+For unit test karma/jasmine combo was replaced by Jest;
+For e2e tests protractor was replaced by testcafe.
