@@ -1,11 +1,11 @@
-
+﻿
 import { API_BASE_URL } from '../../app-config.module';
 import { Inject, Injectable, Optional } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 
-import { Observable } from 'rxjs';
-
-
+import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/operator/catch';
+import 'rxjs/add/operator/map';
 
 
 import { ICombinedResultModel, CombinedResultModel } from '../models/CombinedResultModel';

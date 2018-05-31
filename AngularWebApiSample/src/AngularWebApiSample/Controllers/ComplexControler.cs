@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace AngularWebApiSample.Controllers
 {
     using System.Collections.Generic;
-    using Models;
+    using AngularWebApiSample.Models;
 
     public class ComplexControler : ControllerBase
     {
