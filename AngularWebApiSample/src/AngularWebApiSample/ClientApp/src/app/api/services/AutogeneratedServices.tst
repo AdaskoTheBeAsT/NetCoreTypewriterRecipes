@@ -267,33 +267,33 @@ import 'rxjs/add/operator/map';
 $Classes($IncludeClass)[
 $Imports
 
-export interface I$ServiceName {
-    $Methods[$MethodName($Parameters[$name: $Type][, ]): Observable<$ReturnType>;
-    ]
+export interface I$ServiceName {$Methods[
+    $MethodName($Parameters[$name: $Type][, ]): Observable<$ReturnType>;]
 }
 
 @Injectable()
 export class $ServiceName implements I$ServiceName {
-    constructor (@Inject(HttpClient) protected http: HttpClient, @Optional() @Inject(API_BASE_URL) protected baseUrl?: string) {
+    constructor (
+        @Inject(HttpClient) protected http: HttpClient,
+        @Optional() @Inject(API_BASE_URL) protected baseUrl?: string) {
     }
 
     public get $UrlFieldName(): string {
-        if(this.baseUrl) {
-            return this.baseUrl.endsWith('/') ? this.baseUrl+'$GetRouteValue' : this.baseUrl+'/'+'$GetRouteValue';
+        if (this.baseUrl) {
+            return this.baseUrl.endsWith('/') ? this.baseUrl + '$GetRouteValue' : this.baseUrl + '/' + '$GetRouteValue';
         } else {
             return '$GetRouteValue';
         }
     }
-    
-    $Methods[
-        $IsGetMethod[
-    public $name$Parameters[$Type[$NameOfType]]($Parameters[$name: $Type][, ]): Observable<$ReturnType> {
+$Methods[$IsGetMethod[
+    public $name$Parameters[$Type[$NameOfType]](
+        $Parameters[$name: $Type][, ]): Observable<$ReturnType> {
         const headers = new HttpHeaders()
-            .set("Accept", "application/json")
-            .set("If-Modified-Since", "0");
+            .set('Accept', 'application/json')
+            .set('If-Modified-Since', '0');
 
        let params = new HttpParams();
-       let funcObj = {
+       const funcObj = {
             addToHttpParams(key: string, elem: any): void {
                 if (typeof elem === 'undefined' || elem == null) {
                     return;
@@ -301,106 +301,105 @@ export class $ServiceName implements I$ServiceName {
 
                 params = params.set(key, elem);
             },
-            processObject(key: string, obj: object, firstPass:boolean, itemFunc: (key: string, item: any) => void): void {
-                for (let property in obj) {
-                    if (!obj.hasOwnProperty(property)){
+            processObject(key: string, obj: object, firstPass: boolean, itemFunc: (key: string, item: any) => void): void {
+                for (const property in obj) {
+                    if (!obj.hasOwnProperty(property)) {
                         continue;
                     }
 
-                    if (property==='$type') {
+                    if (property === '$type') {
                         continue;
                     }
-                    let name = firstPass ? property : key + "." + property;
+
+                    const name = firstPass ? property : key + '.' + property;
                     this.process(name, obj[property], false, itemFunc);
                 }
             },
-            processArray(key:string, arr: Array<any>, itemFunc: (key:string, item:any)=>void): void {
-                for (let id in arr) {
-                    if (!arr.hasOwnProperty(id)){
+            processArray(key: string, arr: Array<any>, itemFunc: (key: string, item: any) => void): void {
+                for (const arrid in arr) {
+                    if (!arr.hasOwnProperty(arrid)) {
                         continue;
                     }
-                    let itemName = key + '[' + id + ']';
-                    let item = arr[id];
+
+                    const itemName = key + '[' + arrid + ']';
+                    const item = arr[arrid];
                     this.process(itemName, item, false, itemFunc);
                 }
             },
             process(key: string, obj: any, firstPass: boolean, itemFunc: (key: string, item: any) => void): void {
-                if (obj == null) { 
+                if (obj == null) {
                     return;
-                } 
+                }
 
                 if (Array.isArray(obj)) {
                     this.processArray(key, obj, itemFunc);
-                }
-                else if (typeof obj === 'object') {
+                } else if (typeof obj === 'object') {
                     this.processObject(key, obj, firstPass, itemFunc);
-                }
-                else { 
+                } else {
                     itemFunc(key, obj);
                 }
             }
         };
 
-        let parr = [];
-
-        $Parameters[
+        const parr = [];
+$Parameters[
         parr.push($name);
         funcObj.process('$name', parr.pop(), true, funcObj.addToHttpParams);]
 
         return this.http.get<$ReturnType>(
-            this.$Parent[$UrlFieldName]+'$HttpGetActionNameByAttribute',
+            this.$Parent[$UrlFieldName] + '$HttpGetActionNameByAttribute',
             {
                 headers: headers,
                 params: params
             });
     }]
-    $IsPutMethod[
+$IsPutMethod[
     public $MethodName($Parameters[$name: $Type][, ]): Observable<$ReturnType> {
         const headers = new HttpHeaders()
-            .set("Content-Type", "application/json")
-            .set("Accept", "application/json")
-            .set("If-Modified-Since", "0");
+            .set('Content-Type', 'application/json')
+            .set('Accept', 'application/json')
+            .set('If-Modified-Since', '0');
 
         return this.http.put(
-            this.$Parent[$UrlFieldName]+'$HttpPutActionNameByAttribute',
+            this.$Parent[$UrlFieldName] + '$HttpPutActionNameByAttribute',
             $Parameters[$name],
             {
                 headers: headers,
                 responseType: 'text'
             });
     }]
-    $IsPostMethod[
+$IsPostMethod[
     public $MethodName($Parameters[$name: $Type][, ]): Observable<any> {
         const headers = new HttpHeaders()
-            .set("Content-Type", "application/json")
-            .set("Accept", "application/json")
-            .set("If-Modified-Since", "0");
+            .set('Content-Type', 'application/json')
+            .set('Accept', 'application/json')
+            .set('If-Modified-Since', '0');
 
         return this.http.post(
-            this.$Parent[$UrlFieldName]+'$HttpPostActionNameByAttribute',
+            this.$Parent[$UrlFieldName] + '$HttpPostActionNameByAttribute',
             $Parameters[$name],
             {
                 headers: headers,
                 responseType: 'text'
             });
     }]
-    $IsPostMethodWithResult[
+$IsPostMethodWithResult[
     public $MethodName($Parameters[$name: $Type][, ]): Observable<$ReturnType> {
         const headers = new HttpHeaders()
-            .set("Content-Type", "application/json")
-            .set("Accept", "application/json")
-            .set("If-Modified-Since", "0");
+            .set('Content-Type', 'application/json')
+            .set('Accept', 'application/json')
+            .set('If-Modified-Since', '0');
 
         return this.http.post<$ReturnType>(
-            this.$Parent[$UrlFieldName]+'$HttpPostActionNameByAttribute',
+            this.$Parent[$UrlFieldName] + '$HttpPostActionNameByAttribute',
             $Parameters[$name],
             {
                 headers: headers
             });
     }]
-    $IsDeleteMethod[
+$IsDeleteMethod[
     public $MethodName($Parameters[$name: $Type][, ]): Observable<$ReturnType> {
         return this.http.delete<$ReturnType>(
-            this.$Parent[$UrlFieldName]+'$HttpPostActionNameByAttribute/'+$Parameters[$name]);
+            this.$Parent[$UrlFieldName] + '$HttpPostActionNameByAttribute/' + $Parameters[$name]);
     }]]
 }]

@@ -4,10 +4,12 @@ import { NgModule } from '@angular/core';
 import { environment } from '../environments/environment';
 import { API_BASE_URL } from './app-config.module';
 import { AppComponent } from './app.component';
+import { TopNavComponent } from './ui/top-nav/top-nav.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    TopNavComponent
   ],
   imports: [
     BrowserModule

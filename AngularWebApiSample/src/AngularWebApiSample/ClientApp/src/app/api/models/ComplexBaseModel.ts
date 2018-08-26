@@ -4,24 +4,19 @@
 
 export interface IComplexBaseModel {
     $type?: string;
-    id?: number;
-    
+        id?: number;
 }
 
 export class ComplexBaseModel implements IComplexBaseModel {
     public $type: string;
-    public id: number;
-    
+        public id: number;
+
     constructor(initObj?: IComplexBaseModel) {
         this.$type = 'AngularWebApiSample.Models.ComplexBaseModel, AngularWebApiSample';
-        if(initObj) {
+        if (initObj) {
             this.id = initObj.id || 0;
-            
-        }
-        else {
+        } else {
             this.id = 0;
-            
         }
     }
 }
-

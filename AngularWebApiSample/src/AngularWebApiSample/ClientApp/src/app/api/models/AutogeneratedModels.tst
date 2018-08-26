@@ -116,31 +116,26 @@ ${
     }
 }
 $Enums($IncludeEnums)[
-export enum $Name {
-    $Values[$Name = "$Name"][,
+export enum $Name {$Values[
+        $Name = "$Name"][,
     ]
 }    
 ]
 $Classes($IncludeClass)[$Imports
 
-export interface I$Name$TypeParameters$InheritInterface {$GenerateTypeForInterface
-    $Properties[$name?: $SimplifyType;
-    ]
+export interface I$Name$TypeParameters$InheritInterface {$GenerateTypeForInterface$Properties[
+        $name?: $SimplifyType;]
 }
 
-export class $Name$TypeParameters$InheritClass$ImplementsInterface {$GenerateTypeForClass
-    $Properties[public $name: $SimplifyType;
-    ]
+export class $Name$TypeParameters$InheritClass$ImplementsInterface {$GenerateTypeForClass$Properties[
+        public $name: $SimplifyType;]
+
     constructor(initObj?: I$Name$TypeParameters) {$Super
         $GenerateTypeInit
-        if(initObj) {
-            $Properties[this.$name = initObj.$name || $Type[$Default];
-            ]
-        }
-        else {
-            $Properties[this.$name = $Type[$Default];
-            ]
+        if (initObj) {$Properties[
+            this.$name = initObj.$name || $Type[$Default];]
+        } else {$Properties[
+            this.$name = $Type[$Default];]
         }
     }
-}
-]
+}]

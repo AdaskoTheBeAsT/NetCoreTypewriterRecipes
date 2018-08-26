@@ -15,49 +15,48 @@ import { ICombinedQueryModel, CombinedQueryModel } from '../models/CombinedQuery
 export interface IComplexControler {
     postCombinedResultModel(value: CombinedResultModel): Observable<CombinedResultModel>;
     getCombinedQueryModel(query: CombinedQueryModel): Observable<CombinedResultModel>;
-    
 }
 
 @Injectable()
 export class ComplexControler implements IComplexControler {
-    constructor (@Inject(HttpClient) protected http: HttpClient, @Optional() @Inject(API_BASE_URL) protected baseUrl?: string) {
+    constructor (
+        @Inject(HttpClient) protected http: HttpClient,
+        @Optional() @Inject(API_BASE_URL) protected baseUrl?: string) {
     }
 
     public get complexControlerUrl(): string {
-        if(this.baseUrl) {
-            return this.baseUrl.endsWith('/') ? this.baseUrl+'' : this.baseUrl+'/'+'';
+        if (this.baseUrl) {
+            return this.baseUrl.endsWith('/') ? this.baseUrl + '' : this.baseUrl + '/' + '';
         } else {
             return '';
         }
     }
-    
-    
-        
-    
-    
-    
+
+
+
+
     public postCombinedResultModel(value: CombinedResultModel): Observable<CombinedResultModel> {
         const headers = new HttpHeaders()
-            .set("Content-Type", "application/json")
-            .set("Accept", "application/json")
-            .set("If-Modified-Since", "0");
+            .set('Content-Type', 'application/json')
+            .set('Accept', 'application/json')
+            .set('If-Modified-Since', '0');
 
         return this.http.post<CombinedResultModel>(
-            this.complexControlerUrl+'',
+            this.complexControlerUrl + '',
             value,
             {
                 headers: headers
             });
     }
-    
-        
-    public getCombinedQueryModel(query: CombinedQueryModel): Observable<CombinedResultModel> {
+
+    public getCombinedQueryModel(
+        query: CombinedQueryModel): Observable<CombinedResultModel> {
         const headers = new HttpHeaders()
-            .set("Accept", "application/json")
-            .set("If-Modified-Since", "0");
+            .set('Accept', 'application/json')
+            .set('If-Modified-Since', '0');
 
        let params = new HttpParams();
-       let funcObj = {
+       const funcObj = {
             addToHttpParams(key: string, elem: any): void {
                 if (typeof elem === 'undefined' || elem == null) {
                     return;
@@ -65,61 +64,60 @@ export class ComplexControler implements IComplexControler {
 
                 params = params.set(key, elem);
             },
-            processObject(key: string, obj: object, firstPass:boolean, itemFunc: (key: string, item: any) => void): void {
-                for (let property in obj) {
-                    if (!obj.hasOwnProperty(property)){
+            processObject(key: string, obj: object, firstPass: boolean, itemFunc: (key: string, item: any) => void): void {
+                for (const property in obj) {
+                    if (!obj.hasOwnProperty(property)) {
                         continue;
                     }
 
-                    if (property==='$type') {
+                    if (property === '$type') {
                         continue;
                     }
-                    let name = firstPass ? property : key + "." + property;
+
+                    const name = firstPass ? property : key + '.' + property;
                     this.process(name, obj[property], false, itemFunc);
                 }
             },
-            processArray(key:string, arr: Array<any>, itemFunc: (key:string, item:any)=>void): void {
-                for (let id in arr) {
-                    if (!arr.hasOwnProperty(id)){
+            processArray(key: string, arr: Array<any>, itemFunc: (key: string, item: any) => void): void {
+                for (const arrid in arr) {
+                    if (!arr.hasOwnProperty(arrid)) {
                         continue;
                     }
-                    let itemName = key + '[' + id + ']';
-                    let item = arr[id];
+
+                    const itemName = key + '[' + arrid + ']';
+                    const item = arr[arrid];
                     this.process(itemName, item, false, itemFunc);
                 }
             },
             process(key: string, obj: any, firstPass: boolean, itemFunc: (key: string, item: any) => void): void {
-                if (obj == null) { 
+                if (obj == null) {
                     return;
-                } 
+                }
 
                 if (Array.isArray(obj)) {
                     this.processArray(key, obj, itemFunc);
-                }
-                else if (typeof obj === 'object') {
+                } else if (typeof obj === 'object') {
                     this.processObject(key, obj, firstPass, itemFunc);
-                }
-                else { 
+                } else {
                     itemFunc(key, obj);
                 }
             }
         };
 
-        let parr = [];
+        const parr = [];
 
-        
         parr.push(query);
         funcObj.process('query', parr.pop(), true, funcObj.addToHttpParams);
 
         return this.http.get<CombinedResultModel>(
-            this.complexControlerUrl+'',
+            this.complexControlerUrl + '',
             {
                 headers: headers,
                 params: params
             });
     }
-    
-    
-    
-    
+
+
+
+
 }

@@ -3,24 +3,19 @@
 import { IComplexBaseModel, ComplexBaseModel } from './ComplexBaseModel';
 
 export interface IComplexAModel extends IComplexBaseModel {
-    text?: string;
-    
+        text?: string;
 }
 
 export class ComplexAModel extends ComplexBaseModel implements IComplexAModel {
-    public text: string;
-    
+        public text: string;
+
     constructor(initObj?: IComplexAModel) {
         super(initObj);
         this.$type = 'AngularWebApiSample.Models.ComplexAModel, AngularWebApiSample';
-        if(initObj) {
+        if (initObj) {
             this.text = initObj.text || null;
-            
-        }
-        else {
+        } else {
             this.text = null;
-            
         }
     }
 }
-

@@ -2,7 +2,7 @@
 
     <PropertyGroup Label="Build">
         <TargetFramework>netcoreapp2.1</TargetFramework>
-        <TypeScriptToolsVersion>2.8</TypeScriptToolsVersion>
+        <TypeScriptToolsVersion>2.9</TypeScriptToolsVersion>
         <TypeScriptCompileBlocked>true</TypeScriptCompileBlocked>
     </PropertyGroup>
 
@@ -16,27 +16,50 @@
     </PropertyGroup>
 
     <ItemGroup Label="Package References">
-        <PackageReference Include="Asyncify" Version="0.9.7" />
-        <PackageReference Include="Microsoft.AspNetCore" Version="2.1.0" />
-        <PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.1.0" />
+       
+        <PackageReference Include="Microsoft.AspNetCore" Version="2.1.3" />
+        <PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.1.2" />
         <PackageReference Include="Microsoft.AspNetCore.Mvc.Formatters.Json" Version="2.0.0" />
-        <PackageReference Include="Microsoft.AspNetCore.Mvc.Cors" Version="2.1.0" />
-        <PackageReference Include="Microsoft.AspNetCore.Mvc.ApiExplorer" Version="2.1.0" />
-        <PackageReference Include="Microsoft.AspNetCore.Mvc.Formatters.Json" Version="2.1.0" />
-        <PackageReference Include="Microsoft.AspNetCore.Server.IISIntegration" Version="2.1.0" />
-        <PackageReference Include="Microsoft.AspNetCore.StaticFiles" Version="2.1.0" />
+        <PackageReference Include="Microsoft.AspNetCore.Mvc.Cors" Version="2.1.2" />
+        <PackageReference Include="Microsoft.AspNetCore.Mvc.ApiExplorer" Version="2.1.2" />
+        <PackageReference Include="Microsoft.AspNetCore.Mvc.Formatters.Json" Version="2.1.2" />
+        <PackageReference Include="Microsoft.AspNetCore.Server.IISIntegration" Version="2.1.1" />
+        <PackageReference Include="Microsoft.AspNetCore.StaticFiles" Version="2.1.1" />
         <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="2.8.2" />
         <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="2.6.0" />
-        <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="2.1.0" />
-        <PackageReference Include="Microsoft.Extensions.Configuration" Version="2.1.0" />
-        <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="2.1.0" />
-        <PackageReference Include="Roslynator.Analyzers" Version="1.8.0" />
-        <PackageReference Include="Roslynator.CodeFixes" Version="1.8.0" />
+        <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="2.1.2" />
+        <PackageReference Include="Microsoft.Extensions.Configuration" Version="2.1.1" />
+        <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="2.1.1" />
+        
     </ItemGroup>
 
     <ItemGroup>
+        <None Update="ClientApp\src\app\api\models\CombinedQueryModel.ts">
+          <CustomToolNamespace>Models\CombinedQueryModel.cs</CustomToolNamespace>
+        </None>
+        <None Update="ClientApp\src\app\api\models\CombinedResultModel.ts">
+          <CustomToolNamespace>Models\CombinedResultModel.cs</CustomToolNamespace>
+        </None>
+        <None Update="ClientApp\src\app\api\models\ComplexAModel.ts">
+          <CustomToolNamespace>Models\ComplexAModel.cs</CustomToolNamespace>
+        </None>
+        <None Update="ClientApp\src\app\api\models\ComplexBaseModel.ts">
+          <CustomToolNamespace>Models\ComplexBaseModel.cs</CustomToolNamespace>
+        </None>
+        <None Update="ClientApp\src\app\api\models\ComplexBModel.ts">
+          <CustomToolNamespace>Models\ComplexBModel.cs</CustomToolNamespace>
+        </None>
+        <None Update="ClientApp\src\app\api\models\SimpleModel.ts">
+          <CustomToolNamespace>Models\SimpleModel.cs</CustomToolNamespace>
+        </None>
         <None Update="ClientApp\src\app\api\services\ComplexControler.ts">
           <CustomToolNamespace>Controllers\ComplexControler.cs</CustomToolNamespace>
+        </None>
+        <None Update="ClientApp\src\app\api\services\MidService.ts">
+          <CustomToolNamespace>Controllers\MidController.cs</CustomToolNamespace>
+        </None>
+        <None Update="ClientApp\src\app\api\services\SimpleService.ts">
+          <CustomToolNamespace>Controllers\SimpleController.cs</CustomToolNamespace>
         </None>
         <None Update="src\app\api\models\CombinedQueryModel.ts">
             <CustomToolNamespace>Models\CombinedQueryModel.cs</CustomToolNamespace>
@@ -65,14 +88,6 @@
         <None Update="src\app\api\services\SimpleService.ts">
             <CustomToolNamespace>Controllers\SimpleController.cs</CustomToolNamespace>
         </None>
-    </ItemGroup>
-
-    <ItemGroup>
-        <PackageReference Update="AsyncFixer" Version="1.1.6" />
-        <PackageReference Update="Microsoft.CodeAnalysis" Version="2.8.2" />
-        <PackageReference Update="Microsoft.CodeAnalysis.CSharp.Scripting" Version="2.8.2" />
-        <PackageReference Update="SonarAnalyzer.CSharp" Version="7.1.0.5212" />
-        <PackageReference Update="StyleCop.Analyzers" Version="1.1.0-beta007" />
     </ItemGroup>
 
 </Project>
