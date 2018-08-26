@@ -16,7 +16,7 @@
     "style": "yarn format && yarn lint",
     "verify": "yarn format -l && yarn lint && jest --bail",
     "precommit": "lint-staged",
-    "ts-lint": "tslint --project tsconfig.json -c tslint.json -o ../../../Cake/.artifacts/epcalculator-tslint-result.json -t json --force src/**/*.ts",
+    "ts-lint": "tslint --project tsconfig.json -c tslint.json -o ../../../Cake/.artifacts/tslint-result.json -t json --force src/**/*.ts",
     "ts-lint-console": "tslint --project tsconfig.json -c tslint.json --force src/**/*.ts"
   },
   "lint-staged": {
@@ -68,6 +68,7 @@
     "jest": "^22.4.3",
     "jest-preset-angular": "^5.2.2",
     "lint-staged": "^7.1.0",
+    "ng-mocks": "^6.1.0",
     "prettier": "^1.12.1",
     "testcafe": "^0.19.2",
     "testcafe-live": "^0.1.3",

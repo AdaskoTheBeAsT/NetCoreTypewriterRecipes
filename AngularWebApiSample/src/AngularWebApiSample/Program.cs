@@ -5,7 +5,7 @@ namespace AngularWebApiSample
 {
     public static class Program
     {
-        public static void Main(string[] args)
+        public static void Main()
         {
             var host = new WebHostBuilder()
                 .UseKestrel()

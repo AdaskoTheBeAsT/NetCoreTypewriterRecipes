@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace AngularWebApiSample.Controllers
 {
+#pragma warning disable RCS1163,CA1801 // Unused parameter.
     public class MidController : ControllerBase
     {
         [HttpPost]
@@ -20,4 +21,5 @@ namespace AngularWebApiSample.Controllers
             return Ok(new SimpleModel { Number = 2, Text = "ok" });
         }
     }
+#pragma warning restore RCS1163,CA1801 // Unused parameter.
 }

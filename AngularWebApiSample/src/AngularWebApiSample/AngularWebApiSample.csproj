@@ -8,11 +8,15 @@
 
     <PropertyGroup Label="Package">
         <Version>1.0.0</Version>
-        <Authors>Project Author</Authors>
-        <Company>Project Author</Company>
+        <Authors>AdaskoTheBeAsT</Authors>
+        <Company>AdaskoTheBeAsT</Company>
         <Product>BasicWebApi</Product>
         <Description>BasicWebApi</Description>
-        <Copyright>Copyright © Project Author. All rights Reserved</Copyright>
+        <Copyright>Copyright © AdaskoTheBeAsT. All rights Reserved</Copyright>
+    </PropertyGroup>
+
+    <PropertyGroup>
+        <DocumentationFile>$(AssemblyName).xml</DocumentationFile>
     </PropertyGroup>
 
     <ItemGroup Label="Package References">
@@ -88,6 +92,10 @@
         <None Update="src\app\api\services\SimpleService.ts">
             <CustomToolNamespace>Controllers\SimpleController.cs</CustomToolNamespace>
         </None>
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="App_Data\" />
     </ItemGroup>
 
 </Project>

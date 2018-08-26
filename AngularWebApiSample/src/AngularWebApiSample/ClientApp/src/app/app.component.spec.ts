@@ -1,10 +1,14 @@
 import { TestBed, async } from '@angular/core/testing';
+import { MockComponent } from 'ng-mocks';
+
+import { TopNavComponent } from './ui/top-nav/top-nav.component';
 import { AppComponent } from './app.component';
 describe('AppComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [
-        AppComponent
+        AppComponent,
+        MockComponent(TopNavComponent)
       ],
     }).compileComponents();
   }));

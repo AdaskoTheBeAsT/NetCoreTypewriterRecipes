@@ -1,0 +1,6 @@
+.artifacts/**/*
+.sonarqube/**/*
+tools/nuget.exe
+tools/**/*
+!tools/packages.config
+!tools/packages.config.md5sum
