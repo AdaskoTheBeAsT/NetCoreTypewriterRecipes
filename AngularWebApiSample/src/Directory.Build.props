@@ -17,12 +17,17 @@
 
     <ItemGroup>
         <!-- Add reference to analyzers to all projects  -->
-        <PackageReference Include="AsyncFixer" Version="1.1.5" />
+        <PackageReference Include="AsyncFixer" Version="1.1.6" />
+        <PackageReference Include="Asyncify" Version="0.9.7" />
         <PackageReference Include="StyleCop.Analyzers" Version="1.0.2" />
-        <PackageReference Include="Microsoft.CodeAnalysis" Version="2.3.2" />
-        <PackageReference Include="Microsoft.CodeAnalysis.CSharp.Scripting" Version="2.3.2" />
-        <!--<PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="1.1.0" />-->
-        <PackageReference Include="SonarAnalyzer.CSharp" Version="6.4.1.3596" />
+        <PackageReference Include="Microsoft.CodeAnalysis" Version="2.8.2" />
+        <PackageReference Include="Microsoft.CodeAnalysis.CSharp.Scripting" Version="2.8.2" />
+        <PackageReference Include="Microsoft.CodeAnalysis.CSharp.Workspaces" Version="2.8.2" />
+        <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="2.6.0" />
+        <PackageReference Include="Roslynator.Analyzers" Version="1.9.0" />
+        <PackageReference Include="Roslynator.CodeFixes" Version="1.9.0" />
+        <PackageReference Include="SonarAnalyzer.CSharp" Version="7.4.0.6452" />
+        <PackageReference Include="StyleCop.Analyzers" Version="1.1.0-beta008" />
         
         <!-- Common StyleCop configuration -->
         <AdditionalFiles Include="$(MSBuildThisFileDirectory)stylecop.json" />
