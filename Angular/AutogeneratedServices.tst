@@ -24,7 +24,7 @@ ${
             return r.Replace(attr.Value, "$2");
         }
 
-        // if there is only IActionResult return void as type
+        // if there is only IActionResult return any as type
         return m.Type.Name == "IActionResult" ? "any" : m.Type.Name;
     }
 
@@ -35,7 +35,18 @@ ${
     string ParentServiceName(Method m) => ServiceName((Class)m.Parent);
 
     // get method name
-    string MethodName(Method m) => m.name;
+    string MethodName(Method m)
+    {
+        var methodName = m.Attributes.FirstOrDefault(a => a.Name.StartsWith("CustomName"))?.Value ?? string.Empty;
+        if(!string.IsNullOrEmpty(methodName)) {
+            return methodName;
+        }
+        var sb = new StringBuilder(m.name);
+        foreach(var par in m.Parameters) {
+            sb.Append(NameOfType(par.Type));
+        }
+        return sb.ToString();
+    }
 
     // returns true if class should be treated as candidate for angular service
     bool IncludeClass(Class c){
@@ -61,9 +72,10 @@ ${
     }
 
     // generates imports in typescript
+    // generates imports in typescript
     string Imports(Class c)
     {
-        var typeNameList = new List<string>();
+        var typeNameList = new List<KeyValuePair<string, bool>>();
 
         //walk through all the method of controller
         foreach(var method in c.Methods) {
@@ -74,11 +86,10 @@ ${
                 if(attr != null){
                     // due to limited functionality of attribute value process value by regexp
                     // additionally removing [] from the end of the type as imports can be done only on normal class name
-                    var r = new Regex(@".*typeof[(]([^.]\.)*([^)[\]]*)([[][\]])?[)].*");
+                    var r = new Regex(@".*typeof[(]([^.]*[.])*([^)[\]]*)([[][\]])?[)].*");
                     var name = r.Replace(attr.Value, "$2");
-                    name = RemoveNamespace(name);
                     if(!IsString(name) && !IsDictionary(name)){
-                        typeNameList.Add(name);
+                        typeNameList.Add(new KeyValuePair<string, bool>(name, false));
                     }
                 }
                 else { // if there is no attribute just get type name
@@ -87,7 +98,7 @@ ${
                     // IActionResult should be skipped
                     if(name != "IActionResult") {
                         if(!IsDictionary(name)){
-                            typeNameList.Add(name);
+                            typeNameList.Add(new KeyValuePair<string, bool>(name, false));
                         }
                     }
                 }
@@ -102,17 +113,24 @@ ${
                 }
 
                 var name = parameter.Type.Unwrap().Name;
-                if(!IsDictionary(name)){
+                if(parameter.Type.IsEnum){
+                    typeNameList.Add(new KeyValuePair<string, bool>(name, true));
+                }
+                else if(!IsDictionary(name)){
                     // add type to list
-                    typeNameList.Add(name);
+                    typeNameList.Add(new KeyValuePair<string, bool>(name, false));
                 }
             }
         }
 
         var sb = new StringBuilder();
-        foreach(var typeName in typeNameList.Distinct()){
-            // change this path to fit your project
-            sb.AppendLine($"import {{ I{typeName}, {typeName} }} from '../models/{typeName}';");
+        foreach(var type in typeNameList.GroupBy(p => p.Key).Select(grp => grp.FirstOrDefault())){
+            if(type.Value){
+                sb.AppendLine($"import {{ {type.Key} }} from '../models/{type.Key}';");
+            }
+            else {
+                sb.AppendLine($"import {{ I{type.Key}, {type.Key} }} from '../models/{type.Key}';");
+            }
         }
 
         return sb.ToString();
@@ -199,7 +217,11 @@ ${
     }
 
     bool IsPostMethod(Method method){
-        return method.HttpMethod() == "post";
+        return method.HttpMethod() == "post" && !method.Attributes.Any(a => a.Name == "ProducesResponseType");
+    }
+
+    bool IsPostMethodWithResult(Method method){
+        return method.HttpMethod() == "post" && method.Attributes.Any(a => a.Name == "ProducesResponseType");
     }
 
     bool IsPutMethod(Method method){
@@ -245,115 +267,139 @@ import 'rxjs/add/operator/map';
 $Classes($IncludeClass)[
 $Imports
 
-export interface I$ServiceName {
-    $Methods[$name$Parameters[$Type[$NameOfType]]($Parameters[$name: $Type][, ]): Observable<$ReturnType>;
-    ]
+export interface I$ServiceName {$Methods[
+    $MethodName($Parameters[$name: $Type][, ]): Observable<$ReturnType>;]
 }
 
 @Injectable()
 export class $ServiceName implements I$ServiceName {
-    constructor (@Inject(HttpClient) protected http: HttpClient, @Optional() @Inject(API_BASE_URL) protected baseUrl?: string) {
+    constructor (
+        @Inject(HttpClient) protected http: HttpClient,
+        @Optional() @Inject(API_BASE_URL) protected baseUrl?: string) {
     }
 
     public get $UrlFieldName(): string {
-        if(this.baseUrl) {
-            return this.baseUrl.endsWith('/') ? this.baseUrl+'$GetRouteValue' : this.baseUrl+'/'+'$GetRouteValue';
+        if (this.baseUrl) {
+            return this.baseUrl.endsWith('/') ? this.baseUrl + '$GetRouteValue' : this.baseUrl + '/' + '$GetRouteValue';
         } else {
             return '$GetRouteValue';
         }
     }
-    
-    $Methods[
-        $IsGetMethod[
-    public $name$Parameters[$Type[$NameOfType]]($Parameters[$name: $Type][, ]): Observable<$ReturnType> {
+$Methods[$IsGetMethod[
+    public $name$Parameters[$Type[$NameOfType]](
+        $Parameters[$name: $Type][, ]): Observable<$ReturnType> {
         const headers = new HttpHeaders()
-            .set("Accept", "application/json")
-            .set("If-Modified-Since", "0");
+            .set('Accept', 'application/json')
+            .set('If-Modified-Since', '0');
 
-        let params = new HttpParams()
-            $Parameters[
-            $IsPrimitive[
-            .set('$name', $GetParameterValue)
-            ]];
-
-        $Parameters[
-            $IsPrimitive[][
-            let parameter = $name;
-            for (let key in parameter) {
-                if (!parameter.hasOwnProperty(key)){
-                    continue;
+       let params = new HttpParams();
+       const funcObj = {
+            addToHttpParams(key: string, elem: any): void {
+                if (typeof elem === 'undefined' || elem == null) {
+                    return;
                 }
 
-                if (key==='$type'){
-                    continue;
-                }
-
-                let elem = parameter[key];
-                if(Array.isArray(elem)){
-                    let id=0;
-                    for(let item in elem){
-                        let itemName = key+'['+id+']';
-                        for (let attr in elem[item]) {
-                            if (attr==='$type'){
-                                continue;
-                            }
-                            if (!elem[item].hasOwnProperty(attr)){
-                                continue;
-                            }
-
-                            let attrName = itemName+'.'+attr;
-                            params = params.set(attrName, elem[item][attr]);
-                        }
-                        id++;
+                params = params.set(key, elem);
+            },
+            processObject(key: string, obj: object, firstPass: boolean, itemFunc: (key: string, item: any) => void): void {
+                for (const property in obj) {
+                    if (!obj.hasOwnProperty(property)) {
+                        continue;
                     }
+
+                    if (property === '$type') {
+                        continue;
+                    }
+
+                    const name = firstPass ? property : key + '.' + property;
+                    this.process(name, obj[property], false, itemFunc);
                 }
-                else{
-                    params = params.set(key, elem);
+            },
+            processArray(key: string, arr: Array<any>, itemFunc: (key: string, item: any) => void): void {
+                for (const arrid in arr) {
+                    if (!arr.hasOwnProperty(arrid)) {
+                        continue;
+                    }
+
+                    const itemName = key + '[' + arrid + ']';
+                    const item = arr[arrid];
+                    this.process(itemName, item, false, itemFunc);
                 }
-                
-            }]]
+            },
+            process(key: string, obj: any, firstPass: boolean, itemFunc: (key: string, item: any) => void): void {
+                if (obj == null) {
+                    return;
+                }
+
+                if (Array.isArray(obj)) {
+                    this.processArray(key, obj, itemFunc);
+                } else if (typeof obj === 'object') {
+                    this.processObject(key, obj, firstPass, itemFunc);
+                } else {
+                    itemFunc(key, obj);
+                }
+            }
+        };
+
+        const parr = [];
+$Parameters[
+        parr.push($name);
+        funcObj.process('$name', parr.pop(), true, funcObj.addToHttpParams);]
 
         return this.http.get<$ReturnType>(
-            this.$Parent[$UrlFieldName]+'$HttpGetActionNameByAttribute',
+            this.$Parent[$UrlFieldName] + '$HttpGetActionNameByAttribute',
             {
                 headers: headers,
                 params: params
             });
     }]
-        $IsPutMethod[
-    public $name$Parameters[$Type]($Parameters[$name: $Type][, ]): Observable<any> {
+$IsPutMethod[
+    public $MethodName($Parameters[$name: $Type][, ]): Observable<$ReturnType> {
         const headers = new HttpHeaders()
-            .set("Content-Type", "application/json")
-            .set("Accept", "application/json")
-            .set("If-Modified-Since", "0");
+            .set('Content-Type', 'application/json')
+            .set('Accept', 'application/json')
+            .set('If-Modified-Since', '0');
 
         return this.http.put(
-            this.$Parent[$UrlFieldName]+'$HttpPutActionNameByAttribute',
+            this.$Parent[$UrlFieldName] + '$HttpPutActionNameByAttribute',
             $Parameters[$name],
             {
                 headers: headers,
                 responseType: 'text'
             });
     }]
-    $IsPostMethod[
-    public $name$Parameters[$Type]($Parameters[$name: $Type][, ]): Observable<any> {
+$IsPostMethod[
+    public $MethodName($Parameters[$name: $Type][, ]): Observable<any> {
         const headers = new HttpHeaders()
-            .set("Content-Type", "application/json")
-            .set("Accept", "application/json")
-            .set("If-Modified-Since", "0");
+            .set('Content-Type', 'application/json')
+            .set('Accept', 'application/json')
+            .set('If-Modified-Since', '0');
 
         return this.http.post(
-            this.$Parent[$UrlFieldName]+'$HttpPostActionNameByAttribute',
+            this.$Parent[$UrlFieldName] + '$HttpPostActionNameByAttribute',
             $Parameters[$name],
             {
                 headers: headers,
                 responseType: 'text'
             });
     }]
-    $IsDeleteMethod[
-    public $name$Parameters[$Type]($Parameters[$name: $Type][, ]): Observable<$ReturnType> {
-        return this.http.delete<$ReturnType>(
-            this.$Parent[$UrlFieldName]+'$HttpPostActionNameByAttribute/'+$Parameters[$name]);
+$IsPostMethodWithResult[
+    public $MethodName($Parameters[$name: $Type][, ]): Observable<$ReturnType> {
+        const headers = new HttpHeaders()
+            .set('Content-Type', 'application/json')
+            .set('Accept', 'application/json')
+            .set('If-Modified-Since', '0');
+
+        return this.http.post<$ReturnType>(
+            this.$Parent[$UrlFieldName] + '$HttpPostActionNameByAttribute',
+            $Parameters[$name],
+            {
+                headers: headers
+            });
     }]
-    ]
+$IsDeleteMethod[
+    public $MethodName($Parameters[$name: $Type][, ]): Observable<$ReturnType> {
+        return this.http.delete<$ReturnType>(
+            this.$Parent[$UrlFieldName] + '$HttpPostActionNameByAttribute/' + $Parameters[$name]);
+    }]]
 }]
