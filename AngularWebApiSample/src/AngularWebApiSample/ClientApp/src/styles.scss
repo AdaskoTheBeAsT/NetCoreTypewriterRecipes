@@ -1,10 +1,10 @@
 /* You can add global styles to this file, and also import other style files */
 
-$fa-font-path: "~@fortawesome/fontawesome-free-webfonts/webfonts" !default;
-@import "~@fortawesome/fontawesome-free-webfonts/scss/fontawesome";
-@import "~@fortawesome/fontawesome-free-webfonts/scss/fa-brands";
-@import "~@fortawesome/fontawesome-free-webfonts/scss/fa-regular";
-@import "~@fortawesome/fontawesome-free-webfonts/scss/fa-solid";
+$fa-font-path: "~@fortawesome/fontawesome-free/webfonts" !default;
+@import "~@fortawesome/fontawesome-free/scss/fontawesome";
+@import "~@fortawesome/fontawesome-free/scss/brands";
+@import "~@fortawesome/fontawesome-free/scss/regular";
+@import "~@fortawesome/fontawesome-free/scss/solid";
 
 
 $bootstrap-sass-asset-helper: true;

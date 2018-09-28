@@ -30,8 +30,9 @@
               "src/styles.scss"
             ],
             "scripts": [
-              "./node_modules/@fortawesome/fontawesome-free-solid/index.js",
-              "./node_modules/@fortawesome/fontawesome/index.js"
+              "./node_modules/@fortawesome/fontawesome-free/js/fontawesome.js",
+              "./node_modules/@fortawesome/fontawesome-free/js/all.js",
+              "./node_modules/@fortawesome/free-solid-svg-icons/index.js"
             ]
           },
           "configurations": {

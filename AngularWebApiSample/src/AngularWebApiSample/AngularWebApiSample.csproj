@@ -16,7 +16,7 @@
     </PropertyGroup>
 
     <PropertyGroup>
-        <DocumentationFile>$(AssemblyName).xml</DocumentationFile>
+        <DocumentationFile>App_Data\$(AssemblyName).xml</DocumentationFile>
     </PropertyGroup>
 
     <ItemGroup Label="Package References">
