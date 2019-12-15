@@ -1,13 +1,20 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.27004.2002
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29609.76
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AngularWebApiSample", "src\AngularWebApiSample\AngularWebApiSample.csproj", "{7779D6DC-CF4D-44A2-A305-898AD36B6693}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{8109D02F-6E34-4531-B95E-998D739F08E2}"
 	ProjectSection(SolutionItems) = preProject
+		.gitignore = .gitignore
+		Adasko.ruleset = Adasko.ruleset
+		AngularWebApiSample.sln.DotSettings = AngularWebApiSample.sln.DotSettings
 		Directory.Build.props = Directory.Build.props
+		global.json = global.json
+		SecurityCodeScan.config.yml = SecurityCodeScan.config.yml
+		Settings.StyleCop = Settings.StyleCop
+		stylecop.json = stylecop.json
 	EndProjectSection
 EndProject
 Global

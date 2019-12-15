@@ -1,3 +1,4 @@
+using System;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AngularWebApiSample.Controllers
@@ -18,6 +19,11 @@ namespace AngularWebApiSample.Controllers
         [ProducesResponseType(typeof(CombinedResultModel), 200)]
         public IActionResult Get(CombinedQueryModel query)
         {
+            if (query is null)
+            {
+                throw new ArgumentNullException(nameof(query));
+            }
+
             return Ok(new CombinedResultModel
             {
                 Id = query.Id,
