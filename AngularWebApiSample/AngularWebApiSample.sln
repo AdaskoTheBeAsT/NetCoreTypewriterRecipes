@@ -8,7 +8,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{8109D02F-6E34-4531-B95E-998D739F08E2}"
 	ProjectSection(SolutionItems) = preProject
 		.gitignore = .gitignore
-		Adasko.ruleset = Adasko.ruleset
+		AdaskoTheBeAsT.ruleset = AdaskoTheBeAsT.ruleset
 		AngularWebApiSample.sln.DotSettings = AngularWebApiSample.sln.DotSettings
 		Directory.Build.props = Directory.Build.props
 		global.json = global.json

@@ -12,7 +12,7 @@
     <!-- Based on article https://www.thomaslevesque.com/2017/09/18/common-msbuild-properties-and-items-with-directory-build-props/ -->
     <PropertyGroup>
         <!-- Common ruleset shared by all projects -->
-        <CodeAnalysisRuleset>$(MSBuildThisFileDirectory)Adasko.ruleset</CodeAnalysisRuleset>
+        <CodeAnalysisRuleset>$(MSBuildThisFileDirectory)AdaskoTheBeAsT.ruleset</CodeAnalysisRuleset>
         <LangVersion>8.0</LangVersion>
         <Nullable>enable</Nullable>
         <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
@@ -22,43 +22,56 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <!-- Add reference to analyzers to all projects  -->
-        <PackageReference Include="AsyncFixer" Version="1.1.6" >
-            <PrivateAssets>all</PrivateAssets>
-        </PackageReference>
-        <PackageReference Include="Asyncify" Version="0.9.7" >
-            <PrivateAssets>all</PrivateAssets>
-        </PackageReference>
-        <PackageReference Include="Microsoft.CodeAnalysis" Version="3.4.0">
-            <PrivateAssets>all</PrivateAssets>
-        </PackageReference>
-        <PackageReference Include="Microsoft.CodeAnalysis.Analyzers" Version="2.9.8">
-            <PrivateAssets>all</PrivateAssets>
-        </PackageReference>
-        <PackageReference Include="Microsoft.CodeAnalysis.CSharp.Scripting" Version="3.4.0">
-            <PrivateAssets>all</PrivateAssets>
-        </PackageReference>
-        <PackageReference Include="Microsoft.CodeAnalysis.CSharp.Workspaces" Version="3.4.0">
-            <PrivateAssets>all</PrivateAssets>
-        </PackageReference>
-        <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="2.9.8">
-            <PrivateAssets>all</PrivateAssets>
-        </PackageReference>
-        <PackageReference Include="Roslynator.Analyzers" Version="2.2.0">
-            <PrivateAssets>all</PrivateAssets>
-        </PackageReference>
-        <PackageReference Include="SecurityCodeScan" Version="3.3.0" >
-            <PrivateAssets>all</PrivateAssets>
-        </PackageReference>
-        <PackageReference Include="SonarAnalyzer.CSharp" Version="8.1.0.13383">
-            <PrivateAssets>all</PrivateAssets>
-        </PackageReference>
-        <PackageReference Include="StyleCop.Analyzers" Version="1.1.118">
-            <PrivateAssets>all</PrivateAssets>
-        </PackageReference>
-        
-        <!-- Common StyleCop configuration -->
-        <AdditionalFiles Include="$(MSBuildThisFileDirectory)stylecop.json" />
-    </ItemGroup>
+    <!-- Add reference to analyzers to all projects  -->
+    <PackageReference Include="AsyncFixer" Version="1.1.6" >
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="Asyncify" Version="0.9.7" >
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.CodeAnalysis" Version="3.4.0" >
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.CodeAnalysis.Analyzers" Version="2.9.8" >
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.CodeAnalysis.Common" Version="3.4.0" >
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="3.4.0" >
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.CodeAnalysis.CSharp.Scripting" Version="3.4.0" >
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.CodeAnalysis.CSharp.Workspaces" Version="3.4.0" >
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.CodeAnalysis.Workspaces.Common" Version="3.4.0" >
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="2.9.8" >
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="Roslynator.Analyzers" Version="2.3.0" >
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="Roslynator.CodeFixes" Version="2.0.0" >
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="SecurityCodeScan" Version="3.4.0" >
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="SonarAnalyzer.CSharp" Version="8.4.0.15306" >
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="StyleCop.Analyzers" Version="1.2.0-beta.164" >
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+
+    <!-- Common StyleCop configuration -->
+    <AdditionalFiles Include="$(MSBuildThisFileDirectory)stylecop.json" />
+    <AdditionalFiles Include="$(MSBuildThisFileDirectory)SecurityCodeScan.config.yml" />
+  </ItemGroup>
 
 </Project>
