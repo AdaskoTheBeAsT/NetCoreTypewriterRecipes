@@ -11,5 +11,5 @@ test('should display welcome message', async (t) => {
 
   const paragraphText = await page.getParagraphText();
 
-  await t.expect(paragraphText).contains('Welcome to app!');
+  await t.expect(paragraphText).contains('ClientApp app is running!');
 });

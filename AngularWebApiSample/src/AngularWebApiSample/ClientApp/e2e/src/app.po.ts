@@ -8,6 +8,6 @@ export class AppPage {
   }
 
   getParagraphText() {
-    return Selector('app-root h1').textContent;
+    return Selector('.content span').textContent;
   }
 }

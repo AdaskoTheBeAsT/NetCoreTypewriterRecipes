@@ -1,10 +1,11 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
-import { environment } from '../environments/environment';
-import { API_BASE_URL } from './app-config.module';
+import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { TopNavComponent } from './ui/top-nav/top-nav.component';
+import { API_BASE_URL } from './app-config.module';
+import { environment } from 'src/environments/environment';
 
 @NgModule({
   declarations: [
@@ -12,7 +13,8 @@ import { TopNavComponent } from './ui/top-nav/top-nav.component';
     TopNavComponent
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    AppRoutingModule
   ],
   providers: [
     { provide: API_BASE_URL, useValue: environment.apiBaseUrl }

@@ -2,8 +2,10 @@
   "extends": "../tsconfig.json",
   "compilerOptions": {
     "outDir": "../../wwwroot/out-tsc/e2e",
-    "baseUrl": "./",
     "module": "commonjs",
-    "target": "esnext"
+    "target": "ESNext",
+    "types": [
+      "node"
+    ]
   }
 }
