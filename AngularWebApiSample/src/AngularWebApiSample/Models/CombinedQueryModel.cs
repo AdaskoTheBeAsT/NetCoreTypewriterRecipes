@@ -1,7 +1,9 @@
+using System.Collections.Generic;
+using AngularWebApiSample.Attributes;
+
 namespace AngularWebApiSample.Models
 {
-    using System.Collections.Generic;
-
+    [GenerateFrontendType]
     public class CombinedQueryModel
     {
         public int Id { get; set; }

@@ -3,8 +3,12 @@ using AngularWebApiSample.Attributes;
 namespace AngularWebApiSample.Models
 {
     [GenerateFrontendType]
-    public class ComplexAModel : ComplexBaseModel
+    public enum FirstSet
     {
-        public string? Text { get; set; }
+        ValA,
+        ValB,
+
+        [LabelForEnum("ValC")]
+        SomeOtherVal,
     }
 }

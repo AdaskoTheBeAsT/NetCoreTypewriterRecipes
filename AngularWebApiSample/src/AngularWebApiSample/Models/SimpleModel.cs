@@ -1,8 +1,11 @@
+using AngularWebApiSample.Attributes;
+
 namespace AngularWebApiSample.Models
 {
+    [GenerateFrontendType]
     public class SimpleModel
     {
-        public int Number { get; set; }
+        public int Num { get; set; }
 
         public string? Text { get; set; }
 

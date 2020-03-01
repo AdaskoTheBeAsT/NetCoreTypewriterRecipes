@@ -1,12 +1,13 @@
-using System;
+﻿using System;
+using System.Collections.Generic;
+using AngularWebApiSample.Attributes;
+using AngularWebApiSample.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AngularWebApiSample.Controllers
 {
-    using System.Collections.Generic;
-    using AngularWebApiSample.Models;
-
-    public class ComplexControler : ControllerBase
+    [GenerateFrontendType]
+    public class ComplexController : ControllerBase
     {
         [HttpPost]
         [ProducesResponseType(typeof(CombinedResultModel), 200)]

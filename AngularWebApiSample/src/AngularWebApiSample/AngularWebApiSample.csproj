@@ -24,31 +24,37 @@
     </ItemGroup>
 
     <ItemGroup>
-        <None Update="ClientApp\src\app\api\models\CombinedQueryModel.ts">
+        <None Update="ClientApp\src\api\models\CombinedQueryModel.ts">
           <CustomToolNamespace>Models\CombinedQueryModel.cs</CustomToolNamespace>
         </None>
-        <None Update="ClientApp\src\app\api\models\CombinedResultModel.ts">
+        <None Update="ClientApp\src\api\models\CombinedResultModel.ts">
           <CustomToolNamespace>Models\CombinedResultModel.cs</CustomToolNamespace>
         </None>
-        <None Update="ClientApp\src\app\api\models\ComplexAModel.ts">
+        <None Update="ClientApp\src\api\models\ComplexAModel.ts">
           <CustomToolNamespace>Models\ComplexAModel.cs</CustomToolNamespace>
         </None>
-        <None Update="ClientApp\src\app\api\models\ComplexBaseModel.ts">
+        <None Update="ClientApp\src\api\models\ComplexBaseModel.ts">
           <CustomToolNamespace>Models\ComplexBaseModel.cs</CustomToolNamespace>
         </None>
-        <None Update="ClientApp\src\app\api\models\ComplexBModel.ts">
+        <None Update="ClientApp\src\api\models\ComplexBModel.ts">
           <CustomToolNamespace>Models\ComplexBModel.cs</CustomToolNamespace>
         </None>
-        <None Update="ClientApp\src\app\api\models\SimpleModel.ts">
+        <None Update="ClientApp\src\api\models\FirstSet.ts">
+          <CustomToolNamespace>Models\FirstSet.cs</CustomToolNamespace>
+        </None>
+        <None Update="ClientApp\src\api\models\SecondSet.ts">
+          <CustomToolNamespace>Models\SecondSet.cs</CustomToolNamespace>
+        </None>
+        <None Update="ClientApp\src\api\models\SimpleModel.ts">
           <CustomToolNamespace>Models\SimpleModel.cs</CustomToolNamespace>
         </None>
-        <None Update="ClientApp\src\app\api\services\ComplexControler.ts">
-          <CustomToolNamespace>Controllers\ComplexControler.cs</CustomToolNamespace>
+        <None Update="ClientApp\src\api\services\api-complex.service.ts">
+          <CustomToolNamespace>Controllers\ComplexController.cs</CustomToolNamespace>
         </None>
-        <None Update="ClientApp\src\app\api\services\MidService.ts">
+        <None Update="ClientApp\src\api\services\api-mid.service.ts">
           <CustomToolNamespace>Controllers\MidController.cs</CustomToolNamespace>
         </None>
-        <None Update="ClientApp\src\app\api\services\SimpleService.ts">
+        <None Update="ClientApp\src\api\services\api-simple.service.ts">
           <CustomToolNamespace>Controllers\SimpleController.cs</CustomToolNamespace>
         </None>
         <None Update="src\app\api\models\CombinedQueryModel.ts">
