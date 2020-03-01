@@ -3,8 +3,9 @@
 This is part of the presentation how to generate automaticaly models and services from controllers and model classes in .net core web api for angular>9.x.x using [Typewriter](https://frhagn.github.io/Typewriter/)
 
 ## Backend
-Original template for Web Api in Visual Studio is "too fat". It contains dependencies for MVC application. In following sample I use Andrew Lock template named [NetEscapades.Templates](https://github.com/andrewlock/NetEscapades.Templates) described in blog post [Removing the MVC Razor dependencies from the Web API template in ASP.NET Core](https://andrewlock.net/removing-the-mvc-razor-dependencies-from-the-web-api-template-in-asp-net-core/).
-Additionaly static files serving capability was added.
+
+Right now .net core 3.1 allows to create niece dry web api. In version 2.x I used Andrew Lock template named [NetEscapades.Templates](https://github.com/andrewlock/NetEscapades.Templates) described in blog post [Removing the MVC Razor dependencies from the Web API template in ASP.NET Core](https://andrewlock.net/removing-the-mvc-razor-dependencies-from-the-web-api-template-in-asp-net-core/).
+In 2.x small modification was needed to serve static files.
 ```cs
     app.UseMvc();
     app.UseDefaultFiles(); //added
@@ -20,7 +21,7 @@ Basic set of npm packages
 npm i -g typescript
 npm i -g tslint
 npm i -g webpack
-npm i -g @angular/cli@latest
+npm i -g @angular/cli
 npm i -g rxjs-tslint
 ```
 
@@ -32,7 +33,7 @@ ng set --global packageManager=yarn
 Frontend folder is created in main folder of webapi .
 For styles scss is used. App is setup without inline templates and styles
 ```
-ng new ClientApp --style=scss -s=false -t=false
+ng new ClientApp
 ```
 
 Angular way of testing was modified base on article
