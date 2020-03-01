@@ -1,5 +1,6 @@
 import { State, Action, StateContext } from '@ngxs/store';
 import { AppAction } from './app.actions';
+import { Injectable } from '@angular/core';
 
 export class AppStateModel {
   public items: string[];
@@ -11,6 +12,7 @@ export class AppStateModel {
     items: []
   }
 })
+@Injectable()
 export class AppState {
   @Action(AppAction)
   add(ctx: StateContext<AppStateModel>, action: AppAction) {
