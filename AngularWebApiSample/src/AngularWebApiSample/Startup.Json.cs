@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
 using AngularWebApiSample.Models;
@@ -14,7 +14,6 @@ namespace AngularWebApiSample
             : Exception
         {
             public TypeNotWhitelistedException()
-                : base()
             {
             }
 
@@ -39,7 +38,6 @@ namespace AngularWebApiSample
             : Exception
         {
             public TypeNotFoundException()
-                : base()
             {
             }
 
@@ -100,7 +98,7 @@ namespace AngularWebApiSample
                 throw new TypeNotWhitelistedException("Unexpected serialized type");
             }
 
-            public void BindToName(Type serializedType, out string assemblyName, out string typeName)
+            public void BindToName(Type serializedType, out string? assemblyName, out string? typeName)
             {
                 assemblyName = string.Empty;
                 typeName = serializedType.Name;
