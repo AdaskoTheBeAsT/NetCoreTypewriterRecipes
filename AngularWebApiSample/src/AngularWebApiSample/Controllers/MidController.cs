@@ -20,7 +20,7 @@ namespace AngularWebApiSample.Controllers
         [ProducesResponseType(typeof(SimpleModel), 200)]
         public IActionResult Get(Guid id)
         {
-            return Ok(new SimpleModel { Number = 2, Text = "ok" });
+            return Ok(new SimpleModel { Num = 2, Text = "ok" });
         }
     }
 #pragma warning restore RCS1163,CA1801 // Unused parameter.
