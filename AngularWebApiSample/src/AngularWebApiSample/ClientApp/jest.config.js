@@ -27,6 +27,14 @@ const jestConfig = {
       pageTitle:'Frontend test',
       expand: true
     }],
+    ['jest-xunit', {
+      outputPath: '../../../reports/frontendunittest/',
+      filename: 'frontend-test-report.xunit.xml',
+      traitsRegex: [
+        { regex: /\(Test Type:([^,)]+)(,|\)).*/g, name: 'Category' },
+        { regex: /.*Test Traits: ([^)]+)\).*/g, name: 'Type' }
+      ]
+    }],
     // ['jest-sonar-reporter', {
     //   reportPath: '../../../reports/frontendunittest/',
     //   reportFile: 'frontend-test.sonar.xml',
