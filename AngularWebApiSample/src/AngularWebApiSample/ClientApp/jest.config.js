@@ -54,7 +54,13 @@ const jestConfig = {
     ['jest-sonar', {
       outputDirectory: '../../../reports/frontendunittest/',
       outputName: 'frontend-test.sonar.xml'
-    }]
+    }],
+    [
+      'jest-trx-results-processor',
+      {
+        outputFile: '../../../reports/frontendunittest/frontend-test.sonar.trx',
+      }
+    ],
   ]
 };
 
