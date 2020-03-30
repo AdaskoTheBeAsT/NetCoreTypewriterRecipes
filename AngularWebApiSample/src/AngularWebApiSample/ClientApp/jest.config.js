@@ -19,6 +19,24 @@ const jestConfig = {
   ],
   coverageDirectory: '../../../reports/tscoverage',
   testResultsProcessor: './resultsProcessor',
+  reporters: [
+    'default',
+    ['jest-html-reporters', {
+      publicPath: '../../../reports/frontendunittest/',
+      filename: 'frontend-test-report.html',
+      pageTitle:'Frontend test',
+      expand: true
+    }],
+    // ['jest-sonar-reporter', {
+    //   reportPath: '../../../reports/frontendunittest/',
+    //   reportFile: 'frontend-test.sonar.xml',
+    //   indent: 4
+    // }],
+    // ['jest-nunit-reporter', {
+    //   outputPath: '../../../reports/frontendunittest/',
+    //   outputFilename: 'frontend-test.nunit.xml'
+    // }],
+  ]
 };
 
 module.exports = jestConfig;
