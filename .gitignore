@@ -48,6 +48,7 @@ node_modules/
 bower_components/
 wwwroot/
 allure-results/
+allure-report/
 
 # sonarqube related
 .sonarqube/
