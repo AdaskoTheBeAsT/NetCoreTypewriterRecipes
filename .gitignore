@@ -47,6 +47,7 @@ Core/packages/repositories.config
 node_modules/
 bower_components/
 wwwroot/
+allure-results/
 
 # sonarqube related
 .sonarqube/

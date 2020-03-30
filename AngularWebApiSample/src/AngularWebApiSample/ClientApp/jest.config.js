@@ -1,6 +1,6 @@
 const jestConfig = {
   preset: 'jest-preset-angular',
-  setupFilesAfterEnv: ['<rootDir>/jest/setup.ts'],
+  setupFilesAfterEnv: ['<rootDir>/jest/setup.ts','jest-allure/dist/setup'],
   coverageReporters: ['lcov', 'text'],
   testMatch: [
       '<rootDir>/**/*(*.)@(spec|test).[tj]s?(x)',
