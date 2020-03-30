@@ -51,6 +51,10 @@ const jestConfig = {
         { regex: /.*Test Traits: ([^)]+)\).*/g, name: 'Type' }
       ]
     }],
+    ['jest-sonar', {
+      outputDirectory: '../../../reports/frontendunittest/',
+      outputName: 'frontend-test.sonar.xml'
+    }]
   ]
 };
 

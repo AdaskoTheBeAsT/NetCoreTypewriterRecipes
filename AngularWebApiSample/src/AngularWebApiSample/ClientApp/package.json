@@ -46,11 +46,6 @@
       "git add"
     ]
   },
-  "jestSonar": {
-    "reportPath": "../../../reports/frontendunittest/",
-    "reportFile": "frontend-test.sonar.xml",
-    "indent": 4
-  },
   "jestNunitReporter": {
     "outputPath": "../../../reports/frontendunittest/",
     "outputFilename": "frontend-test.nunit.xml"
@@ -116,7 +111,7 @@
     "jest-html-reporters": "^1.2.1",
     "jest-nunit-reporter": "^1.3.1",
     "jest-preset-angular": "^8.1.2",
-    "jest-sonar-reporter": "^2.0.0",
+    "jest-sonar": "^0.2.5",
     "jest-standard-reporter": "^1.0.4",
     "jest-stare": "^1.26.0",
     "jest-xunit": "^1.0.11",
