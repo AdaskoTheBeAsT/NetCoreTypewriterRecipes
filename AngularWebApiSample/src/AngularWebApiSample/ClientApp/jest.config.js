@@ -3,7 +3,8 @@ const jestConfig = {
   setupFilesAfterEnv: ['<rootDir>/jest/setup.ts','jest-allure/dist/setup'],
   coverageReporters: ['lcov', 'text'],
   testMatch: [
-      '<rootDir>/**/*(*.)@(spec|test).[tj]s?(x)',
+      '<rootDir>/**/*.(spec|test).[tj]s?(x)',
+      // '<rootDir>/**/*(*.)@(spec|test).[tj]s?(x)',
   ],
   //  // moduleNameMapper: {
   // //     'app/(.*)': '<rootDir>/src/app/$1',
@@ -21,6 +22,20 @@ const jestConfig = {
   testResultsProcessor: './resultsProcessor',
   reporters: [
     'default',
+    [
+      'jest-stare',
+      {
+        resultDir: '../../../reports/frontendunittest/',
+        reportTitle: 'Frontend test',
+        additionalResultsProcessors: [
+        ],
+        coverageLink: '../tscoverage/lcov-report/index.html',
+        // resultJson: 'frontend.stare.json',
+        // resultHtml: 'frontend.stare.html',
+        report: true,
+        reportSummary: true,
+      }
+    ],
     ['jest-html-reporters', {
       publicPath: '../../../reports/frontendunittest/',
       filename: 'frontend-test-report.html',
@@ -35,15 +50,6 @@ const jestConfig = {
         { regex: /.*Test Traits: ([^)]+)\).*/g, name: 'Type' }
       ]
     }],
-    // ['jest-sonar-reporter', {
-    //   reportPath: '../../../reports/frontendunittest/',
-    //   reportFile: 'frontend-test.sonar.xml',
-    //   indent: 4
-    // }],
-    // ['jest-nunit-reporter', {
-    //   outputPath: '../../../reports/frontendunittest/',
-    //   outputFilename: 'frontend-test.nunit.xml'
-    // }],
   ]
 };
 
