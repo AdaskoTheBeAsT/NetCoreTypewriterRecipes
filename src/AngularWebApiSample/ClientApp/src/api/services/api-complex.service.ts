@@ -4,6 +4,8 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 
 import { Observable } from 'rxjs';
 
+import { API_BASE_URL } from 'src/app/app-config.module';
+
 import { HttpParamsProcessor } from 'src/api/services/_HttpParamsProcessor';
 import { CombinedResultModel } from 'src/api/models/CombinedResultModel';
 import { CombinedQueryModel } from 'src/api/models/CombinedQueryModel';
@@ -23,7 +25,7 @@ export interface IApiComplexService {
     { providedIn: 'root' }
 )
 export class ApiComplexService implements IApiComplexService {
-    constructor (@Inject(HttpClient) protected http: HttpClient, @Optional() @Inject('BASE_URL') protected baseUrl?: string) {
+    constructor (@Inject(HttpClient) protected http: HttpClient, @Optional() @Inject(API_BASE_URL) protected baseUrl?: string) {
     }
 
     public get complexServiceUrl(): string {

@@ -2,7 +2,7 @@
 
     <PropertyGroup Label="Build">
         <TargetFramework>netcoreapp3.1</TargetFramework>
-        <TypeScriptToolsVersion>3.7</TypeScriptToolsVersion>
+        <TypeScriptToolsVersion>3.9</TypeScriptToolsVersion>
         <TypeScriptCompileBlocked>true</TypeScriptCompileBlocked>
     </PropertyGroup>
 
@@ -16,11 +16,18 @@
     </PropertyGroup>
 
     <ItemGroup Label="Package References">
-        <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="3.1.4" />
-        <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="3.1.4" />
-        <PackageReference Include="Microsoft.Extensions.Configuration" Version="3.1.4" />
-        <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="3.1.4" />
+        <PackageReference Include="AdaskoTheBeAsT.AutoMapper.SimpleInjector" Version="3.0.1" />
+        <PackageReference Include="AdaskoTheBeAsT.FluentValidation.MediatR" Version="2.0.1" />
+        <PackageReference Include="AdaskoTheBeAsT.FluentValidation.SimpleInjector" Version="3.0.2" />
+        <PackageReference Include="AdaskoTheBeAsT.MediatR.SimpleInjector.AspNetCore" Version="2.0.5" />
+        <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="3.1.6" />
+        <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="3.1.6" />
+        <PackageReference Include="Microsoft.Extensions.Configuration" Version="3.1.6" />
+        <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="3.1.6" />
         <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+        <PackageReference Include="SimpleInjector" Version="5.0.3" />
+        <PackageReference Include="SimpleInjector.Integration.AspNetCore.Mvc.Core" Version="5.0.0" />
+        <PackageReference Include="Swashbuckle.AspNetCore" Version="5.5.1" />
     </ItemGroup>
 
     <ItemGroup>

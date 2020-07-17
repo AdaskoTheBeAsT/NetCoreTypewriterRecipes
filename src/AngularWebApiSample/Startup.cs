@@ -1,14 +1,21 @@
-﻿using Microsoft.AspNetCore.Builder;
+using System;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Net.Http.Headers;
 using Newtonsoft.Json;
+using SimpleInjector;
 
 namespace AngularWebApiSample
 {
-    public partial class Startup
+    public sealed partial class Startup
+        : IDisposable
     {
+        private readonly Container _container = new Container();
+
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -21,6 +28,10 @@ namespace AngularWebApiSample
         public void ConfigureServices(
             IServiceCollection services)
         {
+            ConfigureServicesCompression(services);
+            ConfigureServicesSwagger(services);
+            ConfigureServicesCors(services);
+
             services
                 .AddControllers()
                 .AddNewtonsoftJson(
@@ -36,6 +47,12 @@ namespace AngularWebApiSample
                         options.SerializerSettings.NullValueHandling = NullValueHandling.Include;
                     });
             services.AddLogging();
+
+            ConfigureServicesIoC(services);
+            var assemblies = GetAssemblies();
+            ConfigureServicesMapping(assemblies);
+            ConfigureServicesValidation(assemblies);
+            ConfigureServicesMediatR(assemblies);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -48,10 +65,45 @@ namespace AngularWebApiSample
                 app.UseDeveloperExceptionPage();
             }
 
+            ConfigureIoC(app, env);
+
+            ConfigureSwagger(app);
+
+            app.UseResponseCompression();
             app.UseDefaultFiles();
-            app.UseStaticFiles();
+            app.UseStaticFiles(new StaticFileOptions
+            {
+                OnPrepareResponse = ctx =>
+                {
+                    var headers = ctx.Context.Response.GetTypedHeaders();
+                    if (ctx.File.Name == "index.html")
+                    {
+                        headers.CacheControl = new CacheControlHeaderValue
+                        {
+                            Public = true,
+                            MaxAge = TimeSpan.Zero,
+                            NoCache = true,
+                        };
+                    }
+                    else
+                    {
+                        headers.CacheControl = new CacheControlHeaderValue
+                        {
+                            Public = true,
+                            MaxAge = TimeSpan.FromDays(365),
+                        };
+                    }
+                },
+            });
             app.UseRouting();
+            ConfigureCors(app);
             app.UseEndpoints(endpoints => endpoints.MapDefaultControllerRoute());
+            _container.Verify();
+        }
+
+        public void Dispose()
+        {
+            _container.Dispose();
         }
     }
 }

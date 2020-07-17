@@ -1,10 +1,10 @@
 # Typewriter recipes
 
-This is part of the presentation how to generate automaticaly models and services from controllers and model classes in .net core web api for angular>9.x.x using [Typewriter](https://frhagn.github.io/Typewriter/)
+This is part of the presentation how to generate automaticaly models and services from controllers and model classes in .net core web api for angular>10.x.x using [Typewriter](https://frhagn.github.io/Typewriter/)
 
 ## Backend
 
-Right now .net core 3.1 allows to create niece dry web api. In version 2.x I used Andrew Lock template named [NetEscapades.Templates](https://github.com/andrewlock/NetEscapades.Templates) described in blog post [Removing the MVC Razor dependencies from the Web API template in ASP.NET Core](https://andrewlock.net/removing-the-mvc-razor-dependencies-from-the-web-api-template-in-asp-net-core/).
+Right now .net core 3.1 allows to create nice dry web api. In version 2.x I used Andrew Lock template named [NetEscapades.Templates](https://github.com/andrewlock/NetEscapades.Templates) described in blog post [Removing the MVC Razor dependencies from the Web API template in ASP.NET Core](https://andrewlock.net/removing-the-mvc-razor-dependencies-from-the-web-api-template-in-asp-net-core/).
 In 2.x small modification was needed to serve static files.
 
 ```cs
@@ -14,8 +14,8 @@ In 2.x small modification was needed to serve static files.
 ```
 
 ## Frontend
-Angular v9.0
-install node v12.13.1
+Angular v10.0
+install node v12.18.2
 
 Basic set of npm packages
 
@@ -37,7 +37,7 @@ Frontend folder is created in main folder of webapi .
 For styles scss is used. App is setup without inline templates and styles
 
 ```cmd
-ng new ClientApp
+ng new ClientApp --strict
 ```
 
 Angular way of testing was modified base on article

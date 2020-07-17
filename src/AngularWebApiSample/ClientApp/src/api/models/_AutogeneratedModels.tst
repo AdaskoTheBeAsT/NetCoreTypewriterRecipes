@@ -144,6 +144,10 @@ ${
     }
 
     string SimplifyType(Property property){
+        var typeName = property.Type.Name;
+        if(typeName == "string") {
+            return "string | null";
+        }
         return property.Type.Name;
     }
 

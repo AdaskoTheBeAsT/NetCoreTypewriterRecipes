@@ -391,6 +391,8 @@ import { Inject, Injectable, Optional } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 
 import { Observable } from 'rxjs';
+
+import { API_BASE_URL } from 'src/app/app-config.module';
 $Classes($IncludeClass)[
 $IsGetOrDeleteMethod[import { HttpParamsProcessor } from 'src/api/services/_HttpParamsProcessor';]
 $Imports
@@ -408,7 +410,7 @@ export interface I$ServiceName {$Methods[
     { providedIn: 'root' }
 )
 export class $ServiceName implements I$ServiceName {
-    constructor (@Inject(HttpClient) protected http: HttpClient, @Optional() @Inject('BASE_URL') protected baseUrl?: string) {
+    constructor (@Inject(HttpClient) protected http: HttpClient, @Optional() @Inject(API_BASE_URL) protected baseUrl?: string) {
     }
 
     public get $UrlFieldName(): string {

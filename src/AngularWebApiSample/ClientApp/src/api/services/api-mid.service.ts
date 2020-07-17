@@ -4,6 +4,8 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 
 import { Observable } from 'rxjs';
 
+import { API_BASE_URL } from 'src/app/app-config.module';
+
 import { HttpParamsProcessor } from 'src/api/services/_HttpParamsProcessor';
 import { SimpleModel } from 'src/api/models/SimpleModel';
 
@@ -22,7 +24,7 @@ export interface IApiMidService {
     { providedIn: 'root' }
 )
 export class ApiMidService implements IApiMidService {
-    constructor (@Inject(HttpClient) protected http: HttpClient, @Optional() @Inject('BASE_URL') protected baseUrl?: string) {
+    constructor (@Inject(HttpClient) protected http: HttpClient, @Optional() @Inject(API_BASE_URL) protected baseUrl?: string) {
     }
 
     public get midServiceUrl(): string {

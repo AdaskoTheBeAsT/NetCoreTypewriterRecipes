@@ -2,23 +2,24 @@
 // Do not modify it.
 
 
+import { string } from './string';
 import { IComplexBaseModel, ComplexBaseModel } from './ComplexBaseModel';
 
 export interface IComplexAModel extends IComplexBaseModel {
-    text?: string;
+    text?: string[];
 }
 
 export class ComplexAModel extends ComplexBaseModel implements IComplexAModel {
-    public text: string;
+    public text: string[];
 
     constructor(initObj?: IComplexAModel) {
         super(initObj);
         this.$type = 'AngularWebApiSample.Models.ComplexAModel,'
             + 'AngularWebApiSample.Models';
         if (initObj) {
-            this.text = initObj.text || null;
+            this.text = initObj.text || [];
         } else {
-            this.text = null;
+            this.text = [];
         }
     }
 }

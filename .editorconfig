@@ -15,6 +15,10 @@ indent_size = 2
 [*.props]
 indent_size = 2
 
+#targets files
+[*.targets]
+indent_size = 2
+
 # Code files
 [*.{cs,csx,vb,vbx}]
 indent_size = 4

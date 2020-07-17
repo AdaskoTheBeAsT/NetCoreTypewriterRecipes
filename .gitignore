@@ -61,3 +61,8 @@ xunit/*
 *.vs/
 *.dbmdl
 *.jfm
+
+.vs/
+C/**/*
+reports/**/*.*
+
