@@ -11,6 +11,7 @@ module.exports = {
      * for what this recommended config contains.
      */
     extends: [
+        //'standard',
         'plugin:@typescript-eslint/recommended',
         'plugin:@angular-eslint/recommended',
         //'plugin:sonarjs/recommended',
