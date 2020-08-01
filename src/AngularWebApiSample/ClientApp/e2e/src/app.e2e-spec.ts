@@ -2,7 +2,7 @@ import { AppPage } from './app.po';
 
 let page: AppPage;
 
-fixture('App').beforeEach(async (t) => {
+fixture('App').beforeEach(async () => {
   page = new AppPage();
 });
 

@@ -5,5 +5,11 @@
     "editor.codeActionsOnSave": {
         "source.fixAll": true
     },
-    "files.insertFinalNewline": true
+    "files.insertFinalNewline": true,
+    "eslint.options": {
+        "extensions": [
+            ".ts",
+            ".html"
+        ]
+    }
 }

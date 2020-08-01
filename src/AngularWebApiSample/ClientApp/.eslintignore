@@ -1,0 +1,5 @@
+**/jest/**/*.ts
+**/node_modules/**
+**/src/api/**/*.
+**/*eslintrc.js
+./resultsProcessor.js

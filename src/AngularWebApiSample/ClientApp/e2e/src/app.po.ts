@@ -3,11 +3,11 @@ import { Selector } from 'testcafe';
 import { browser } from '../utils';
 
 export class AppPage {
-  navigateTo() {
+  navigateTo(): TestControllerPromise {
     return browser.goTo('/');
   }
 
-  getParagraphText() {
+  getParagraphText(): Promise<string> {
     return Selector('.content span').textContent;
   }
 }

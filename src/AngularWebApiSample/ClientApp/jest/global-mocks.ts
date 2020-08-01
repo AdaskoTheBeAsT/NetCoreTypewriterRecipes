@@ -1,7 +1,7 @@
-global['CSS'] = null;
+global.CSS = null;
 
 const mock = () => {
-  let storage: Record<string,any> = {};
+  let storage: Record<string, any> = {};
   return {
     getItem: (key: string): any => (key in storage ? storage[key] : null),
     setItem: (key: string, value: any): Record<string, any> => (storage[key] = value || ''),

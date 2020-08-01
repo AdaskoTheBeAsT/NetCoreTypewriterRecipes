@@ -12,6 +12,7 @@
     "test:ci": "jest --runInBand",
     "test:coverage": "jest --coverage",
     "lint": "ng lint",
+    "lint2": "eslint -c .eslintrc.js --ext .ts .",
     "e2e": "testcafe-live chrome e2e/**/*.e2e-spec.ts",
     "e2e:ci": "testcafe chrome e2e/**/*.e2e-spec.ts --app \"yarn start\" --app-init-delay 40000 --proxy-bypass http://localhost:4200/",
     "format": "prettier {src,e2e}/**/*.{ts,md,scss} --write",
@@ -26,6 +27,8 @@
     "stats-report": "webpack-bundle-analyzer ../wwwroot/stats.json",
     "type-check": "tsc --noEmit",
     "ts-lint-simple": "tslint --project tsconfig.json --config tslint.json  -o ../../../reports/epcalculator-tslint-result.json -t json --force src/**/*.ts",
+    "stylelint-check": "stylelint-config-prettier-check",
+    "stylelint-console": "stylelint src/**/*.scss --syntax scss",
     "stylelint-simple": "stylelint src/**/*.scss --syntax scss -f json>../../../reports/stylelint-report.json",
     "htmlhint-simple": "htmlhint src/**/*.html --config .htmlhintrc>../../../reports/htmlhint-report.txt",
     "create-icon-sprite": "svg2sprite ./src/assets/svg ./src/assets/sprites/img.svg --stripAttrs id --stripTags title"
@@ -37,13 +40,14 @@
     }
   },
   "lint-staged": {
-    "{src,e2e}/**/*.{js,jsx,ts,tsx},!src/app/api/**": [
-      "yarn lint",
-      "git add"
+    "{src,e2e}/**/*.{scss}": [
+      "stylelint --fix"
     ],
-    "{src,e2e}/**/*.{js,jsx,ts,tsx,css,scss,md},!src/app/api/**": [
-      "prettier --write",
-      "git add"
+    "{src,e2e}/**/*.{js,jsx,ts,tsx},!src/app/api/**": [
+      "yarn lint --fix"
+    ],
+    "{src,e2e}/**/*.{js,jsx,ts,tsx,css,scss,md,html,json},!src/app/api/**": [
+      "prettier --write"
     ]
   },
   "jestNunitReporter": {
@@ -104,6 +108,7 @@
     "eslint": "^7.6.0",
     "eslint-config-prettier": "^6.11.0",
     "eslint-config-standard": "^14.1.1",
+    "eslint-plugin-html": "^6.0.2",
     "eslint-plugin-import": "^2.22.0",
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-promise": "^4.2.1",
@@ -128,6 +133,7 @@
     "stylelint": "^13.6.1",
     "stylelint-config-prettier": "^8.0.2",
     "stylelint-config-recommended-scss": "^4.2.0",
+    "stylelint-config-sass-guidelines": "^7.0.0",
     "stylelint-config-standard": "^20.0.0",
     "stylelint-scss": "^3.18.0",
     "svg2sprite-cli": "^2.0.1",

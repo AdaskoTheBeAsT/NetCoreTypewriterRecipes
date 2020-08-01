@@ -15,8 +15,12 @@ export class AppStateModel {
 @Injectable()
 export class AppState {
   @Action(AppAction)
-  add(ctx: StateContext<AppStateModel>, action: AppAction) {
+  add(ctx: StateContext<AppStateModel>, action: AppAction): void {
+    const a = 2;
+    if (a !== 2) { 
+      alert(a);
+    }
     const state = ctx.getState();
-    ctx.setState({ items: [ ...state.items, action.payload ] });
+    ctx.setState({ items: [...state.items, action.payload] });
   }
 }

@@ -112,6 +112,7 @@
               "tsconfig.eslint.json"
             ],
             "exclude": [
+              "**/jest/**/*.ts",
               "**/node_modules/**",
               "**/src/api/**/*.ts"
             ]
