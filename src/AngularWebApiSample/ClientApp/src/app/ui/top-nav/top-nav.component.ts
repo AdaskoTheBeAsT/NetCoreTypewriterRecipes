@@ -8,12 +8,12 @@ import { Component, OnInit } from '@angular/core';
 export class TopNavComponent implements OnInit {
   public show = false;
 
-  toggleCollapse() {
+  toggleCollapse(): void {
     this.show = !this.show;
   }
   constructor() { }
 
-  ngOnInit() {
+  ngOnInit(): void {
   }
 
 }

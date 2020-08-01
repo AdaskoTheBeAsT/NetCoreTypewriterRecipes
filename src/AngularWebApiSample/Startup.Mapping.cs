@@ -6,7 +6,7 @@ namespace AngularWebApiSample
 {
     public partial class Startup
     {
-        public void ConfigureServicesMapping(List<Assembly> assemblies)
+        public void ConfigureServicesMapping(IEnumerable<Assembly> assemblies)
         {
             _container.AddAutoMapper(assemblies);
         }

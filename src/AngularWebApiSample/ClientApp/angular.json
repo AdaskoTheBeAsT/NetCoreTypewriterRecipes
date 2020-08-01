@@ -91,7 +91,9 @@
             "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.spec.json",
             "no-cache": true,
-            "reporters": ["jest-standard-reporter"],
+            "reporters": [
+              "jest-standard-reporter"
+            ],
             "assets": [
               "src/favicon.ico",
               "src/assets"
@@ -103,15 +105,15 @@
           }
         },
         "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
+          "builder": "@angular-eslint/builder:lint",
           "options": {
+            "eslintConfig": ".eslintrc.js",
             "tsConfig": [
-              "tsconfig.app.json",
-              "tsconfig.spec.json",
-              "e2e/tsconfig.json"
+              "tsconfig.eslint.json"
             ],
             "exclude": [
-              "**/node_modules/**"
+              "**/node_modules/**",
+              "**/src/api/**/*.ts"
             ]
           }
         },
@@ -128,6 +130,7 @@
           }
         }
       }
-    }},
+    }
+  },
   "defaultProject": "ClientApp"
 }

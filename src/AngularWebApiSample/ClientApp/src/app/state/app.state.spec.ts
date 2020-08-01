@@ -10,13 +10,13 @@ describe('App actions', () => {
     TestBed.configureTestingModule({
       imports: [NgxsModule.forRoot([AppState])]
     }).compileComponents();
-    store = TestBed.get(Store);
+    store = TestBed.inject(Store);
   }));
 
   it('should create an action and add an item', () => {
     store.dispatch(new AppAction('item-1'));
     store.select(state => state.app.items).subscribe((items: string[]) => {
-      expect(items).toEqual(expect.objectContaining([ 'item-1' ]));
+      expect(items).toEqual(expect.objectContaining(['item-1']));
     });
   });
 

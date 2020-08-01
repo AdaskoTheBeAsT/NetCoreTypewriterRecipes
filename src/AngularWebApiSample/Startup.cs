@@ -40,7 +40,9 @@ namespace AngularWebApiSample
                         // https://security-code-scan.github.io/#SCS0028
                         // implemented as white list
 #pragma warning disable SCS0028
+#pragma warning disable SEC0030 // Insecure Deserialization - Newtonsoft JSON
                         options.SerializerSettings.TypeNameHandling = TypeNameHandling.Auto;
+#pragma warning restore SEC0030 // Insecure Deserialization - Newtonsoft JSON
 #pragma warning restore SCS0028
                         options.SerializerSettings.SerializationBinder = new LimitedBinder();
                         options.SerializerSettings.DefaultValueHandling = DefaultValueHandling.Include;
@@ -76,7 +78,7 @@ namespace AngularWebApiSample
                 OnPrepareResponse = ctx =>
                 {
                     var headers = ctx.Context.Response.GetTypedHeaders();
-                    if (ctx.File.Name == "index.html")
+                    if (ctx.File.Name.Equals("index.html", StringComparison.OrdinalIgnoreCase))
                     {
                         headers.CacheControl = new CacheControlHeaderValue
                         {

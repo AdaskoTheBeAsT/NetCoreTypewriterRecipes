@@ -1,2 +1,9 @@
 {
+    "editor.formatOnSave": true,
+    "editor.formatOnPaste": true,
+    "editor.formatOnType": true,
+    "editor.codeActionsOnSave": {
+        "source.fixAll": true
+    },
+    "files.insertFinalNewline": true
 }

@@ -7,7 +7,7 @@ namespace AngularWebApiSample
 {
     public partial class Startup
     {
-        public void ConfigureServicesMediatR(List<Assembly> assemblies)
+        public void ConfigureServicesMediatR(IEnumerable<Assembly> assemblies)
         {
             _container.AddMediatRAspNetCore(
                 options =>

@@ -6,7 +6,7 @@ namespace AngularWebApiSample
 {
     public partial class Startup
     {
-        public void ConfigureServicesValidation(List<Assembly> assemblies)
+        public void ConfigureServicesValidation(IEnumerable<Assembly> assemblies)
         {
             _container.AddFluentValidation(assemblies);
         }

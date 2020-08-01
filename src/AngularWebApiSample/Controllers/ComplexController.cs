@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using AngularWebApiSample.Attributes;
 using AngularWebApiSample.Models;
@@ -11,14 +11,20 @@ namespace AngularWebApiSample.Controllers
     {
         [HttpPost]
         [ProducesResponseType(typeof(CombinedResultModel), 200)]
+#pragma warning disable SEC0019 // Missing AntiForgeryToken Attribute
+#pragma warning disable SEC0120 // Missing Authorization Attribute
         public IActionResult Post([FromBody]CombinedResultModel value)
+#pragma warning restore SEC0120 // Missing Authorization Attribute
+#pragma warning restore SEC0019 // Missing AntiForgeryToken Attribute
         {
             return Ok(value);
         }
 
         [HttpGet]
         [ProducesResponseType(typeof(CombinedResultModel), 200)]
+#pragma warning disable SEC0120 // Missing Authorization Attribute
         public IActionResult Get(CombinedQueryModel query)
+#pragma warning restore SEC0120 // Missing Authorization Attribute
         {
             if (query is null)
             {
