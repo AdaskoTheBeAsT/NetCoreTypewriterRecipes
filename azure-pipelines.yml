@@ -51,10 +51,10 @@ steps:
     projectKey: 'AdaskoTheBeAsT_NetCoreTypewriterRecipes'
     projectName: NetCoreTypewriterRecipes
     extraProperties: |
-      sonar.eslint.reportPaths=../../reports/eslint-result.json
-      sonar.css.stylelint.reportPaths=../../reports/stylelint-report.json
-      sonar.javascript.lcov.reportPaths=../../reports/tscoverage      
-      sonar.testExecutionReportPaths=../../reports/frontend-test.sonar.xml
+      sonar.eslint.reportPaths=$(Build.SourcesDirectory)/reports/eslint-result.json
+      sonar.css.stylelint.reportPaths=$(Build.SourcesDirectory)/reports/stylelint-report.json
+      sonar.javascript.lcov.reportPaths=$(Build.SourcesDirectory)/reports/tscoverage      
+      sonar.testExecutionReportPaths=$(Build.SourcesDirectory)/reports/frontend-test.sonar.xml
 #      sonar.resharper.cs.reportPath=$(Build.SourcesDirectory)/CodeQualityResults.xml
 #      sonar.cs.opencover.reportsPaths=$(testResultsDirectory)/coverage.net461.opencover.xml,$(testResultsDirectory)/coverage.netcoreapp3.1.opencover.xml
 
