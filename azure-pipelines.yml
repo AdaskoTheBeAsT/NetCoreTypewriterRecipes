@@ -104,11 +104,11 @@ steps:
   inputs:
     arguments: 'AngularWebApiSample.sln --configuration $(buildConfiguration)'
 
-# - task: DeleteFiles@1
-#   displayName: 'Clear test results'
-#   inputs:
-#     SourceFolder: '$(testResultsDirectory)'
-#     Contents: '**/*'
+- task: DeleteFiles@1
+  displayName: 'Clear test results'
+  inputs:
+    SourceFolder: '$(testResultsDirectory)'
+    Contents: '**/*'
 
 # - task: DotNetCoreCLI@2
 #   displayName: Test
@@ -132,11 +132,11 @@ steps:
   inputs:
     pollingTimeoutSec: '300'
 
-# - task: DeleteFiles@1
-#   displayName: 'Clear coverage files'
-#   inputs:
-#     SourceFolder: '$(testResultsDirectory)'
-#     Contents: '**/*.coverage'
+- task: DeleteFiles@1
+  displayName: 'Clear coverage files'
+  inputs:
+    SourceFolder: '$(testResultsDirectory)'
+    Contents: '**/*.coverage'
 
 # - task: PublishTestResults@2
 #   displayName: 'Publish Test Results'
