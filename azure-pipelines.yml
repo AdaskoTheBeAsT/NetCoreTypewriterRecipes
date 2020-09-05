@@ -15,21 +15,26 @@ steps:
     versionSpec: '12.x'
   displayName: 'Install Node.js'
 
-- task: Npm@1
-  inputs:
-    command: 'install -g @angular/cli'
-
 - task: YarnInstaller@3
   inputs:
     versionSpec: '1.x'
     checkLatest: true
 
-- task: Yarn@2
-  inputs:
-    ProjectDirectory: 'src/AngularWebApiSample/ClientApp'
-    Arguments: 'build'
+- script: |
+    npm install -g @angular/cli
+  displayName: 'npm install angular'
 
-- task: Yarn@2
-  inputs:
-    ProjectDirectory: 'src/AngularWebApiSample/ClientApp'
-    Arguments: 'test:coverage'
+- script: |
+    yarn
+  displayName: 'yarn install dependencies'
+  workingDirectory: 'src/AngularWebApiSample/ClientApp'
+
+- script: |
+    yarn build
+  displayName: 'yarn build'
+  workingDirectory: 'src/AngularWebApiSample/ClientApp'
+
+- script: |
+    yarn test:coverage
+  displayName: 'yarn install dependencies'
+  workingDirectory: 'src/AngularWebApiSample/ClientApp'
