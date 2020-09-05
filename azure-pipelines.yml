@@ -23,11 +23,6 @@ steps:
     packageType: 'sdk'
     useGlobalJson: true
 
-- task: VisualStudioTestPlatformInstaller@1
-  inputs:
-    packageFeedSelector: 'nugetOrg'
-    versionSelector: 'latestStable'
-
 - task: NodeTool@0
   inputs:
     versionSpec: '12.x'
@@ -56,9 +51,24 @@ steps:
     projectKey: 'AdaskoTheBeAsT_NetCoreTypewriterRecipes'
     projectName: NetCoreTypewriterRecipes
     extraProperties: |
-      sonar.resharper.cs.reportPath=$(Build.SourcesDirectory)/CodeQualityResults.xml
-      sonar.cs.opencover.reportsPaths=$(testResultsDirectory)/coverage.net461.opencover.xml,$(testResultsDirectory)/coverage.netcoreapp3.1.opencover.xml    
-  
+      sonar.eslint.reportPaths=reports/eslint-result.json
+      sonar.css.stylelint.reportPaths=reports/stylelint-report.json
+      sonar.javascript.lcov.reportPaths=reports/tscoverage      
+      sonar.testExecutionReportPaths=reports/frontend-test.sonar.xml
+#      sonar.resharper.cs.reportPath=$(Build.SourcesDirectory)/CodeQualityResults.xml
+#      sonar.cs.opencover.reportsPaths=$(testResultsDirectory)/coverage.net461.opencover.xml,$(testResultsDirectory)/coverage.netcoreapp3.1.opencover.xml
+
+- script: |
+    yarn eslint
+  condition: succeededOrFailed()
+  displayName: 'eslint'
+  workingDirectory: 'src/AngularWebApiSample/ClientApp'
+
+- script: |
+    yarn stylelint
+  condition: succeededOrFailed()
+  displayName: 'stylelint'
+  workingDirectory: 'src/AngularWebApiSample/ClientApp'
 
 - script: |
     yarn build
@@ -107,11 +117,11 @@ steps:
     publishTestResults: false
     arguments: '--configuration $(buildConfiguration) --collect:"Code Coverage" /t:rebuild /p:ContinuousIntegrationBuild=false /p:CollectCoverage=true "/p:CoverletOutputFormat=\"opencover,cobertura\"" /p:CoverletOutput=$(testResultsDirectory)/coverage  --logger:"trx" --results-directory $(testResultsDirectory)'
 
-- task: ResharperCli@2
-  inputs:
-    solutionOrProjectPath: 'AngularWebApiSample.sln'
-    failBuildLevelSelector: 'Warning'
-    resultsOutputFilePath: '$(Build.SourcesDirectory)/CodeQualityResults.xml'
+#- task: ResharperCli@2
+#  inputs:
+#    solutionOrProjectPath: 'AngularWebApiSample.sln'
+#    failBuildLevelSelector: 'Warning'
+#    resultsOutputFilePath: '$(Build.SourcesDirectory)/CodeQualityResults.xml'
   
 - task: SonarCloudAnalyze@1
   displayName: Sonar Cloud analyze
@@ -121,26 +131,26 @@ steps:
   inputs:
     pollingTimeoutSec: '300'
 
-- task: DeleteFiles@1
-  displayName: 'Clear coverage files'
-  inputs:
-    SourceFolder: '$(testResultsDirectory)'
-    Contents: '**/*.coverage'
+# - task: DeleteFiles@1
+#   displayName: 'Clear coverage files'
+#   inputs:
+#     SourceFolder: '$(testResultsDirectory)'
+#     Contents: '**/*.coverage'
 
-- task: PublishTestResults@2
-  displayName: 'Publish Test Results'
-  inputs:
-    testResultsFormat: 'VSTest'
-    testResultsFiles: '*.trx'
-    searchFolder: '$(testResultsDirectory)'
+# - task: PublishTestResults@2
+#   displayName: 'Publish Test Results'
+#   inputs:
+#     testResultsFormat: 'VSTest'
+#     testResultsFiles: '*.trx'
+#     searchFolder: '$(testResultsDirectory)'
 
-- task: reportgenerator@4
-  inputs:
-    reports: '$(testResultsDirectory)/coverage.*.cobertura.xml'
-    targetdir: '$(testResultsDirectory)/coverage'
+# - task: reportgenerator@4
+#   inputs:
+#     reports: '$(testResultsDirectory)/coverage.*.cobertura.xml'
+#     targetdir: '$(testResultsDirectory)/coverage'
 
-- task: PublishCodeCoverageResults@1
-  inputs:
-    codeCoverageTool: 'Cobertura'
-    summaryFileLocation: '$(testResultsDirectory)/coverage.*.cobertura.xml'
-    reportDirectory: '$(testResultsDirectory)/coverage'
+# - task: PublishCodeCoverageResults@1
+#   inputs:
+#     codeCoverageTool: 'Cobertura'
+#     summaryFileLocation: '$(testResultsDirectory)/coverage.*.cobertura.xml'
+#     reportDirectory: '$(testResultsDirectory)/coverage'
