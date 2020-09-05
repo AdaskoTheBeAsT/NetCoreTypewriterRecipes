@@ -36,5 +36,5 @@ steps:
 
 - script: |
     yarn test:coverage
-  displayName: 'yarn install dependencies'
+  displayName: 'yarn test with coverage'
   workingDirectory: 'src/AngularWebApiSample/ClientApp'
