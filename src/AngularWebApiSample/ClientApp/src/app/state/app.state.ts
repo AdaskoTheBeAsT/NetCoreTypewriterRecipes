@@ -3,7 +3,7 @@ import { AppAction } from './app.actions';
 import { Injectable } from '@angular/core';
 
 export class AppStateModel {
-  public items: string[];
+  public items: string[] = [];
 }
 
 @State<AppStateModel>({

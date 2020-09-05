@@ -23,17 +23,4 @@ describe('AppComponent', () => {
     const app = fixture.componentInstance;
     expect(app.title).toEqual('ClientApp');
   });
-
-  it('should render title', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    fixture.detectChanges();
-
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-    const compiled = fixture.nativeElement;
-
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-    expect(compiled.querySelector('.content span').textContent).toContain(
-      'ClientApp app is running!'
-    );
-  });
 });

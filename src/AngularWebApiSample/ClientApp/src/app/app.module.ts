@@ -6,9 +6,10 @@ import { AppComponent } from './app.component';
 import { TopNavComponent } from './ui/top-nav/top-nav.component';
 import { API_BASE_URL } from './app-config.module';
 import { environment } from 'src/environments/environment';
+import { MainComponent } from './main/main.component';
 
 @NgModule({
-  declarations: [AppComponent, TopNavComponent],
+  declarations: [AppComponent, TopNavComponent, MainComponent],
   imports: [BrowserModule, AppRoutingModule],
   providers: [{ provide: API_BASE_URL, useValue: environment.apiBaseUrl }],
   bootstrap: [AppComponent],

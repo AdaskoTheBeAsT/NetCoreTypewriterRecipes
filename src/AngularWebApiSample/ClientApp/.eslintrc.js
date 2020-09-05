@@ -9,8 +9,8 @@ module.exports = {
    * for what this recommended config contains.
    */
   extends: [
-    'plugin:@typescript-eslint/recommended',
-    'plugin:@typescript-eslint/recommended-requiring-type-checking',
+    //'plugin:@typescript-eslint/recommended',
+    //'plugin:@typescript-eslint/recommended-requiring-type-checking',
     'plugin:@angular-eslint/recommended',
     'plugin:sonarjs/recommended',
     'prettier',

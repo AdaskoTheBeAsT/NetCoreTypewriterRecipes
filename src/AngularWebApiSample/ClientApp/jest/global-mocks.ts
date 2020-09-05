@@ -1,4 +1,5 @@
-global.CSS = null;
+// tslint:disable-next-line: no-string-literal
+global['CSS'] = null;
 
 const mock = () => {
   let storage: Record<string, any> = {};
@@ -38,7 +39,7 @@ Object.defineProperty(document.body.style, 'transform', {
 
 Object.defineProperty(window, 'matchMedia', {
   writable: true,
-  value: jest.fn().mockImplementation(query => ({
+  value: jest.fn().mockImplementation((query) => ({
     matches: false,
     media: query,
     onchange: null,
