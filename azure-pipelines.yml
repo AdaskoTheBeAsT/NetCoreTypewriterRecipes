@@ -60,13 +60,13 @@ steps:
 
 - script: |
     yarn eslint
-  condition: succeededOrFailed()
+  continueOnError: true
   displayName: 'eslint'
   workingDirectory: 'src/AngularWebApiSample/ClientApp'
 
 - script: |
     yarn stylelint
-  condition: succeededOrFailed()
+  continueOnError: true
   displayName: 'stylelint'
   workingDirectory: 'src/AngularWebApiSample/ClientApp'
 
@@ -77,6 +77,7 @@ steps:
 
 - script: |
     yarn test:coverage
+  continueOnError: true
   displayName: 'yarn test with coverage'
   workingDirectory: 'src/AngularWebApiSample/ClientApp'
 
