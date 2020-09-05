@@ -1,6 +1,3 @@
-// tslint:disable-next-line: no-string-literal
-global['CSS'] = null;
-
 const mock = () => {
   let storage: Record<string, any> = {};
   return {
