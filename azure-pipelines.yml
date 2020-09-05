@@ -38,3 +38,15 @@ steps:
     yarn test:coverage
   displayName: 'yarn test with coverage'
   workingDirectory: 'src/AngularWebApiSample/ClientApp'
+
+- task: PublishTestResults@2
+  condition: succeededOrFailed()
+  inputs:
+    testRunner: JUnit
+    testResultsFiles: 'reports/frontendunittest/frontend-test.junit.xml'
+
+- task: PublishCodeCoverageResults@1
+  inputs: 
+    codeCoverageTool: Cobertura
+    summaryFileLocation: 'reports/tscoverage/cobertura-coverage.xml'
+    reportDirectory: 'reports/tscoverage'
