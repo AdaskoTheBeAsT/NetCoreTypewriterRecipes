@@ -15,6 +15,10 @@ steps:
     versionSpec: '12.x'
   displayName: 'Install Node.js'
 
+- task: Npm@1
+  inputs:
+    command: 'install -g @angular/cli'
+
 - task: YarnInstaller@3
   inputs:
     versionSpec: '1.x'
