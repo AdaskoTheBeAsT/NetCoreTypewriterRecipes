@@ -3,3 +3,4 @@
 **/src/api/**/*.
 **/*eslintrc.js
 ./resultsProcessor.js
+jest.config.js

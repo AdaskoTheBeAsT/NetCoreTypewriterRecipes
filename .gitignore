@@ -65,4 +65,5 @@ xunit/*
 .vs/
 C/**/*
 reports/**/*.*
+!reports/.gitkeep
 
