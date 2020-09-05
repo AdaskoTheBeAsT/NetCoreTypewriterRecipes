@@ -8,16 +8,17 @@ describe('App actions', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [NgxsModule.forRoot([AppState])]
+      imports: [NgxsModule.forRoot([AppState])],
     }).compileComponents();
     store = TestBed.inject(Store);
   }));
 
   it('should create an action and add an item', () => {
     store.dispatch(new AppAction('item-1'));
-    store.select(state => state.app.items).subscribe((items: string[]) => {
-      expect(items).toEqual(expect.objectContaining(['item-1']));
-    });
+    store
+      .select((state) => state.app.items)
+      .subscribe((items: string[]) => {
+        expect(items).toEqual(expect.objectContaining(['item-1']));
+      });
   });
-
 });

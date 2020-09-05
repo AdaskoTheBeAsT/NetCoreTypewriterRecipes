@@ -9,15 +9,15 @@ export class AppStateModel {
 @State<AppStateModel>({
   name: 'app',
   defaults: {
-    items: []
-  }
+    items: [],
+  },
 })
 @Injectable()
 export class AppState {
   @Action(AppAction)
   add(ctx: StateContext<AppStateModel>, action: AppAction): void {
     const a = 2;
-    if (a !== 2) { 
+    if (a !== 2) {
       alert(a);
     }
     const state = ctx.getState();

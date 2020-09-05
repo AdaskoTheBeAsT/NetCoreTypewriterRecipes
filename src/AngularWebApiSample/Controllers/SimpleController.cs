@@ -16,7 +16,7 @@ namespace AngularWebApiSample.Controllers
         public IActionResult Get()
 #pragma warning restore SEC0120 // Missing Authorization Attribute
         {
-            return Ok(new string[] { "value1", "value2" });
+            return Ok(new [] { "value1", "value2" });
         }
 
         // GET api/values/5

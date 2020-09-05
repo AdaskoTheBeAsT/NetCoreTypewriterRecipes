@@ -5,15 +5,10 @@ import { AppComponent } from './app.component';
 import { TopNavComponent } from './ui/top-nav/top-nav.component';
 
 describe('AppComponent', () => {
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      imports: [
-        RouterTestingModule
-      ],
-      declarations: [
-        AppComponent,
-        MockComponent(TopNavComponent)
-      ],
+  beforeEach(async((): Promise<void> => {
+    return TestBed.configureTestingModule({
+      imports: [RouterTestingModule],
+      declarations: [AppComponent, MockComponent(TopNavComponent)],
     }).compileComponents();
   }));
 
@@ -23,7 +18,7 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  it('should have as title \'ClientApp\'', () => {
+  it('should have as title ClientApp', () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
     expect(app.title).toEqual('ClientApp');
@@ -32,7 +27,13 @@ describe('AppComponent', () => {
   it('should render title', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
+
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
     const compiled = fixture.nativeElement;
-    expect(compiled.querySelector('.content span').textContent).toContain('ClientApp app is running!');
+
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+    expect(compiled.querySelector('.content span').textContent).toContain(
+      'ClientApp app is running!'
+    );
   });
 });

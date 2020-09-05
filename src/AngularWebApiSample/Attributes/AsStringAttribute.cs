@@ -8,8 +8,5 @@ namespace AngularWebApiSample.Attributes
     public class AsStringAttribute
         : Attribute
     {
-        public AsStringAttribute()
-        {
-        }
     }
 }

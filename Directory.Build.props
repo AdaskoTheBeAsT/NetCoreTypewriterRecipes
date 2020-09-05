@@ -1,27 +1,27 @@
 <Project>
 
-    <PropertyGroup Label="Package">
-        <Version>1.0.0</Version>
-        <Authors>AdaskoTheBeAsT</Authors>
-        <Company></Company>
-        <Product>AngularWebApiSample</Product>
-        <Description></Description>
-        <Copyright>Copyright © AdaskoTheBeAsT. All rights Reserved</Copyright>
-    </PropertyGroup>
-    
-    <!-- Based on article https://www.thomaslevesque.com/2017/09/18/common-msbuild-properties-and-items-with-directory-build-props/ -->
-    <PropertyGroup>
-        <!-- Common ruleset shared by all projects -->
-        <CodeAnalysisRuleset>$(MSBuildThisFileDirectory)AdaskoTheBeAsT.ruleset</CodeAnalysisRuleset>
-        <LangVersion>8.0</LangVersion>
-        <Nullable>enable</Nullable>
-        <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-        <WarningsAsErrors />
-        <NoWarn>$(NoWarn);1701;1702;1591</NoWarn>
-        <GenerateDocumentationFile>true</GenerateDocumentationFile>
-    </PropertyGroup>
+  <PropertyGroup Label="Package">
+    <Version>1.0.0</Version>
+    <Authors>AdaskoTheBeAsT</Authors>
+    <Company></Company>
+    <Product>AngularWebApiSample</Product>
+    <Description></Description>
+    <Copyright>Copyright © AdaskoTheBeAsT. All rights Reserved</Copyright>
+  </PropertyGroup>
 
-    <ItemGroup>
+  <!-- Based on article https://www.thomaslevesque.com/2017/09/18/common-msbuild-properties-and-items-with-directory-build-props/ -->
+  <PropertyGroup>
+    <!-- Common ruleset shared by all projects -->
+    <CodeAnalysisRuleset>$(MSBuildThisFileDirectory)AdaskoTheBeAsT.ruleset</CodeAnalysisRuleset>
+    <LangVersion>8.0</LangVersion>
+    <Nullable>enable</Nullable>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <WarningsAsErrors />
+    <NoWarn>$(NoWarn);1701;1702;1591</NoWarn>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+  </PropertyGroup>
+
+  <ItemGroup>
     <!-- Add reference to analyzers to all projects  -->
     <PackageReference Include="AsyncFixer" Version="1.3.0" >
       <PrivateAssets>all</PrivateAssets>
@@ -35,31 +35,31 @@
     <PackageReference Include="IDisposableAnalyzers" Version="3.4.1" >
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
-    <PackageReference Include="Meziantou.Analyzer" Version="1.0.473" >
+    <PackageReference Include="Meziantou.Analyzer" Version="1.0.561" >
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
-    <PackageReference Include="Microsoft.CodeAnalysis" Version="3.6.0" >
+    <PackageReference Include="Microsoft.CodeAnalysis" Version="3.7.0" >
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
-    <PackageReference Include="Microsoft.CodeAnalysis.Analyzers" Version="3.0.0" >
+    <PackageReference Include="Microsoft.CodeAnalysis.Analyzers" Version="3.3.0" >
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
-    <PackageReference Include="Microsoft.CodeAnalysis.Common" Version="3.6.0" >
+    <PackageReference Include="Microsoft.CodeAnalysis.Common" Version="3.7.0" >
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
-    <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="3.6.0" >
+    <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="3.7.0" >
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
-    <PackageReference Include="Microsoft.CodeAnalysis.CSharp.Scripting" Version="3.6.0" >
+    <PackageReference Include="Microsoft.CodeAnalysis.CSharp.Scripting" Version="3.7.0" >
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
-    <PackageReference Include="Microsoft.CodeAnalysis.CSharp.Workspaces" Version="3.6.0" >
+    <PackageReference Include="Microsoft.CodeAnalysis.CSharp.Workspaces" Version="3.7.0" >
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
-    <PackageReference Include="Microsoft.CodeAnalysis.Workspaces.Common" Version="3.6.0" >
+    <PackageReference Include="Microsoft.CodeAnalysis.Workspaces.Common" Version="3.7.0" >
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
-    <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="3.0.0" >
+    <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="3.3.0" >
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
     <PackageReference Include="Puma.Security.Rules" Version="2.4.6" >
@@ -74,7 +74,7 @@
     <PackageReference Include="SecurityCodeScan" Version="3.5.3" >
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
-    <PackageReference Include="SonarAnalyzer.CSharp" Version="8.10.0.19839" >
+    <PackageReference Include="SonarAnalyzer.CSharp" Version="8.12.0.21095" >
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
     <PackageReference Include="StyleCop.Analyzers" Version="1.2.0-beta.205" >

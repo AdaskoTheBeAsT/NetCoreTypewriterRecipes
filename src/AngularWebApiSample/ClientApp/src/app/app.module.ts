@@ -8,17 +8,9 @@ import { API_BASE_URL } from './app-config.module';
 import { environment } from 'src/environments/environment';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    TopNavComponent
-  ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule
-  ],
-  providers: [
-    { provide: API_BASE_URL, useValue: environment.apiBaseUrl }
-  ],
-  bootstrap: [AppComponent]
+  declarations: [AppComponent, TopNavComponent],
+  imports: [BrowserModule, AppRoutingModule],
+  providers: [{ provide: API_BASE_URL, useValue: environment.apiBaseUrl }],
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
