@@ -52,6 +52,7 @@ steps:
     cliProjectName: 'NetCoreTypewriterRecipes'
     cliSources: './src/AngularWebApiSample/ClientApp'
     extraProperties: |
+      sonar.coverage.exclusions=$(Build.SourcesDirectory)/src/AngularWebApiSample/ClientApp/*.js,$(Build.SourcesDirectory)/src/AngularWebApiSample/ClientApp/e2e/**/*.*
       sonar.eslint.reportPaths=$(Build.SourcesDirectory)/reports/eslint-result.json
       sonar.css.stylelint.reportPaths=$(Build.SourcesDirectory)/reports/stylelint-report.json
       sonar.javascript.lcov.reportPaths=$(Build.SourcesDirectory)/reports/tscoverage/lcov.info      
