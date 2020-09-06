@@ -14,7 +14,7 @@ variables:
   unitTestProjects: '**/test/unit/**/*.csproj'
   testResultsDirectory: 'd:/a/1/TestResults'
   MSBUILDSINGLELOADCONTEXT: 1
-  disable.coverage.autogenerate: 'true'
+  disable.coverage.autogenerate: 'false'
 
 steps:
 - task: UseDotNet@2
