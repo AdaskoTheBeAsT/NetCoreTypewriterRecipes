@@ -7,7 +7,7 @@ trigger:
 - master
 
 pool:
-  vmImage: 'windows-2019'
+  vmImage: 'ubuntu-latest'
 
 variables:
   buildConfiguration: 'Release'
@@ -44,7 +44,7 @@ steps:
 
 - task: SonarCloudPrepare@1
   inputs:
-    SonarCloud: 'AdaskoTheBeAsT.NetCoreTypewriterRecipes'
+    SonarCloud: 'Sonar.AdaskoTheBeAsT.NetCoreTypewriterRecipes'
     organization: 'adaskothebeast-github'
     scannerMode: 'CLI'
     configMode: 'manual'
@@ -52,6 +52,7 @@ steps:
     cliProjectName: 'NetCoreTypewriterRecipes'
     cliSources: './src/AngularWebApiSample/ClientApp'
     extraProperties: |
+      sonar.coverage.exclusions=**/ClientApp/*.js,**/ClientApp/e2e/**/*.*
       sonar.eslint.reportPaths=$(Build.SourcesDirectory)/reports/eslint-result.json
       sonar.css.stylelint.reportPaths=$(Build.SourcesDirectory)/reports/stylelint-report.json
       sonar.javascript.lcov.reportPaths=$(Build.SourcesDirectory)/reports/tscoverage/lcov.info      
