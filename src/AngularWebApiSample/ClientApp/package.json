@@ -14,6 +14,7 @@
     "lint": "ng lint",
     "lint2": "eslint -c .eslintrc.js --ext .ts .",
     "eslint": "eslint -c .eslintrc.js -o ../../../reports/eslint-result.json -f json --ext .ts .",
+    "eslint-console": "eslint -c .eslintrc.js --ext .ts .",
     "e2e": "testcafe-live chrome e2e/**/*.e2e-spec.ts",
     "e2e:ci": "testcafe chrome e2e/**/*.e2e-spec.ts --app \"yarn start\" --app-init-delay 40000 --proxy-bypass http://localhost:4200/",
     "format": "prettier {src,e2e}/**/*.{ts,md,scss} !src/api/**/*.ts --write",

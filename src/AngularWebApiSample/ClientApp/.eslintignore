@@ -1,6 +1,6 @@
 **/jest/**/*.ts
 **/node_modules/**
-**/src/api/**/*.
+**/src/api/**/*.ts
 **/*eslintrc.js
 ./resultsProcessor.js
 jest.config.js
