@@ -26,7 +26,7 @@ namespace AngularWebApiSample.Controllers
         public IActionResult Get(Guid id)
 #pragma warning restore SEC0120 // Missing Authorization Attribute
         {
-            return Ok(new SimpleModel { Num = 2, Text = "ok" });
+            return Ok(new SimpleModel(2, "ok", true));
         }
     }
 #pragma warning restore RCS1163,CA1801 // Unused parameter.

@@ -27,3 +27,5 @@ export class CombinedResultModel implements ICombinedResultModel {
         }
     }
 }
+
+

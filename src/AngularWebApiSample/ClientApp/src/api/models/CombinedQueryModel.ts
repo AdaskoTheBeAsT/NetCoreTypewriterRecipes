@@ -27,3 +27,5 @@ export class CombinedQueryModel implements ICombinedQueryModel {
         }
     }
 }
+
+

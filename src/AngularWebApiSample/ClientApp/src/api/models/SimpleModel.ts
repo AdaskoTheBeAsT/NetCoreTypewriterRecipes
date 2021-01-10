@@ -2,19 +2,20 @@
 // Do not modify it.
 
 
-import { string } from './string';
+
+
 
 export interface ISimpleModel {
     $type?: string;
     num?: number;
-    text?: string[];
+    text?: string | null;
     isOk?: boolean;
 }
 
 export class SimpleModel implements ISimpleModel {
     public $type: string;
     public num: number;
-    public text: string[];
+    public text: string | null;
     public isOk: boolean;
 
     constructor(initObj?: ISimpleModel) {
@@ -22,12 +23,13 @@ export class SimpleModel implements ISimpleModel {
             + 'AngularWebApiSample.Models';
         if (initObj) {
             this.num = initObj.num || 0;
-            this.text = initObj.text || [];
+            this.text = initObj.text || null;
             this.isOk = initObj.isOk || false;
         } else {
             this.num = 0;
-            this.text = [];
+            this.text = null;
             this.isOk = false;
         }
     }
 }
+
