@@ -336,7 +336,7 @@ export namespace $Name {
             list.push(parseInt(enumMember, 10));
         }
 
-        return list;     
+        return list;
     }]
 }
 ]

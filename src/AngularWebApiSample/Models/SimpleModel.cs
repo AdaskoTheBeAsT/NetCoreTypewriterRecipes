@@ -6,5 +6,7 @@ namespace AngularWebApiSample.Models
     public record SimpleModel(
         int Num,
         string? Text,
-        bool IsOk);
+        bool IsOk,
+        FirstSet FirstSet,
+        SecondSet SecondSet);
 }

@@ -1,6 +1,6 @@
 # Typewriter recipes
 
-This is part of the presentation how to generate automaticaly models and services from controllers and model classes in .net core web api for angular>11.x.x using [Typewriter Unofficial Fork](https://github.com/AdaskoTheBeAsT/Typewriter/releases/tag/1.30.0)
+This is part of the presentation how to generate automaticaly models and services from controllers and model classes in .net core web api for angular>11.x.x using [Typewriter Unofficial Fork](https://github.com/AdaskoTheBeAsT/Typewriter/releases/tag/1.32.0)
 
 ## Backend
 

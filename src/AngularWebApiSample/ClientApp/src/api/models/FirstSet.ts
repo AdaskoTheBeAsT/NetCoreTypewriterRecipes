@@ -30,7 +30,7 @@ export namespace FirstSet {
             list.push(parseInt(enumMember, 10));
         }
 
-        return list;     
+        return list;
     }
 }
 
