@@ -7,7 +7,7 @@ namespace AngularWebApiSample
 {
     public partial class Startup
     {
-        private const string NamespacePrefix = "AngularWebApiSample";
+        private const string NamespacePrefix = nameof(AngularWebApiSample);
 
 #pragma warning disable MA0016 // Prefer return collection abstraction instead of implementation
         public List<Assembly> GetAssemblies()

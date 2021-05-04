@@ -5,7 +5,7 @@ namespace AngularWebApiSample.Attributes
 {
     [AttributeUsage(AttributeTargets.Field)]
     [ExcludeFromCodeCoverage]
-    public class LabelForEnumAttribute
+    public sealed class LabelForEnumAttribute
         : Attribute
     {
         public LabelForEnumAttribute(string label)

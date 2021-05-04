@@ -21,14 +21,14 @@ namespace AngularWebApiSample
 #pragma warning disable CA1031 // Do not catch general exception types
         public static int Main(string[] args)
         {
-            IWebHost? host = default;
+            var host = default(IWebHost);
             try
             {
                 host = CreateWebHostBuilder(args).Build();
                 host.Run();
                 return 0;
             }
-            catch
+            catch (Exception)
             {
                 return 1;
             }

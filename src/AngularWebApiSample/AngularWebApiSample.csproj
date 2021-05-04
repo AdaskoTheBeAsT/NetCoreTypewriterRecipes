@@ -2,7 +2,7 @@
 
     <PropertyGroup Label="Build">
         <TargetFramework>net5</TargetFramework>
-        <TypeScriptToolsVersion>3.9</TypeScriptToolsVersion>
+        <TypeScriptToolsVersion>4.2</TypeScriptToolsVersion>
         <TypeScriptCompileBlocked>true</TypeScriptCompileBlocked>
         <SpaRoot>ClientApp\</SpaRoot>
         <DefaultItemExcludes>$(DefaultItemExcludes);$(SpaRoot)node_modules\**</DefaultItemExcludes>
@@ -18,18 +18,18 @@
     </PropertyGroup>
 
     <ItemGroup Label="Package References">
-        <PackageReference Include="AdaskoTheBeAsT.AutoMapper.SimpleInjector" Version="4.1.0" />
-        <PackageReference Include="AdaskoTheBeAsT.FluentValidation.MediatR" Version="4.1.0" />
-        <PackageReference Include="AdaskoTheBeAsT.FluentValidation.SimpleInjector" Version="4.1.0" />
-        <PackageReference Include="AdaskoTheBeAsT.MediatR.SimpleInjector.AspNetCore" Version="4.1.0" />
-        <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="5.0.1" />
+        <PackageReference Include="AdaskoTheBeAsT.AutoMapper.SimpleInjector" Version="4.2.0" />
+        <PackageReference Include="AdaskoTheBeAsT.FluentValidation.MediatR" Version="5.0.1" />
+        <PackageReference Include="AdaskoTheBeAsT.FluentValidation.SimpleInjector" Version="5.0.1" />
+        <PackageReference Include="AdaskoTheBeAsT.MediatR.SimpleInjector.AspNetCore" Version="4.2.0" />
+        <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="5.0.5" />
         <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="5.0.0" />
         <PackageReference Include="Microsoft.Extensions.Configuration" Version="5.0.0" />
         <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="5.0.0" />
-        <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
-        <PackageReference Include="SimpleInjector" Version="5.2.0" />
-        <PackageReference Include="SimpleInjector.Integration.AspNetCore.Mvc.Core" Version="5.2.0" />
-        <PackageReference Include="Swashbuckle.AspNetCore" Version="5.6.3" />
+        <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+        <PackageReference Include="SimpleInjector" Version="5.3.0" />
+        <PackageReference Include="SimpleInjector.Integration.AspNetCore.Mvc.Core" Version="5.3.0" />
+        <PackageReference Include="Swashbuckle.AspNetCore" Version="6.1.4" />
     </ItemGroup>
 
     <ItemGroup>

@@ -6,7 +6,8 @@ import { Observable } from 'rxjs';
 
 import { API_BASE_URL } from 'src/app/app-config.module';
 
-import { HttpParamsProcessor } from 'src/api/services/_HttpParamsProcessor';
+
+import { HttpParamsProcessorService } from '@adaskothebeast/http-params-processor';
 import { SimpleModel } from 'src/api/models/SimpleModel';
 
 
@@ -24,7 +25,10 @@ export interface IApiMidService {
     { providedIn: 'root' }
 )
 export class ApiMidService implements IApiMidService {
-    constructor (@Inject(HttpClient) protected http: HttpClient, @Optional() @Inject(API_BASE_URL) protected baseUrl?: string) {
+    constructor (
+      @Inject(HttpClient) protected http: HttpClient,
+      @Optional() @Inject(API_BASE_URL) protected baseUrl?: string,
+      @Inject(HttpParamsProcessorService) protected processor: HttpParamsProcessorService) {
     }
 
     public get midServiceUrl(): string {
@@ -59,11 +63,10 @@ export class ApiMidService implements IApiMidService {
             .set('If-Modified-Since', '0');
 
         let params = new HttpParams();
-        const httpParamsProcessor = new HttpParamsProcessor();
         const parr = [];
 
         parr.push(id);
-        params = httpParamsProcessor.processInternal(params, 'id', parr.pop());
+        params = this.processor.processInternal(params, 'id', parr.pop());
 
         return this.http.get<SimpleModel>(
             this.midServiceUrl + '',

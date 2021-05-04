@@ -6,7 +6,8 @@ import { Observable } from 'rxjs';
 
 import { API_BASE_URL } from 'src/app/app-config.module';
 
-import { HttpParamsProcessor } from 'src/api/services/_HttpParamsProcessor';
+
+import { HttpParamsProcessorService } from '@adaskothebeast/http-params-processor';
 import { CombinedResultModel } from 'src/api/models/CombinedResultModel';
 import { CombinedQueryModel } from 'src/api/models/CombinedQueryModel';
 
@@ -25,7 +26,10 @@ export interface IApiComplexService {
     { providedIn: 'root' }
 )
 export class ApiComplexService implements IApiComplexService {
-    constructor (@Inject(HttpClient) protected http: HttpClient, @Optional() @Inject(API_BASE_URL) protected baseUrl?: string) {
+    constructor (
+      @Inject(HttpClient) protected http: HttpClient,
+      @Optional() @Inject(API_BASE_URL) protected baseUrl?: string,
+      @Inject(HttpParamsProcessorService) protected processor: HttpParamsProcessorService) {
     }
 
     public get complexServiceUrl(): string {
@@ -60,11 +64,10 @@ export class ApiComplexService implements IApiComplexService {
             .set('If-Modified-Since', '0');
 
         let params = new HttpParams();
-        const httpParamsProcessor = new HttpParamsProcessor();
         const parr = [];
 
         parr.push(query);
-        params = httpParamsProcessor.processInternal(params, 'query', parr.pop());
+        params = this.processor.processInternal(params, 'query', parr.pop());
 
         return this.http.get<CombinedResultModel>(
             this.complexServiceUrl + '',

@@ -23,10 +23,12 @@ namespace AngularWebApiSample.Controllers
         [HttpGet]
         [ProducesResponseType(typeof(SimpleModel), 200)]
 #pragma warning disable SEC0120 // Missing Authorization Attribute
+#pragma warning disable CC0057 // Unused parameters
         public IActionResult Get(Guid id)
+#pragma warning restore CC0057 // Unused parameters
 #pragma warning restore SEC0120 // Missing Authorization Attribute
         {
-            return Ok(new SimpleModel(2, "ok", true));
+            return Ok(new SimpleModel(2, "ok", true, FirstSet.ValA, SecondSet.ValB));
         }
     }
 #pragma warning restore RCS1163,CA1801 // Unused parameter.

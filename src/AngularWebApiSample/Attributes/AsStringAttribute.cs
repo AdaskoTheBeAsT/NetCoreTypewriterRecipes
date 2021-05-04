@@ -5,7 +5,7 @@ namespace AngularWebApiSample.Attributes
 {
     [AttributeUsage(AttributeTargets.Enum)]
     [ExcludeFromCodeCoverage]
-    public class AsStringAttribute
+    public sealed class AsStringAttribute
         : Attribute
     {
     }

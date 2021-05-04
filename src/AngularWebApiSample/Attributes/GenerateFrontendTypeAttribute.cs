@@ -5,7 +5,7 @@ namespace AngularWebApiSample.Attributes
 {
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Enum, Inherited = false)]
     [ExcludeFromCodeCoverage]
-    public class GenerateFrontendTypeAttribute : Attribute
+    public sealed class GenerateFrontendTypeAttribute : Attribute
     {
         public GenerateFrontendTypeAttribute()
         {

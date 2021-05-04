@@ -6,7 +6,8 @@ import { Observable } from 'rxjs';
 
 import { API_BASE_URL } from 'src/app/app-config.module';
 
-import { HttpParamsProcessor } from 'src/api/services/_HttpParamsProcessor';
+
+import { HttpParamsProcessorService } from '@adaskothebeast/http-params-processor';
 
 
 
@@ -25,7 +26,10 @@ export interface IApiSimpleService {
     { providedIn: 'root' }
 )
 export class ApiSimpleService implements IApiSimpleService {
-    constructor (@Inject(HttpClient) protected http: HttpClient, @Optional() @Inject(API_BASE_URL) protected baseUrl?: string) {
+    constructor (
+      @Inject(HttpClient) protected http: HttpClient,
+      @Optional() @Inject(API_BASE_URL) protected baseUrl?: string,
+      @Inject(HttpParamsProcessorService) protected processor: HttpParamsProcessorService) {
     }
 
     public get simpleServiceUrl(): string {
@@ -42,7 +46,6 @@ export class ApiSimpleService implements IApiSimpleService {
             .set('If-Modified-Since', '0');
 
         let params = new HttpParams();
-        const httpParamsProcessor = new HttpParamsProcessor();
         const parr = [];
 
 
@@ -64,11 +67,10 @@ export class ApiSimpleService implements IApiSimpleService {
             .set('If-Modified-Since', '0');
 
         let params = new HttpParams();
-        const httpParamsProcessor = new HttpParamsProcessor();
         const parr = [];
 
         parr.push(id);
-        params = httpParamsProcessor.processInternal(params, 'id', parr.pop());
+        params = this.processor.processInternal(params, 'id', parr.pop());
 
         return this.http.get<string>(
             this.simpleServiceUrl + '/{id}',
@@ -112,11 +114,10 @@ export class ApiSimpleService implements IApiSimpleService {
             .set('If-Modified-Since', '0');
 
         let params = new HttpParams();
-        const httpParamsProcessor = new HttpParamsProcessor();
         const parr = [];
 
         parr.push(id);
-        params = httpParamsProcessor.processInternal(params, 'id', parr.pop());
+        params = this.processor.processInternal(params, 'id', parr.pop());
 
         return this.http.delete<void>(
             this.simpleServiceUrl + '/{id}',

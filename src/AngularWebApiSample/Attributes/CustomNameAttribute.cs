@@ -5,7 +5,7 @@ namespace AngularWebApiSample.Attributes
 {
     [AttributeUsage(AttributeTargets.Method, Inherited = false)]
     [ExcludeFromCodeCoverage]
-    public class CustomNameAttribute : Attribute
+    public sealed class CustomNameAttribute : Attribute
     {
         public CustomNameAttribute(string name)
         {
