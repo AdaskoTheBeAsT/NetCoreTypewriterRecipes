@@ -1,5 +1,4 @@
-package.json
-tsconfig.json
-tsconfig.*.json
-package-lock.json
-yarn-lock.json
+# Add files here to ignore them from prettier formatting
+
+/dist
+/coverage

@@ -3,5 +3,15 @@
     "stylelint-config-standard",
     "stylelint-config-sass-guidelines",
     "stylelint-config-prettier"
-  ]
+  ],
+  "rules": {
+    "no-empty-source": null,
+    "selector-type-no-unknown": null,
+    "selector-pseudo-element-no-unknown": [
+      true,
+      {
+        "ignorePseudoElements": ["ng-deep"]
+      }
+    ]
+  }
 }
