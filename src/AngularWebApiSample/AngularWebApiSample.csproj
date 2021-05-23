@@ -22,7 +22,7 @@
         <PackageReference Include="AdaskoTheBeAsT.FluentValidation.MediatR" Version="5.0.1" />
         <PackageReference Include="AdaskoTheBeAsT.FluentValidation.SimpleInjector" Version="5.0.1" />
         <PackageReference Include="AdaskoTheBeAsT.MediatR.SimpleInjector.AspNetCore" Version="4.2.0" />
-        <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="5.0.5" />
+        <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="5.0.6" />
         <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="5.0.0" />
         <PackageReference Include="Microsoft.Extensions.Configuration" Version="5.0.0" />
         <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="5.0.0" />

@@ -80,7 +80,7 @@
     <PackageReference Include="SecurityCodeScan.VS2019" Version="5.1.0" >
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
-    <PackageReference Include="SonarAnalyzer.CSharp" Version="8.22.0.31243" >
+    <PackageReference Include="SonarAnalyzer.CSharp" Version="8.23.0.32424" >
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
     <PackageReference Include="StyleCop.Analyzers" Version="1.2.0-beta.333" >

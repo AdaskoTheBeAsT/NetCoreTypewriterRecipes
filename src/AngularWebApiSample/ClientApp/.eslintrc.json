@@ -1,7 +1,6 @@
 {
   "root": true,
-  //"ignorePatterns": ["**/*"],
-  "plugins": ["@nrwl/nx","testcafe"],
+  "plugins": ["@nrwl/nx", "testcafe"],
   "overrides": [
     {
       "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
@@ -12,7 +11,10 @@
             "enforceBuildableLibDependency": true,
             "allow": [],
             "depConstraints": [
-              { "sourceTag": "*", "onlyDependOnLibsWithTags": ["*"] }
+              {
+                "sourceTag": "*",
+                "onlyDependOnLibsWithTags": ["*"]
+              }
             ]
           }
         ]

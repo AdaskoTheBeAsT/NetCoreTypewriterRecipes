@@ -47,13 +47,20 @@
             "main": "apps/client-app/src/main.ts",
             "polyfills": "apps/client-app/src/polyfills.ts",
             "tsConfig": "apps/client-app/tsconfig.app.json",
-            "aot": true,
             "assets": [
               "apps/client-app/src/favicon.ico",
               "apps/client-app/src/assets"
             ],
-            "styles": ["apps/client-app/src/styles.scss"],
-            "scripts": []
+            "styles": [
+              "apps/client-app/src/styles.scss"
+            ],
+            "scripts": [],
+            "vendorChunk": true,
+            "extractLicenses": false,
+            "buildOptimizer": false,
+            "sourceMap": true,
+            "optimization": false,
+            "namedChunks": true
           },
           "configurations": {
             "production": {
@@ -113,7 +120,9 @@
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/apps/client-app"],
+          "outputs": [
+            "coverage/apps/client-app"
+          ],
           "options": {
             "jestConfig": "apps/client-app/jest.config.js",
             "passWithNoTests": true
@@ -129,9 +138,13 @@
         "e2e": {
           "builder": "angular-testcafe:testcafe",
           "options": {
-            "browsers": ["chrome"],
+            "browsers": [
+              "chrome"
+            ],
             "devServerTarget": "client-app:serve",
-            "src": ["apps/client-app-e2e/**/*.e2e-spec.ts"],
+            "src": [
+              "apps/client-app-e2e/**/*.e2e-spec.ts"
+            ],
             "reporters": [
               {
                 "name": "html",
@@ -152,7 +165,9 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": ["apps/client-app-e2e/**/*.{js,ts}"]
+            "lintFilePatterns": [
+              "apps/client-app-e2e/**/*.{js,ts}"
+            ]
           }
         }
       }
