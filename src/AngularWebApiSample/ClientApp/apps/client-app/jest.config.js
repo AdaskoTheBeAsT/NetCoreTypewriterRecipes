@@ -1,3 +1,5 @@
+const reportPath = '../../../reports/frontendunittest/apps/client-app/';
+
 module.exports = {
   displayName: 'client-app',
   preset: '../../jest.preset.js',
@@ -8,8 +10,7 @@ module.exports = {
       stringifyContentPathRegex: '\\.(html|svg)$',
     },
   },
-  coverageDirectory:
-    '../../../../../reports/frontendunittest/apps/client-app/coverage',
+  coverageDirectory: `../../${reportPath}coverage`,
   snapshotSerializers: [
     'jest-preset-angular/build/serializers/no-ng-attributes',
     'jest-preset-angular/build/serializers/ng-snapshot',
@@ -22,7 +23,7 @@ module.exports = {
     [
       'jest-stare',
       {
-        resultDir: '../../../reports/frontendunittest/apps/client-app/',
+        resultDir: reportPath,
         reportTitle: 'Frontend test',
         additionalResultsProcessors: [],
         coverageLink: 'coverage/index.html',
@@ -35,7 +36,7 @@ module.exports = {
     [
       'jest-html-reporters',
       {
-        publicPath: '../../../reports/frontendunittest/apps/client-app/',
+        publicPath: reportPath,
         filename: 'frontend-test-report.html',
         pageTitle: 'Frontend test',
         expand: true,
@@ -44,7 +45,7 @@ module.exports = {
     [
       'jest-xunit',
       {
-        outputPath: '../../../reports/frontendunittest/apps/client-app/',
+        outputPath: reportPath,
         filename: 'frontend-test-report.xunit.xml',
         traitsRegex: [
           { regex: /\(Test Type:([^,)]+)(,|\)).*/g, name: 'Category' },
@@ -55,21 +56,20 @@ module.exports = {
     [
       'jest-sonar',
       {
-        outputDirectory: '../../../reports/frontendunittest/apps/client-app/',
+        outputDirectory: reportPath,
         outputName: 'frontend-test.sonar.xml',
       },
     ],
     [
       'jest-trx-results-processor',
       {
-        outputFile:
-          '../../../reports/frontendunittest/apps/client-app/frontend-test.trx',
+        outputFile: `${reportPath}frontend-test.trx`,
       },
     ],
     [
       'jest-junit',
       {
-        outputDirectory: '../../../reports/frontendunittest/apps/client-app/',
+        outputDirectory: reportPath,
         outputName: 'frontend-test.junit.xml',
       },
     ],
