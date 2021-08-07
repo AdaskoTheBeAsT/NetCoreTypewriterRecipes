@@ -109,14 +109,14 @@ steps:
 
   - task: reportgenerator@4
     inputs:
-      reports: "$(Build.SourcesDirectory)/reports/apps/client-app/coverage/cobertura-coverage.xml"
-      targetdir: "$(Build.SourcesDirectory)/reports/apps/client-app/coverage"
+      reports: "$(Build.SourcesDirectory)/reports/frontendunittest/apps/client-app/coverage/cobertura-coverage.xml"
+      targetdir: "$(Build.SourcesDirectory)/reports/frontendunittest/apps/client-app/coverage"
 
   - task: PublishCodeCoverageResults@1
     inputs:
       codeCoverageTool: Cobertura
-      summaryFileLocation: "$(Build.SourcesDirectory)/reports/apps/client-app/coverage/cobertura-coverage.xml"
-      reportDirectory: "$(Build.SourcesDirectory)/reports/apps/client-app/coverage"
+      summaryFileLocation: "$(Build.SourcesDirectory)/reports/frontendunittest/apps/client-app/coverage/cobertura-coverage.xml"
+      reportDirectory: "$(Build.SourcesDirectory)/reports/frontendunittest/apps/client-app/coverage"
 
   # - task: DotNetCoreCLI@2
   #   displayName: Restore
