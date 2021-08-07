@@ -22,10 +22,10 @@ Basic set of npm packages
 
 ```cmd
 npm i -g typescript
-npm i -g tslint
-npm i -g webpack
 npm i -g @angular/cli
-npm i -g rxjs-tslint
+npm i -g nx@latest
+npm i -g jest
+npm i -g npm-check-updates
 ```
 
 For new project i use yarn as a package manager
