@@ -1,6 +1,6 @@
 # Typewriter recipes
 
-This is part of the presentation how to generate automaticaly models and services from controllers and model classes in .net core web api for angular>11.x.x using [Typewriter Unofficial Fork](https://github.com/AdaskoTheBeAsT/Typewriter/releases/tag/1.32.0)
+This is part of the presentation how to generate automaticaly models and services from controllers and model classes in .net core web api for angular>11.x.x using [Typewriter Unofficial Fork compatible with Visual Studio 2022 Preview 2.1](https://github.com/AdaskoTheBeAsT/Typewriter/releases/tag/2.1.0-preview)
 
 ## Backend
 
@@ -14,8 +14,9 @@ In 2.x small modification was needed to serve static files.
 ```
 
 ## Frontend
-Angular v11.0
-install node v14.15.4
+
+Angular v12.0
+install node v14.17.4
 
 Basic set of npm packages
 
@@ -37,22 +38,24 @@ Frontend folder is created in main folder of webapi .
 For styles scss is used. App is setup without inline templates and styles
 
 ```cmd
-ng new ClientApp --strict
+npx create-nx-workspace@latest
 ```
 
-Angular way of testing was modified base on article
+Frontend project was geenrated using [NRWL NX](https://nx.dev/latest/angular/getting-started/intro)
+
+When you generate angular project regular way there is a way to use jest and testcafe based on article
 [Use React tools for better Angular apps](https://medium.com/@martin_hotell/use-react-tools-for-better-angular-apps-b0f14f3f8114)
-For unit test karma/jasmine combo was replaced by Jest;
-For e2e tests protractor was replaced by testcafe.
+In article unit test karma/jasmine combo was replaced by Jest;
+E2e tests protractor was replaced by testcafe.
 
 ## Build script
 
-Build is based on excelent [Cake](https://cakebuild.net/) project. script is located in cake folder and it is copmposed from two cake files:
+Build is based on excelent [Cake](https://cakebuild.net/) project. script is located in cake folder and it is composed from two cake files:
 
 1. build.cake - main file which is aggregator of steps
 1. build.steps.cake - steps definitions
-Right now script is able to run frontend and backend compilation. 
-In future description how to setup sonaqube will be added.
+   Right now script is able to run frontend and backend compilation.
+   In future description how to setup sonaqube will be added.
 
 ## Tricks
 
@@ -65,17 +68,21 @@ can be set manually (and maintained which can be error prone). In sample base ta
 
 ```javascript
 (function () {
-    'use strict';
-    var r = document.location.href;
-    var i = r.indexOf('#');
-    if (i > 0) {
-        r = r.substring(0, i);
-    } else if ((r.length > 1) && (r[r.length - 1] === '/') && (r[r.length - 2] === '/')) {
-        r = r.substring(0, r.length - 2);
-    }
-    if (r[r.length - 1] !== '/') {
-        r = r + '/';
-    }
-    document.write('<base href="' + r + '" />');
-}());
+  "use strict";
+  var r = document.location.href;
+  var i = r.indexOf("#");
+  if (i > 0) {
+    r = r.substring(0, i);
+  } else if (
+    r.length > 1 &&
+    r[r.length - 1] === "/" &&
+    r[r.length - 2] === "/"
+  ) {
+    r = r.substring(0, r.length - 2);
+  }
+  if (r[r.length - 1] !== "/") {
+    r = r + "/";
+  }
+  document.write('<base href="' + r + '" />');
+})();
 ```

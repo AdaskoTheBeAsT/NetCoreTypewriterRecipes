@@ -24,7 +24,7 @@ export namespace FirstSet {
     export function getKeys(): Array<number> {
         var list = new Array<number>();
         for (var enumMember in FirstSet) { 
-            if (!(parseInt(enumMember, 10) >= 0)) {
+            if (parseInt(enumMember, 10) < 0) {
                   continue;
             }
             list.push(parseInt(enumMember, 10));

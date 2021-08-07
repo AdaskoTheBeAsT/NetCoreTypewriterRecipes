@@ -219,7 +219,7 @@ ${
 
         var sb = new StringBuilder();
         foreach(var type in typeNameList.GroupBy(p => p.TypeName).Select(grp => grp.FirstOrDefault())){
-            sb.AppendLine($"import {{ {type.TypeName} }} from 'src/api/models/{type.FileName}';");
+            sb.AppendLine($"import {{ {type.TypeName} }} from '../models/{type.FileName}';");
         }
 
         return sb.ToString();
@@ -392,9 +392,10 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 
 import { Observable } from 'rxjs';
 
-import { API_BASE_URL } from 'src/app/app-config.module';
+import { API_BASE_URL } from '../../app/app-config.module';
+
 $Classes($IncludeClass)[
-$IsGetOrDeleteMethod[import { HttpParamsProcessor } from 'src/api/services/_HttpParamsProcessor';]
+$IsGetOrDeleteMethod[import { HttpParamsProcessorService } from '@adaskothebeast/http-params-processor';]
 $Imports
 
 $IsGetOrDeleteMethod[
@@ -410,7 +411,10 @@ export interface I$ServiceName {$Methods[
     { providedIn: 'root' }
 )
 export class $ServiceName implements I$ServiceName {
-    constructor (@Inject(HttpClient) protected http: HttpClient, @Optional() @Inject(API_BASE_URL) protected baseUrl?: string) {
+    constructor (
+      @Inject(HttpClient) protected http: HttpClient,
+      $IsGetOrDeleteMethod[@Inject(HttpParamsProcessorService) protected processor: HttpParamsProcessorService,]
+      @Optional() @Inject(API_BASE_URL) protected baseUrl?: string) {
     }
 
     public get $UrlFieldName(): string {
@@ -427,11 +431,10 @@ $Methods[$IsGetMethod[
             .set('If-Modified-Since', '0');
 
         let params = new HttpParams();
-        const httpParamsProcessor = new HttpParamsProcessor();
         const parr = [];
 $SkipParameters[
         parr.push($name);
-        params = httpParamsProcessor.processInternal(params, '$name', parr.pop());]
+        params = this.processor.processWithParams(params, '$name', parr.pop());]
 
         return this.http.get<$ReturnType>(
             this.$Parent[$UrlFieldName] + '$HttpGetActionNameByAttribute',
@@ -505,11 +508,10 @@ $IsDeleteMethod[
             .set('If-Modified-Since', '0');
 
         let params = new HttpParams();
-        const httpParamsProcessor = new HttpParamsProcessor();
         const parr = [];
 $SkipParameters[
         parr.push($name);
-        params = httpParamsProcessor.processInternal(params, '$name', parr.pop());]
+        params = this.processor.processWithParams(params, '$name', parr.pop());]
 
         return this.http.delete<$ReturnType>(
             this.$Parent[$UrlFieldName] + '$HttpDeleteActionNameByAttribute',
