@@ -61,7 +61,7 @@ steps:
         sonar.css.stylelint.reportPaths=$(Build.SourcesDirectory)/reports/stylelint-report.json
         sonar.javascript.lcov.reportPaths=$(Build.SourcesDirectory)/reports/frontendunittest/apps/client-app/coverage/lcov.info      
         sonar.testExecutionReportPaths=$(Build.SourcesDirectory)/reports/frontendunittest/apps/client-app/frontend-test.sonar.xml
-        sonar.exclusions=**/ClientApp/*.js,**/ClientApp/e2e/**/*.*
+        sonar.exclusions=**/ClientApp/*.js,**/ClientApp/e2e/**/*.*,**/ClientApp/**/api/**/*,**/polyfills.ts,**/ClientApp/**/environment*.ts,
 
   # - task: SonarCloudPrepare@1
   #   displayName: 'Prepare analysis on SonarCloud'
@@ -86,7 +86,7 @@ steps:
     workingDirectory: "src/AngularWebApiSample/ClientApp"
 
   - script: |
-      yarn stylelint
+      yarn stylelint-report-json
     continueOnError: true
     displayName: "stylelint"
     workingDirectory: "src/AngularWebApiSample/ClientApp"
