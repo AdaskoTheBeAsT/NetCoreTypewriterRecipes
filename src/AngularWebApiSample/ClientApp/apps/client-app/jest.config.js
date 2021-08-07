@@ -9,14 +9,14 @@ module.exports = {
     },
   },
   coverageDirectory:
-    '../../../reports/frontendunittest/apps/client-app/coverage',
+    '../../../../../reports/frontendunittest/apps/client-app/coverage',
   snapshotSerializers: [
     'jest-preset-angular/build/serializers/no-ng-attributes',
     'jest-preset-angular/build/serializers/ng-snapshot',
     'jest-preset-angular/build/serializers/html-comment',
   ],
   collectCoverage: true,
-  coverageReporters: ['html', 'lcov'],
+  coverageReporters: ['cobertura', 'html', 'lcov'],
   reporters: [
     'default',
     [
@@ -64,6 +64,13 @@ module.exports = {
       {
         outputFile:
           '../../../reports/frontendunittest/apps/client-app/frontend-test.trx',
+      },
+    ],
+    [
+      'jest-junit',
+      {
+        outputDirectory: '../../../reports/frontendunittest/apps/client-app/',
+        outputName: 'frontend-test.junit.xml',
       },
     ],
   ],
