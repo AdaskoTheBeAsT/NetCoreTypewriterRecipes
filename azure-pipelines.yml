@@ -4,161 +4,164 @@
 # https://docs.microsoft.com/azure/devops/pipelines/languages/javascript
 
 trigger:
-- master
+  - master
 
 pool:
-  vmImage: 'ubuntu-latest'
+  vmImage: "ubuntu-latest"
 
 variables:
-  buildConfiguration: 'Release'
-  unitTestProjects: '**/test/unit/**/*.csproj'
-  testResultsDirectory: 'd:/a/1/TestResults'
+  buildConfiguration: "Release"
+  unitTestProjects: "**/test/unit/**/*.csproj"
+  testResultsDirectory: "d:/a/1/TestResults"
   MSBUILDSINGLELOADCONTEXT: 1
-  disable.coverage.autogenerate: 'true'
+  disable.coverage.autogenerate: "true"
 
 steps:
-# - task: UseDotNet@2
-#   displayName: 'Use .NET Core SDK from global.json'
-#   inputs:
-#     packageType: 'sdk'
-#     useGlobalJson: true
+  # - task: UseDotNet@2
+  #   displayName: 'Use .NET Core SDK from global.json'
+  #   inputs:
+  #     packageType: 'sdk'
+  #     useGlobalJson: true
 
-- task: NodeTool@0
-  inputs:
-    versionSpec: '12.x'
-  displayName: 'Install Node.js'
+  - task: NodeTool@0
+    inputs:
+      versionSpec: "12.x"
+    displayName: "Install Node.js"
 
-- task: YarnInstaller@3
-  inputs:
-    versionSpec: '1.x'
-    checkLatest: true
+  - task: YarnInstaller@3
+    inputs:
+      versionSpec: "1.x"
+      checkLatest: true
 
-- script: |
-    npm install -g @angular/cli
-  displayName: 'npm install angular'
+  - script: |
+      npm install -g @angular/cli
+    displayName: "npm install angular"
 
-- script: |
-    yarn
-  displayName: 'yarn install dependencies'
-  workingDirectory: 'src/AngularWebApiSample/ClientApp'
+  - script: |
+      npm install -g nx@latest
+    displayName: "npm install nx"
 
-- task: SonarCloudPrepare@1
-  inputs:
-    SonarCloud: 'Sonar.AdaskoTheBeAsT.NetCoreTypewriterRecipes'
-    organization: 'adaskothebeast-github'
-    scannerMode: 'CLI'
-    configMode: 'manual'
-    cliProjectKey: 'AdaskoTheBeAsT_NetCoreTypewriterRecipes'
-    cliProjectName: 'NetCoreTypewriterRecipes'
-    cliSources: './src/AngularWebApiSample/ClientApp'
-    extraProperties: |
-      sonar.coverage.exclusions=**/ClientApp/*.js,**/ClientApp/e2e/**/*.*
-      sonar.eslint.reportPaths=$(Build.SourcesDirectory)/reports/eslint-result.json
-      sonar.css.stylelint.reportPaths=$(Build.SourcesDirectory)/reports/stylelint-report.json
-      sonar.javascript.lcov.reportPaths=$(Build.SourcesDirectory)/reports/tscoverage/lcov.info      
-      sonar.testExecutionReportPaths=$(Build.SourcesDirectory)/reports/frontendunittest/frontend-test.sonar.xml
+  - script: |
+      yarn
+    displayName: "yarn install dependencies"
+    workingDirectory: "src/AngularWebApiSample/ClientApp"
 
-# - task: SonarCloudPrepare@1
-#   displayName: 'Prepare analysis on SonarCloud'
-#   inputs:
-#     scannerMode: 'MSBuild'    
-#     SonarCloud: 'AdaskoTheBeAsT.NetCoreTypewriterRecipes'
-#     organization: 'adaskothebeast-github'
-#     projectKey: 'AdaskoTheBeAsT_NetCoreTypewriterRecipes'
-#     projectName: NetCoreTypewriterRecipes
-#     extraProperties: |
-#       sonar.eslint.reportPaths=$(Build.SourcesDirectory)/reports/eslint-result.json
-#       sonar.css.stylelint.reportPaths=$(Build.SourcesDirectory)/reports/stylelint-report.json
-#       sonar.javascript.lcov.reportPaths=$(Build.SourcesDirectory)/reports/tscoverage/lcov.info      
-#       sonar.testExecutionReportPaths=$(Build.SourcesDirectory)/reports/frontendunittest/frontend-test.sonar.xml
-#      sonar.resharper.cs.reportPath=$(Build.SourcesDirectory)/CodeQualityResults.xml
-#      sonar.cs.opencover.reportsPaths=$(testResultsDirectory)/coverage.net461.opencover.xml,$(testResultsDirectory)/coverage.netcoreapp3.1.opencover.xml
+  - task: SonarCloudPrepare@1
+    inputs:
+      SonarCloud: "Sonar.AdaskoTheBeAsT.NetCoreTypewriterRecipes"
+      organization: "adaskothebeast-github"
+      scannerMode: "CLI"
+      configMode: "manual"
+      cliProjectKey: "AdaskoTheBeAsT_NetCoreTypewriterRecipes"
+      cliProjectName: "NetCoreTypewriterRecipes"
+      cliSources: "./src/AngularWebApiSample/ClientApp"
+      extraProperties: |
+        sonar.coverage.exclusions=**/ClientApp/*.js,**/ClientApp/e2e/**/*.*
+        sonar.eslint.reportPaths=$(Build.SourcesDirectory)/reports/eslint-result.json
+        sonar.css.stylelint.reportPaths=$(Build.SourcesDirectory)/reports/stylelint-report.json
+        sonar.javascript.lcov.reportPaths=$(Build.SourcesDirectory)/reports/tscoverage/lcov.info      
+        sonar.testExecutionReportPaths=$(Build.SourcesDirectory)/reports/frontendunittest/frontend-test.sonar.xml
 
-- script: |
-    yarn eslint
-  continueOnError: true
-  displayName: 'eslint'
-  workingDirectory: 'src/AngularWebApiSample/ClientApp'
+  # - task: SonarCloudPrepare@1
+  #   displayName: 'Prepare analysis on SonarCloud'
+  #   inputs:
+  #     scannerMode: 'MSBuild'
+  #     SonarCloud: 'AdaskoTheBeAsT.NetCoreTypewriterRecipes'
+  #     organization: 'adaskothebeast-github'
+  #     projectKey: 'AdaskoTheBeAsT_NetCoreTypewriterRecipes'
+  #     projectName: NetCoreTypewriterRecipes
+  #     extraProperties: |
+  #       sonar.eslint.reportPaths=$(Build.SourcesDirectory)/reports/eslint-result.json
+  #       sonar.css.stylelint.reportPaths=$(Build.SourcesDirectory)/reports/stylelint-report.json
+  #       sonar.javascript.lcov.reportPaths=$(Build.SourcesDirectory)/reports/tscoverage/lcov.info
+  #       sonar.testExecutionReportPaths=$(Build.SourcesDirectory)/reports/frontendunittest/frontend-test.sonar.xml
+  #      sonar.resharper.cs.reportPath=$(Build.SourcesDirectory)/CodeQualityResults.xml
+  #      sonar.cs.opencover.reportsPaths=$(testResultsDirectory)/coverage.net461.opencover.xml,$(testResultsDirectory)/coverage.netcoreapp3.1.opencover.xml
 
-- script: |
-    yarn stylelint
-  continueOnError: true
-  displayName: 'stylelint'
-  workingDirectory: 'src/AngularWebApiSample/ClientApp'
+  - script: |
+      yarn eslint
+    continueOnError: true
+    displayName: "eslint"
+    workingDirectory: "src/AngularWebApiSample/ClientApp"
 
-- script: |
-    yarn build
-  displayName: 'yarn build'
-  workingDirectory: 'src/AngularWebApiSample/ClientApp'
+  - script: |
+      yarn stylelint
+    continueOnError: true
+    displayName: "stylelint"
+    workingDirectory: "src/AngularWebApiSample/ClientApp"
 
-- script: |
-    yarn test:coverage
-  continueOnError: true
-  displayName: 'yarn test with coverage'
-  workingDirectory: 'src/AngularWebApiSample/ClientApp'
+  - script: |
+      yarn build
+    displayName: "yarn build"
+    workingDirectory: "src/AngularWebApiSample/ClientApp"
 
-- task: PublishTestResults@2
-  condition: succeededOrFailed()
-  inputs:
-    testRunner: JUnit
-    testResultsFiles: '$(Build.SourcesDirectory)/reports/frontendunittest/frontend-test.junit.xml'
+  - script: |
+      nx test --coverage
+    continueOnError: true
+    displayName: "nx test with coverage"
+    workingDirectory: "src/AngularWebApiSample/ClientApp"
 
-- task: reportgenerator@4
-  inputs:
-    reports: '$(Build.SourcesDirectory)/reports/tscoverage/cobertura-coverage.xml'
-    targetdir: '$(Build.SourcesDirectory)/reports/tscoverage/coverage'
+  - task: PublishTestResults@2
+    condition: succeededOrFailed()
+    inputs:
+      testRunner: JUnit
+      testResultsFiles: "$(Build.SourcesDirectory)/reports/frontendunittest/frontend-test.junit.xml"
 
-- task: PublishCodeCoverageResults@1
-  inputs: 
-    codeCoverageTool: Cobertura
-    summaryFileLocation: '$(Build.SourcesDirectory)/reports/tscoverage/cobertura-coverage.xml'
-    reportDirectory: '$(Build.SourcesDirectory)/reports/tscoverage/coverage'
+  - task: reportgenerator@4
+    inputs:
+      reports: "$(Build.SourcesDirectory)/reports/tscoverage/cobertura-coverage.xml"
+      targetdir: "$(Build.SourcesDirectory)/reports/tscoverage/coverage"
 
-# - task: DotNetCoreCLI@2
-#   displayName: Restore
-#   inputs:
-#     command: restore
-#     arguments: AngularWebApiSample.sln
+  - task: PublishCodeCoverageResults@1
+    inputs:
+      codeCoverageTool: Cobertura
+      summaryFileLocation: "$(Build.SourcesDirectory)/reports/tscoverage/cobertura-coverage.xml"
+      reportDirectory: "$(Build.SourcesDirectory)/reports/tscoverage/coverage"
 
-# - task: DotNetCoreCLI@2
-#   displayName: Build
-#   inputs:
-#     arguments: 'AngularWebApiSample.sln --configuration $(buildConfiguration)'
+  # - task: DotNetCoreCLI@2
+  #   displayName: Restore
+  #   inputs:
+  #     command: restore
+  #     arguments: AngularWebApiSample.sln
 
-# - task: DeleteFiles@1
-#   displayName: 'Clear test results'
-#   inputs:
-#     SourceFolder: '$(testResultsDirectory)'
-#     Contents: '**/*'
+  # - task: DotNetCoreCLI@2
+  #   displayName: Build
+  #   inputs:
+  #     arguments: 'AngularWebApiSample.sln --configuration $(buildConfiguration)'
 
-# - task: DotNetCoreCLI@2
-#   displayName: Test
-#   inputs:
-#     command: test
-#     projects: '$(unitTestProjects)'
-#     publishTestResults: false
-#     arguments: '--configuration $(buildConfiguration) --collect:"Code Coverage" /t:rebuild /p:ContinuousIntegrationBuild=false /p:CollectCoverage=true "/p:CoverletOutputFormat=\"opencover,cobertura\"" /p:CoverletOutput=$(testResultsDirectory)/coverage  --logger:"trx" --results-directory $(testResultsDirectory)'
+  # - task: DeleteFiles@1
+  #   displayName: 'Clear test results'
+  #   inputs:
+  #     SourceFolder: '$(testResultsDirectory)'
+  #     Contents: '**/*'
 
-#- task: ResharperCli@2
-#  inputs:
-#    solutionOrProjectPath: 'AngularWebApiSample.sln'
-#    failBuildLevelSelector: 'Warning'
-#    resultsOutputFilePath: '$(Build.SourcesDirectory)/CodeQualityResults.xml'
-  
-- task: SonarCloudAnalyze@1
-  displayName: Sonar Cloud analyze
+  # - task: DotNetCoreCLI@2
+  #   displayName: Test
+  #   inputs:
+  #     command: test
+  #     projects: '$(unitTestProjects)'
+  #     publishTestResults: false
+  #     arguments: '--configuration $(buildConfiguration) --collect:"Code Coverage" /t:rebuild /p:ContinuousIntegrationBuild=false /p:CollectCoverage=true "/p:CoverletOutputFormat=\"opencover,cobertura\"" /p:CoverletOutput=$(testResultsDirectory)/coverage  --logger:"trx" --results-directory $(testResultsDirectory)'
 
-- task: SonarCloudPublish@1
-  displayName: Sonar Cloud publish
-  inputs:
-    pollingTimeoutSec: '300'
+  #- task: ResharperCli@2
+  #  inputs:
+  #    solutionOrProjectPath: 'AngularWebApiSample.sln'
+  #    failBuildLevelSelector: 'Warning'
+  #    resultsOutputFilePath: '$(Build.SourcesDirectory)/CodeQualityResults.xml'
 
-- task: DeleteFiles@1
-  displayName: 'Clear coverage files'
-  inputs:
-    SourceFolder: '$(testResultsDirectory)'
-    Contents: '**/*.coverage'
+  - task: SonarCloudAnalyze@1
+    displayName: Sonar Cloud analyze
 
+  - task: SonarCloudPublish@1
+    displayName: Sonar Cloud publish
+    inputs:
+      pollingTimeoutSec: "300"
+
+  - task: DeleteFiles@1
+    displayName: "Clear coverage files"
+    inputs:
+      SourceFolder: "$(testResultsDirectory)"
+      Contents: "**/*.coverage"
 # - task: PublishTestResults@2
 #   displayName: 'Publish Test Results'
 #   inputs:
