@@ -29,7 +29,6 @@
     "workspace-generator": "nx workspace-generator",
     "dep-graph": "nx dep-graph",
     "help": "nx help",
-    "precommit": "lint-staged",
     "stats": "ng build --stats-json",
     "stats-prod": "ng build --configuration production --stats-json",
     "stats-report": "webpack-bundle-analyzer ../wwwroot/stats.json",
@@ -45,30 +44,6 @@
     "prepare": "cd .. && cd .. && cd .. && husky install src/AngularWebApiSample/ClientApp/.husky"
   },
   "private": true,
-  "lint-staged": {
-    "{apps,libs}/**/*.html,!**/api/**": [
-      "htmlhint"
-    ],
-    "{apps,libs}/**/*.{css,scss},!**/api/**": [
-      "stylelint --fix"
-    ],
-    "{apps,libs}/**/*.{js,jsx,ts,tsx},!**/api/**": [
-      "eslint --fix"
-    ],
-    "{apps,libs}/**/*.{js,jsx,ts,tsx,css,scss,md,html,json},!**/api/**": [
-      "prettier --write"
-    ]
-  },
-  "jestNunitReporter": {
-    "outputPath": "../../../reports/frontendunittest/apps/client-app/",
-    "outputFilename": "frontend-test.nunit.xml"
-  },
-  "importSort": {
-    ".js, .jsx, .ts, .tsx": {
-      "style": "module",
-      "parser": "typescript"
-    }
-  },
   "dependencies": {
     "@adaskothebeast/http-params-processor": "^3.0.0",
     "@angular/animations": "12.2.0",
@@ -128,12 +103,12 @@
     "eslint-plugin-testcafe": "^0.2.1",
     "htmlhint": "^0.15.1",
     "husky": "^7.0.1",
+    "import-sort-config": "^6.0.0",
     "import-sort-style-module": "^6.0.0",
     "jest": "27.0.6",
     "jest-allure": "^0.1.3",
     "jest-html-reporters": "^2.1.6",
     "jest-junit": "^12.2.0",
-    "jest-nunit-reporter": "^1.3.1",
     "jest-preset-angular": "9.0.5",
     "jest-sonar": "^0.2.12",
     "jest-standard-reporter": "^2.0.0",
