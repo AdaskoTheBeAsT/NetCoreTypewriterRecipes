@@ -29,7 +29,6 @@ namespace AngularWebApiSample
             IServiceCollection services)
         {
             ConfigureServicesCompression(services);
-            ConfigureServicesSwagger(services);
             ConfigureServicesCors(services);
 
             services
@@ -48,6 +47,7 @@ namespace AngularWebApiSample
                         options.SerializerSettings.DefaultValueHandling = DefaultValueHandling.Include;
                         options.SerializerSettings.NullValueHandling = NullValueHandling.Include;
                     });
+            ConfigureServicesSwagger(services);
             services.AddLogging();
 
             ConfigureServicesIoC(services);
@@ -62,14 +62,13 @@ namespace AngularWebApiSample
             IApplicationBuilder app,
             IWebHostEnvironment env)
         {
+            ConfigureIoC(app, env);
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                ConfigureSwagger(app);
             }
-
-            ConfigureIoC(app, env);
-
-            ConfigureSwagger(app);
 
             app.UseResponseCompression();
             app.UseDefaultFiles();

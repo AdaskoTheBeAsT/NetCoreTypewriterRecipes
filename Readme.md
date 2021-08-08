@@ -1,6 +1,12 @@
 # Typewriter recipes
 
-This is part of the presentation how to generate automaticaly models and services from controllers and model classes in .net core web api for angular>11.x.x using [Typewriter Unofficial Fork compatible with Visual Studio 2022 Preview 2.1](https://github.com/AdaskoTheBeAsT/Typewriter/releases/tag/2.1.0-preview)
+This is part of the presentation how to generate automaticaly models and services from controllers and model classes in .net core web api for angular>12.x.x using [Typewriter Unofficial Fork compatible with Visual Studio 2022 Preview 2.1](https://github.com/AdaskoTheBeAsT/Typewriter/releases/tag/2.1.0-preview)
+
+## Breaking news
+
+I also prepared sample for React :). Structure of the project was generated using NRWL NX.
+For state I use @redux/toolkit. It is beginning of work so there can be some issues.
+Anyway first sample is prepared.
 
 ## Backend
 

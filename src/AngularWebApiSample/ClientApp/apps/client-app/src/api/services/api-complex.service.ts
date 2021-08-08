@@ -34,9 +34,9 @@ export class ApiComplexService implements IApiComplexService {
 
     public get complexServiceUrl(): string {
         if (this.baseUrl) {
-            return this.baseUrl.endsWith('/') ? this.baseUrl + '' : this.baseUrl + '/' + '';
+            return this.baseUrl.endsWith('/') ? this.baseUrl + 'api/Complex' : this.baseUrl + '/' + 'api/Complex';
         } else {
-            return '';
+            return 'api/Complex';
         }
     }
 

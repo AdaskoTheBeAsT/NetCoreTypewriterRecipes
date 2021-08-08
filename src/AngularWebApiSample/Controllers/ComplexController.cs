@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc;
 namespace AngularWebApiSample.Controllers
 {
     [GenerateFrontendType]
+    [Route("api/[controller]")]
+    [ApiController]
     public class ComplexController : ControllerBase
     {
         [HttpPost]

@@ -7,6 +7,7 @@ namespace AngularWebApiSample.Controllers
 #pragma warning disable RCS1163,CA1801 // Unused parameter.
     [GenerateFrontendType]
     [Route("api/[controller]")]
+    [ApiController]
     public class SimpleController : ControllerBase
     {
         // GET: api/values

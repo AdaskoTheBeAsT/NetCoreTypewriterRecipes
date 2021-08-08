@@ -33,9 +33,9 @@ export class ApiMidService implements IApiMidService {
 
     public get midServiceUrl(): string {
         if (this.baseUrl) {
-            return this.baseUrl.endsWith('/') ? this.baseUrl + '' : this.baseUrl + '/' + '';
+            return this.baseUrl.endsWith('/') ? this.baseUrl + 'api/Mid' : this.baseUrl + '/' + 'api/Mid';
         } else {
-            return '';
+            return 'api/Mid';
         }
     }
 
