@@ -379,6 +379,10 @@ ${
         return result;
     }
 
+    bool ContainsSkipParameters(Method m) {
+      return SkipParameters(m).Count > 0;
+    }
+
     List<Parameter> SkipParametersForBody(Method m) {
         var result = SkipParameters(m);
         if(result.Count == 0){
@@ -431,7 +435,8 @@ $Methods[$IsGetMethod[
             .set('If-Modified-Since', '0');
 
         let params = new HttpParams();
-        const parr = [];
+$ContainsSkipParameters[
+        const parr = [];]
 $SkipParameters[
         parr.push($name);
         params = this.processor.processWithParams(params, '$name', parr.pop());]
@@ -508,7 +513,8 @@ $IsDeleteMethod[
             .set('If-Modified-Since', '0');
 
         let params = new HttpParams();
-        const parr = [];
+$ContainsSkipParameters[
+        const parr = [];]
 $SkipParameters[
         parr.push($name);
         params = this.processor.processWithParams(params, '$name', parr.pop());]

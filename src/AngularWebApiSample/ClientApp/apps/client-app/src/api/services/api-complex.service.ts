@@ -64,6 +64,7 @@ export class ApiComplexService implements IApiComplexService {
             .set('If-Modified-Since', '0');
 
         let params = new HttpParams();
+
         const parr = [];
 
         parr.push(query);

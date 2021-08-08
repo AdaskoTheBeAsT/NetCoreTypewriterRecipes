@@ -63,6 +63,7 @@ export class ApiMidService implements IApiMidService {
             .set('If-Modified-Since', '0');
 
         let params = new HttpParams();
+
         const parr = [];
 
         parr.push(id);

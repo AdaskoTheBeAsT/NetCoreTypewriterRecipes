@@ -46,7 +46,7 @@ export class ApiSimpleService implements IApiSimpleService {
             .set('If-Modified-Since', '0');
 
         let params = new HttpParams();
-        const parr = [];
+
 
 
         return this.http.get<string[]>(
@@ -67,6 +67,7 @@ export class ApiSimpleService implements IApiSimpleService {
             .set('If-Modified-Since', '0');
 
         let params = new HttpParams();
+
         const parr = [];
 
         parr.push(id);
@@ -114,6 +115,7 @@ export class ApiSimpleService implements IApiSimpleService {
             .set('If-Modified-Since', '0');
 
         let params = new HttpParams();
+
         const parr = [];
 
         parr.push(id);
