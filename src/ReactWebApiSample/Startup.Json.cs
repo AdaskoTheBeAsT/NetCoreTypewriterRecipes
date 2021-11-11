@@ -58,7 +58,7 @@ namespace ReactWebApiSample
         }
 #pragma warning restore CA1034
 
-        private class LimitedBinder
+        private sealed class LimitedBinder
             : ISerializationBinder
         {
             private readonly HashSet<Type> _allowedTypes = new HashSet<Type>

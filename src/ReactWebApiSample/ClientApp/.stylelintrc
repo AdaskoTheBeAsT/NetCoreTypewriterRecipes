@@ -1,5 +1,6 @@
 {
   "extends": [
+    "stylelint-config-standard-scss",
     "stylelint-config-standard",
     "stylelint-config-sass-guidelines",
     "stylelint-config-prettier"
@@ -10,7 +11,9 @@
     "selector-pseudo-element-no-unknown": [
       true,
       {
-        "ignorePseudoElements": ["ng-deep"]
+        "ignorePseudoElements": [
+          "ng-deep"
+        ]
       }
     ]
   }
