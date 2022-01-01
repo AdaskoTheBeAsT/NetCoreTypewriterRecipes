@@ -1,10 +1,9 @@
 using ReactWebApiSample.Attributes;
 
-namespace ReactWebApiSample.Models
+namespace ReactWebApiSample.Models;
+
+[GenerateFrontendType]
+public class ComplexBModel : ComplexBaseModel
 {
-    [GenerateFrontendType]
-    public class ComplexBModel : ComplexBaseModel
-    {
-        public bool IsActive { get; set; }
-    }
+    public bool IsActive { get; set; }
 }

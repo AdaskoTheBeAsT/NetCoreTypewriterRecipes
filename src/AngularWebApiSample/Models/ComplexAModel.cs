@@ -1,10 +1,9 @@
 using AngularWebApiSample.Attributes;
 
-namespace AngularWebApiSample.Models
+namespace AngularWebApiSample.Models;
+
+[GenerateFrontendType]
+public class ComplexAModel : ComplexBaseModel
 {
-    [GenerateFrontendType]
-    public class ComplexAModel : ComplexBaseModel
-    {
-        public string? Text { get; set; }
-    }
+    public string? Text { get; set; }
 }

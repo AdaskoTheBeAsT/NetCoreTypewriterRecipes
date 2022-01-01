@@ -1,10 +1,9 @@
 using ReactWebApiSample.Attributes;
 
-namespace ReactWebApiSample.Models
+namespace ReactWebApiSample.Models;
+
+[GenerateFrontendType]
+public class ComplexBaseModel
 {
-    [GenerateFrontendType]
-    public class ComplexBaseModel
-    {
-        public int Id { get; set; }
-    }
+    public int Id { get; set; }
 }

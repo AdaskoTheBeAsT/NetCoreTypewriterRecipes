@@ -9,7 +9,7 @@ export interface IComplexAModel extends IComplexBaseModel {
 }
 
 export class ComplexAModel extends ComplexBaseModel implements IComplexAModel {
-    public text: string | null;
+    public text?: string | null;
 
     constructor(initObj?: IComplexAModel) {
         super(initObj);

@@ -2,13 +2,12 @@ using System.Collections.Generic;
 using System.Reflection;
 using AdaskoTheBeAsT.AutoMapper.SimpleInjector;
 
-namespace ReactWebApiSample
+namespace ReactWebApiSample;
+
+public partial class Startup
 {
-    public partial class Startup
+    public void ConfigureServicesMapping(IEnumerable<Assembly> assemblies)
     {
-        public void ConfigureServicesMapping(IEnumerable<Assembly> assemblies)
-        {
-            _container.AddAutoMapper(assemblies);
-        }
+        _container.AddAutoMapper(assemblies);
     }
 }

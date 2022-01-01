@@ -1,15 +1,14 @@
 using AngularWebApiSample.Attributes;
 
-namespace AngularWebApiSample.Models
-{
-    [AsString]
-    [GenerateFrontendType]
-    public enum SecondSet
-    {
-        ValA,
-        ValB,
+namespace AngularWebApiSample.Models;
 
-        [LabelForEnum("ValC")]
-        SomeOtherVal,
-    }
+[AsString]
+[GenerateFrontendType]
+public enum SecondSet
+{
+    ValA,
+    ValB,
+
+    [LabelForEnum("ValC")]
+    SomeOtherVal,
 }

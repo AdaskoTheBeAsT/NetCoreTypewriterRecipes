@@ -1,10 +1,9 @@
 using ReactWebApiSample.Attributes;
 
-namespace ReactWebApiSample.Models
+namespace ReactWebApiSample.Models;
+
+[GenerateFrontendType]
+public class ComplexAModel : ComplexBaseModel
 {
-    [GenerateFrontendType]
-    public class ComplexAModel : ComplexBaseModel
-    {
-        public string? Text { get; set; }
-    }
+    public string? Text { get; set; }
 }

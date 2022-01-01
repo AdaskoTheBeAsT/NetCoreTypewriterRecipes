@@ -18,7 +18,7 @@ export interface ISimpleModel {
 export class SimpleModel implements ISimpleModel {
     public $type: string;
     public num: number;
-    public text: string | null;
+    public text?: string | null;
     public isOk: boolean;
     public firstSet: FirstSet;
     public secondSet: SecondSet;

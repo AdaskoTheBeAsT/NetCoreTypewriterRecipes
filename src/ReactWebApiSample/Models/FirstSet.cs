@@ -1,14 +1,13 @@
 using ReactWebApiSample.Attributes;
 
-namespace ReactWebApiSample.Models
-{
-    [GenerateFrontendType]
-    public enum FirstSet
-    {
-        ValA,
-        ValB,
+namespace ReactWebApiSample.Models;
 
-        [LabelForEnum("ValC")]
-        SomeOtherVal,
-    }
+[GenerateFrontendType]
+public enum FirstSet
+{
+    ValA,
+    ValB,
+
+    [LabelForEnum("ValC")]
+    SomeOtherVal,
 }
