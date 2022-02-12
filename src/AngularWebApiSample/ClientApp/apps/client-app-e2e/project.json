@@ -1,0 +1,39 @@
+{
+  "root": "apps/client-app-e2e",
+  "sourceRoot": "apps/client-app-e2e/src",
+  "projectType": "application",
+  "architect": {
+    "e2e": {
+      "builder": "angular-testcafe:testcafe",
+      "options": {
+        "browsers": ["chrome"],
+        "devServerTarget": "client-app:serve",
+        "src": ["apps/client-app-e2e/**/*.e2e-spec.ts"],
+        "reporters": [
+          {
+            "name": "html",
+            "output": "../../../reports/e2e-report.html"
+          },
+          {
+            "name": "xunit",
+            "output": "../../../reports/e2e-report.xunit.xml"
+          }
+        ]
+      },
+      "configurations": {
+        "production": {
+          "devServerTarget": "client-app:serve:production"
+        }
+      }
+    },
+    "lint": {
+      "builder": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": ["apps/client-app-e2e/**/*.{js,ts}"]
+      },
+      "outputs": ["{options.outputFile}"]
+    }
+  },
+  "tags": [],
+  "implicitDependencies": ["client-app"]
+}
