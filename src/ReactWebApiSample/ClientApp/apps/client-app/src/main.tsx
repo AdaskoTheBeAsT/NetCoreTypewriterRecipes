@@ -1,6 +1,6 @@
 import { configureStore, getDefaultMiddleware } from '@reduxjs/toolkit';
 import { StrictMode } from 'react';
-import * as ReactDOM from 'react-dom';
+import * as ReactDOM from 'react-dom/client';
 import { Provider } from 'react-redux';
 
 import App from './app/app';
@@ -15,11 +15,13 @@ const store = configureStore({
   enhancers: [],
 });
 
-ReactDOM.render(
+const root = ReactDOM.createRoot(
+  document.getElementById('root') as HTMLElement
+);
+root.render(
   <Provider store={store}>
     <StrictMode>
       <App />
     </StrictMode>
-  </Provider>,
-  document.getElementById('root')
+  </Provider>
 );

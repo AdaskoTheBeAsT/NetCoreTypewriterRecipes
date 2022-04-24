@@ -20,7 +20,7 @@
         ],
         "styles": [],
         "scripts": [],
-        "webpackConfig": "@nrwl/react/plugins/webpack"
+        "webpackConfig": "apps/client-app/webpack.config.js"
       },
       "configurations": {
         "production": {
@@ -43,8 +43,15 @@
               "maximumError": "1mb"
             }
           ]
+        },
+        "development": {
+          "extractLicenses": false,
+          "optimization": false,
+          "sourceMap": true,
+          "vendorChunk": true
         }
-      }
+      },
+      "defaultConfiguration": "production"
     },
     "serve": {
       "executor": "@nrwl/web:dev-server",
@@ -56,8 +63,12 @@
         "production": {
           "buildTarget": "client-app:build:production",
           "hmr": false
+        },
+        "development": {
+          "buildTarget": "client-app:build:development"
         }
-      }
+      },
+      "defaultConfiguration": "development"
     },
     "lint": {
       "executor": "@nrwl/linter:eslint",
@@ -70,7 +81,7 @@
       "executor": "@nrwl/jest:jest",
       "outputs": ["coverage/apps/client-app"],
       "options": {
-        "jestConfig": "apps/client-app/jest.config.js",
+        "jestConfig": "apps/client-app/jest.config.ts",
         "passWithNoTests": true
       }
     }
