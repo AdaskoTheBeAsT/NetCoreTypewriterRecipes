@@ -9,6 +9,9 @@ module.exports = (config, context) => {
         {
           test: /\.svg$/,
           use: ['@svgr/webpack', 'url-loader'],
+          issuer: {
+            and: [/\.(ts|tsx|js|jsx|md|mdx)$/],
+          },
         },
       ],
     },
