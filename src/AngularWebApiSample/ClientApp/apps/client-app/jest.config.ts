@@ -1,6 +1,7 @@
 const reportPath = '../../../reports/frontendunittest/apps/client-app/';
+//const reportPath = './.reports/apps/client-app/';
 
-module.exports = {
+export default {
   displayName: 'client-app',
 
   setupFilesAfterEnv: ['<rootDir>/src/test-setup.ts'],
@@ -78,5 +79,5 @@ module.exports = {
     '^.+.(ts|mjs|js|html)$': 'jest-preset-angular',
   },
   transformIgnorePatterns: ['node_modules/(?!.*.mjs$)'],
-  preset: '../../jest.preset.ts',
+  preset: '../../jest.preset.js',
 };

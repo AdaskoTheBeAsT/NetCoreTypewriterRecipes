@@ -1,4 +1,4 @@
-module.exports = {
+export default {
   displayName: 'client-app',
 
   transform: {
@@ -7,5 +7,5 @@ module.exports = {
   },
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx'],
   coverageDirectory: '../../coverage/apps/client-app',
-  preset: '../../jest.preset.ts',
+  preset: '../../jest.preset.js',
 };

@@ -1,10 +1,10 @@
 {
-  "root": "apps/client-app-e2e",
+  "$schema": "..\\..\\node_modules\\nx\\schemas\\project-schema.json",
   "sourceRoot": "apps/client-app-e2e/src",
   "projectType": "application",
-  "architect": {
+  "targets": {
     "e2e": {
-      "builder": "angular-testcafe:testcafe",
+      "executor": "angular-testcafe:testcafe",
       "options": {
         "browsers": ["chrome"],
         "devServerTarget": "client-app:serve",
@@ -27,7 +27,7 @@
       }
     },
     "lint": {
-      "builder": "@nrwl/linter:eslint",
+      "executor": "@nrwl/linter:eslint",
       "options": {
         "lintFilePatterns": ["apps/client-app-e2e/**/*.{js,ts}"]
       },
