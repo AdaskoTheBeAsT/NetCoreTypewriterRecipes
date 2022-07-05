@@ -3,7 +3,6 @@ const reportPath = '../../../reports/frontendunittest/apps/client-app/';
 
 export default {
   displayName: 'client-app',
-
   setupFilesAfterEnv: ['<rootDir>/src/test-setup.ts'],
   globals: {
     'ts-jest': {
@@ -11,13 +10,13 @@ export default {
       stringifyContentPathRegex: '\\.(html|svg)$',
     },
   },
-  coverageDirectory: `../../${reportPath}coverage`,
   snapshotSerializers: [
     'jest-preset-angular/build/serializers/no-ng-attributes',
     'jest-preset-angular/build/serializers/ng-snapshot',
     'jest-preset-angular/build/serializers/html-comment',
   ],
   collectCoverage: true,
+  coverageDirectory: `../../${reportPath}coverage`,
   coverageReporters: ['cobertura', 'html', 'lcov'],
   reporters: [
     'default',
