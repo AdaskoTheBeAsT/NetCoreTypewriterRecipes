@@ -44,7 +44,8 @@
     "htmlhint:ci:html:docker": "htmlhint --config .htmlhintrc \"{apps,libs}/**/*.html\" --format html && shx mv report.html ./.reports/angular/htmlhint-report.html",
     "htmlhint-report-txt": "htmlhint --config .htmlhintrc \"{apps,libs}/**/*.html\">../../../reports/angular/htmlhint-report.txt",
     "create-icon-sprite": "svg2sprite ./src/assets/svg ./src/assets/sprites/img.svg --stripAttrs id --stripTags title",
-    "prepare": "cd .. && cd .. && cd .. && husky install src/AngularWebApiSample/ClientApp/.husky"
+    "prepare": "cd .. && cd .. && cd .. && husky install src/AngularWebApiSample/ClientApp/.husky",
+    "aud": "yarn-audit-fix"
   },
   "private": true,
   "dependencies": {
@@ -142,6 +143,7 @@
     "ts-jest": "^27.1.5",
     "ts-node": "10.9.1",
     "typescript": "4.7.4",
-    "webpack-bundle-analyzer": "^4.5.0"
+    "webpack-bundle-analyzer": "^4.5.0",
+    "yarn-audit-fix": "^9.3.2"
   }
 }
