@@ -1,3 +1,4 @@
+/* eslint-disable */
 const reportPath = '../../../reports/frontendunittest/apps/client-app/';
 //const reportPath = './.reports/apps/client-app/';
 
