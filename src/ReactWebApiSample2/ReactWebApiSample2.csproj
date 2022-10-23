@@ -1,0 +1,72 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup Label="Build">
+    <TargetFramework>net7.0</TargetFramework>
+    <TypeScriptToolsVersion>4.2</TypeScriptToolsVersion>
+    <TypeScriptCompileBlocked>true</TypeScriptCompileBlocked>
+    <SpaRoot>ClientApp\</SpaRoot>
+    <DefaultItemExcludes>$(DefaultItemExcludes);$(SpaRoot)node_modules\**</DefaultItemExcludes>
+  </PropertyGroup>
+
+  <PropertyGroup Label="Package">
+    <Version>1.0.0</Version>
+    <Authors>AdaskoTheBeAsT</Authors>
+    <Company>AdaskoTheBeAsT</Company>
+    <Product>ReactWebApiSample</Product>
+    <Description>ReactWebApiSample</Description>
+    <Copyright>Copyright © AdaskoTheBeAsT. All rights Reserved</Copyright>
+  </PropertyGroup>
+
+  <ItemGroup Label="Package References">
+    <PackageReference Include="AdaskoTheBeAsT.AutoMapper.SimpleInjector" Version="6.0.0" />
+    <PackageReference Include="AdaskoTheBeAsT.FluentValidation.MediatR" Version="8.0.0" />
+    <PackageReference Include="AdaskoTheBeAsT.FluentValidation.SimpleInjector" Version="6.3.2" />
+    <PackageReference Include="AdaskoTheBeAsT.MediatR.SimpleInjector.AspNetCore" Version="6.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="7.0.0-rc.2.22472.3" />
+    <PackageReference Include="Microsoft.Extensions.Configuration" Version="7.0.0-rc.2.22472.3" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="7.0.0-rc.2.22472.3" />
+    <PackageReference Include="SimpleInjector" Version="5.4.1" />
+    <PackageReference Include="SimpleInjector.Integration.AspNetCore.Mvc.Core" Version="5.4.0" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="ClientApp\apps\client-app\src\api\models\CombinedQueryModel.ts">
+      <CustomToolNamespace>Models\CombinedQueryModel.cs</CustomToolNamespace>
+    </None>
+    <None Update="ClientApp\apps\client-app\src\api\models\CombinedResultModel.ts">
+      <CustomToolNamespace>Models\CombinedResultModel.cs</CustomToolNamespace>
+    </None>
+    <None Update="ClientApp\apps\client-app\src\api\models\ComplexAModel.ts">
+      <CustomToolNamespace>Models\ComplexAModel.cs</CustomToolNamespace>
+    </None>
+    <None Update="ClientApp\apps\client-app\src\api\models\ComplexBaseModel.ts">
+      <CustomToolNamespace>Models\ComplexBaseModel.cs</CustomToolNamespace>
+    </None>
+    <None Update="ClientApp\apps\client-app\src\api\models\ComplexBModel.ts">
+      <CustomToolNamespace>Models\ComplexBModel.cs</CustomToolNamespace>
+    </None>
+    <None Update="ClientApp\apps\client-app\src\api\models\ComplexCModel.ts">
+      <CustomToolNamespace>Models\ComplexCModel.cs</CustomToolNamespace>
+    </None>
+    <None Update="ClientApp\apps\client-app\src\api\models\FirstSet.ts">
+      <CustomToolNamespace>Models\FirstSet.cs</CustomToolNamespace>
+    </None>
+    <None Update="ClientApp\apps\client-app\src\api\models\SecondSet.ts">
+      <CustomToolNamespace>Models\SecondSet.cs</CustomToolNamespace>
+    </None>
+    <None Update="ClientApp\apps\client-app\src\api\models\SimpleModel.ts">
+      <CustomToolNamespace>Models\SimpleModel.cs</CustomToolNamespace>
+    </None>
+    <None Update="ClientApp\apps\client-app\src\api\services\complex.api.ts">
+      <CustomToolNamespace>Controllers\ComplexController.cs</CustomToolNamespace>
+    </None>
+    <None Update="ClientApp\apps\client-app\src\api\services\mid.api.ts">
+      <CustomToolNamespace>Controllers\MidController.cs</CustomToolNamespace>
+    </None>
+    <None Update="ClientApp\apps\client-app\src\api\services\simple.api.ts">
+      <CustomToolNamespace>Controllers\SimpleController.cs</CustomToolNamespace>
+    </None>
+  </ItemGroup>
+
+</Project>
