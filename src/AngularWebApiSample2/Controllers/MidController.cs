@@ -1,5 +1,5 @@
 using System;
-using AngularWebApiSample.Attributes;
+using AngularWebApiSample2.Attributes;
 using AngularWebApiSample2.Models;
 using Microsoft.AspNetCore.Mvc;
 

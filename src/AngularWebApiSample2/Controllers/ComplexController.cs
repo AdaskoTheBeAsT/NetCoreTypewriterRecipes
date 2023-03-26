@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-using AngularWebApiSample.Attributes;
+using AngularWebApiSample2.Attributes;
 using AngularWebApiSample2.Models;
 using Microsoft.AspNetCore.Mvc;
 
