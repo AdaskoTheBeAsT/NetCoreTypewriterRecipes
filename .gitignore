@@ -64,6 +64,6 @@ xunit/*
 
 .vs/
 C/**/*
-reports/
-!reports/.gitkeep
+.reports/
+!.reports/.gitkeep
 

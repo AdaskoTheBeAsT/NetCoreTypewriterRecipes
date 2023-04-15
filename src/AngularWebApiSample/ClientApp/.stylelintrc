@@ -13,6 +13,7 @@
       {
         "ignorePseudoElements": ["ng-deep"]
       }
-    ]
+    ],
+    "import-notation": "string"
   }
 }

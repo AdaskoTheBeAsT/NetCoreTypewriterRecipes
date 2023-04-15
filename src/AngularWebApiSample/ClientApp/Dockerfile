@@ -1,5 +1,5 @@
 ################# Build #################
-FROM node:18.0.0-alpine as build
+FROM node:18.16.0-alpine as build
 
 # install all native build libs
 RUN apk add --no-cache --update \
@@ -15,7 +15,7 @@ ENV JAVA_HOME=/usr/lib/jvm/default-jvm/jre \
 # download latest version of sonar
 # it needs to be stored in special folder for
 # sonarqube-scanner
-ENV SONAR_SCANNER_VERSION=4.7.0.2747
+ENV SONAR_SCANNER_VERSION=4.8.0.2856
 ENV SONAR_BINARY_CACHE=/tmp
 ENV SONAR_ZIP_LOCATION=${SONAR_BINARY_CACHE}/sonar-scanner.zip
 ENV SONAR_MAIN_FOLDER=${SONAR_BINARY_CACHE}/.sonar/native-sonar-scanner
@@ -50,10 +50,10 @@ RUN yarn install --frozen-lockfile
 COPY . .
 
 # patch libs with patches folder
-RUN yarn postinstall
+#RUN yarn postinstall
 
 # build all
-RUN yarn build --prod
+RUN yarn build client-app
 
 RUN yarn test:ci
 
@@ -64,7 +64,7 @@ RUN yarn stylelint:ci:json:docker
 RUN yarn htmlhint:ci:html:docker
 
 ################# Final #################
-# FROM adaskothebeast/nginx-brotli:v1.3.0 as deploy
+# FROM adaskothebeast/nginx-brotli:v1.24.0 as deploy
 
 # COPY ./nginx.conf /etc/nginx/conf.d/default.conf
 
