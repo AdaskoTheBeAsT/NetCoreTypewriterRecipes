@@ -32,8 +32,11 @@
       "rules": {}
     },
     {
-      "plugins": ["jest", "jest-formatting", "jest-async", "jest-dom"],
-      "files": ["*.spec.ts", "*.spec.tsx"],
+            "files": ["*.spec.ts", "*.spec.tsx"],
+	  "env": {
+	    "jest": true
+	  },
+	  "plugins": ["jest", "jest-formatting", "jest-async", "jest-dom"],
       "extends": [
         "plugin:jest/style",
         "plugin:jest-formatting/strict",
@@ -43,13 +46,5 @@
         "jest-async/expect-return": "error"
       }
     }
-  ],
-  "settings": {
-    "jest": {
-      "version": 27
-    }
-  },
-  "env": {
-    "jest/globals": true
-  }
+  ]
 }

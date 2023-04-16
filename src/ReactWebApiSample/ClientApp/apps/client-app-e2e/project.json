@@ -1,27 +1,31 @@
 {
-  "$schema": "..\\..\\node_modules\\nx\\schemas\\project-schema.json",
+  "name": "client-app-e2e",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "apps/client-app-e2e/src",
   "projectType": "application",
   "targets": {
     "e2e": {
       "executor": "@nrwl/cypress:cypress",
       "options": {
-        "cypressConfig": "apps/client-app-e2e/cypress.json",
-        "tsConfig": "apps/client-app-e2e/tsconfig.e2e.json",
-        "devServerTarget": "client-app:serve"
+        "cypressConfig": "apps/client-app-e2e/cypress.config.ts",
+        "devServerTarget": "client-app:serve:development",
+        "testingType": "e2e"
       },
       "configurations": {
         "production": {
           "devServerTarget": "client-app:serve:production"
+        },
+        "ci": {
+          "devServerTarget": "client-app:serve-static"
         }
       }
     },
     "lint": {
       "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
       "options": {
         "lintFilePatterns": ["apps/client-app-e2e/**/*.{js,ts}"]
-      },
-      "outputs": ["{options.outputFile}"]
+      }
     }
   },
   "tags": [],
