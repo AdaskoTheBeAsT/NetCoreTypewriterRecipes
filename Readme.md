@@ -1,6 +1,6 @@
 # Typewriter recipes
 
-This is part of the presentation how to generate automatically models and services from controllers and model classes in .net core web api for angular>14.x.x and react>18.x.x using [Typewriter Unofficial Fork compatible with Visual Studio 2022 2.9.2](https://github.com/AdaskoTheBeAsT/Typewriter/releases/tag/v2.9.2)
+This is part of the presentation how to generate automatically models and services from controllers and model classes in .net core web api for angular>14.x.x and react>18.x.x using [Typewriter Unofficial Fork compatible with Visual Studio 2022 2.14.0](https://github.com/AdaskoTheBeAsT/Typewriter/releases/tag/v2.14.0)
 
 ## .NET 6 Newtonsoft.Json
 
@@ -45,7 +45,7 @@ Please see in samples:
 
 ## Backend
 
-Right now .net 7 .net 6, .net 5 and .net core 3.1 allows to create nice dry web api. In version 2.x I used Andrew Lock template named [NetEscapades.Templates](https://github.com/andrewlock/NetEscapades.Templates) described in blog post [Removing the MVC Razor dependencies from the Web API template in ASP.NET Core](https://andrewlock.net/removing-the-mvc-razor-dependencies-from-the-web-api-template-in-asp-net-core/).
+Right now .net 7 .net 6, .allows to create nice dry web api. In version 2.x I used Andrew Lock template named [NetEscapades.Templates](https://github.com/andrewlock/NetEscapades.Templates) described in blog post [Removing the MVC Razor dependencies from the Web API template in ASP.NET Core](https://andrewlock.net/removing-the-mvc-razor-dependencies-from-the-web-api-template-in-asp-net-core/).
 In 2.x small modification was needed to serve static files.
 
 ```cs
