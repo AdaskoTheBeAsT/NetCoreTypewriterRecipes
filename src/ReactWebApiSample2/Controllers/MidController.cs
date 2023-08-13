@@ -4,6 +4,7 @@ using ReactWebApiSample2.Attributes;
 using ReactWebApiSample2.Models;
 
 namespace ReactWebApiSample2.Controllers;
+
 #pragma warning disable RCS1163,CA1801 // Unused parameter.
 [GenerateFrontendType]
 [Route("api/[controller]")]

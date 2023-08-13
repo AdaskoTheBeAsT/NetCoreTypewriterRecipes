@@ -18,18 +18,18 @@
   </PropertyGroup>
 
   <ItemGroup Label="Package References">
-    <PackageReference Include="AdaskoTheBeAsT.AutoMapper.SimpleInjector" Version="7.0.0" />
-    <PackageReference Include="AdaskoTheBeAsT.FluentValidation.MediatR" Version="9.0.0" />
-    <PackageReference Include="AdaskoTheBeAsT.FluentValidation.SimpleInjector" Version="7.0.0" />
-    <PackageReference Include="AdaskoTheBeAsT.MediatR.SimpleInjector.AspNetCore" Version="7.0.0" />
-    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="7.0.0" />
+    <PackageReference Include="AdaskoTheBeAsT.AutoMapper.SimpleInjector" Version="7.0.1" />
+    <PackageReference Include="AdaskoTheBeAsT.FluentValidation.MediatR" Version="10.2.0" />
+    <PackageReference Include="AdaskoTheBeAsT.FluentValidation.SimpleInjector" Version="8.2.0" />
+    <PackageReference Include="AdaskoTheBeAsT.MediatR.SimpleInjector.AspNetCore" Version="8.2.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="7.0.10" />
     <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="7.0.0" />
     <PackageReference Include="Microsoft.Extensions.Configuration" Version="7.0.0" />
     <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="7.0.0" />
-    <PackageReference Include="Newtonsoft.Json" Version="13.0.2" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     <PackageReference Include="SimpleInjector" Version="5.4.1" />
     <PackageReference Include="SimpleInjector.Integration.AspNetCore.Mvc.Core" Version="5.4.0" />
-    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
   </ItemGroup>
 
   <ItemGroup>

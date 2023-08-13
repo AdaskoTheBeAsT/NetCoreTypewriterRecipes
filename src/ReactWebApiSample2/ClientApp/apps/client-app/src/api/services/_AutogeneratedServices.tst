@@ -26,7 +26,7 @@ ${
         public override string DefaultValue => string.Empty;
         public override Type Type => null;
         public override string Name => string.Empty;
-        public override AttributeCollection Attributes => null;
+        public override IAttributeCollection Attributes => null;
         public override Item Parent => null;
 
     }

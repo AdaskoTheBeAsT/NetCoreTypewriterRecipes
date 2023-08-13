@@ -2,25 +2,30 @@
 // Do not modify it.
 
 export enum SecondSet {
-    ValA = 'ValA',
-    
-    ValB = 'ValB',
-    
-    SomeOtherVal = 'SomeOtherVal'
+  ValA = 'ValA',
+
+  ValB = 'ValB',
+
+  SomeOtherVal = 'SomeOtherVal'
 }
 
+// eslint-disable-next-line @typescript-eslint/no-namespace
 export namespace SecondSet {
-    export function getLabel(value: SecondSet): string {
-        var toReturn = '';
-        switch(value) {
-            case SecondSet.ValA: toReturn = 'ValA'; break;
-            
-            case SecondSet.ValB: toReturn = 'ValB'; break;
-            
-            case SecondSet.SomeOtherVal: toReturn = 'ValC'; break;
-        }
-        return toReturn;
-    } 
+  export function getLabel(value: SecondSet): string {
+    let toReturn = '';
+    switch(value) {
+      case SecondSet.ValA:
+        toReturn = 'ValA';
+        break;
+      case SecondSet.ValB:
+        toReturn = 'ValB';
+        break;
+      case SecondSet.SomeOtherVal:
+        toReturn = 'ValC';
+        break;
+    }
+    return toReturn;
+  }
 }
 
 

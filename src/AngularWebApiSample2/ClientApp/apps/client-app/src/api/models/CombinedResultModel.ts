@@ -5,24 +5,24 @@
 import { ComplexBaseModel } from './ComplexBaseModel';
 
 export interface ICombinedResultModel {
-    id?: number;
-    sampleList?: ComplexBaseModel[];
+  id?: number;
+  sampleList?: ComplexBaseModel[];
 }
 
 export class CombinedResultModel implements ICombinedResultModel {
-    public id: number;
-    public sampleList: ComplexBaseModel[];
+  public id: number;
+  public sampleList: ComplexBaseModel[];
 
-    constructor(initObj?: ICombinedResultModel) {
-        this.$type = undefined;
-        if (initObj) {
-            this.id = initObj.id || 0;
-            this.sampleList = initObj.sampleList || [];
-        } else {
-            this.id = 0;
-            this.sampleList = [];
-        }
+  constructor(initObj?: ICombinedResultModel) {
+    
+    if (initObj) {
+      this.id = initObj.id ?? 0;
+      this.sampleList = initObj.sampleList ?? [];
+    } else {
+      this.id = 0;
+      this.sampleList = [];
     }
+  }
 }
 
 

@@ -219,7 +219,7 @@ ${
         {
             return string.Empty;
         }
-        return $"{Environment.NewLine}        super(initObj);";
+        return $"{Environment.NewLine}    super(initObj);";
     }
 
     string SuperRecord(Record r){
@@ -227,23 +227,23 @@ ${
         {
             return string.Empty;
         }
-        return $"{Environment.NewLine}        super(initObj);";
+        return $"{Environment.NewLine}    super(initObj);";
     }
 
     string GenerateTypeForInterfaceByClass(Class c){
-        return c.BaseClass == null ? $"{Environment.NewLine}    $type?: string;" : string.Empty;
+        return c.BaseClass == null ? $"{Environment.NewLine}  $type?: string;" : string.Empty;
     }
 
     string GenerateTypeForInterfaceByRecord(Record r){
-        return r.BaseRecord == null ? $"{Environment.NewLine}    $type?: string;" : string.Empty;
+        return r.BaseRecord == null ? $"{Environment.NewLine}  $type?: string;" : string.Empty;
     }
 
     string GenerateTypeForClass(Class c){
-        return c.BaseClass == null ? $"{Environment.NewLine}    public $type: string;" : string.Empty;
+        return c.BaseClass == null ? $"{Environment.NewLine}  public $type: string;" : string.Empty;
     }
 
     string GenerateTypeForRecord(Record r){
-        return r.BaseRecord == null ? $"{Environment.NewLine}    public $type: string;" : string.Empty;
+        return r.BaseRecord == null ? $"{Environment.NewLine}  public $type: string;" : string.Empty;
     }
 
     string GenerateTypeInitForClass(Class c){
@@ -307,68 +307,73 @@ ${
 // Do not modify it.
 $Enums($IncludeEnums)[
 export enum $Name {$Values[
-    $Name = $GetEnumAsStringIfItsStringable][,
-    ]
+  $Name = $GetEnumAsStringIfItsStringable][,
+]
 }
 
+// eslint-disable-next-line @typescript-eslint/no-namespace
 export namespace $Name {
-    export function getLabel(value: $Name): string {
-        var toReturn = '';
-        switch(value) {$Values[
-            case $Parent[$Name].$Name: toReturn = '$GetAttributeValueOrReturnEnumNameIfNoAttribute'; break;][
-            ]
-        }
-        return toReturn;
-    } $IsEnumAsNumber[
-    export function getKeys(): Array<number> {
-        var list = new Array<number>();
-        for (var enumMember in $Name) { 
-            if (parseInt(enumMember, 10) < 0) {
-                  continue;
-            }
-            list.push(parseInt(enumMember, 10));
-        }
+  export function getLabel(value: $Name): string {
+    let toReturn = '';
+    switch(value) {$Values[
+      case $Parent[$Name].$Name:
+        toReturn = '$GetAttributeValueOrReturnEnumNameIfNoAttribute';
+        break;][]
+    }
+    return toReturn;
+  }$IsEnumAsNumber[
 
-        return list;
-    }]
+  export function getKeys(): Array<number> {
+    const list = new Array<number>();
+    for (const enumMember in $Name) {
+      const parsed = parseInt(enumMember, 10);
+      if (parsed < 0) {
+        continue;
+      }
+
+      list.push(parsed);
+    }
+
+    return list;
+  }]
 }
 ]
 $Classes($IncludeClass)[
 $ImportClass
 
 export interface I$Name$TypeParameters$InheritInterfaceForClass {$GenerateTypeForInterfaceByClass$Properties($IncludeProperty)[
-    $name?: $Type[$Name];]
+  $name?: $Type[$Name];]
 }
 
 export class $Name$TypeParameters$InheritClass$ImplementsInterfaceForClass {$GenerateTypeForClass$Properties($IncludeProperty)[
-    public $name$NullableMark: $Type[$Name];]
+  public $name$NullableMark: $Type[$Name];]
 
-    constructor(initObj?: I$Name$TypeParameters) {$SuperClass
-        $GenerateTypeInitForClass
-        if (initObj) {$Properties($IncludeProperty)[
-            this.$name = initObj.$name || $Type[$Default];]
-        } else {$Properties($IncludeProperty)[
-            this.$name = $Type[$Default];]
-        }
+  constructor(initObj?: I$Name$TypeParameters) {$SuperClass
+    $GenerateTypeInitForClass
+    if (initObj) {$Properties($IncludeProperty)[
+      this.$name = initObj.$name ?? $Type[$Default];]
+    } else {$Properties($IncludeProperty)[
+      this.$name = $Type[$Default];]
     }
+  }
 }]
 $Records($IncludeRecord)[
 $ImportRecord
 
 export interface I$Name$TypeParameters$InheritInterfaceForRecord {$GenerateTypeForInterfaceByRecord$Properties($IncludeProperty)[
-    $name?: $Type[$Name];]
+  $name?: $Type[$Name];]
 }
 
 export class $Name$TypeParameters$InheritRecord$ImplementsInterfaceForRecord {$GenerateTypeForRecord$Properties($IncludeProperty)[
-    public $name$NullableMark: $Type[$Name];]
+  public $name$NullableMark: $Type[$Name];]
 
-    constructor(initObj?: I$Name$TypeParameters) {$SuperRecord
-        $GenerateTypeInitForRecord
-        if (initObj) {$Properties($IncludeProperty)[
-            this.$name = initObj.$name || $Type[$Default];]
-        } else {$Properties($IncludeProperty)[
-            this.$name = $Type[$Default];]
-        }
+  constructor(initObj?: I$Name$TypeParameters) {$SuperRecord
+    $GenerateTypeInitForRecord
+    if (initObj) {$Properties($IncludeProperty)[
+      this.$name = initObj.$name ?? $Type[$Default];]
+    } else {$Properties($IncludeProperty)[
+      this.$name = $Type[$Default];]
     }
+  }
 }]
 

@@ -221,7 +221,7 @@ ${
         {
             return string.Empty;
         }
-        return $"{Environment.NewLine}        super(initObj);";
+        return $"{Environment.NewLine}    super(initObj);";
     }
 
     string SuperRecord(Record r){
@@ -229,10 +229,10 @@ ${
         {
             return string.Empty;
         }
-        return $"{Environment.NewLine}        super(initObj);";
+        return $"{Environment.NewLine}    super(initObj);";
     }
 
-    string GetDiscriminator(AttributeCollection attributes) {
+    string GetDiscriminator(IAttributeCollection attributes) {
         var discriminator = "$type";
         var attr = attributes.FirstOrDefault(p => p.Name == "JsonPolymorphic");
         if(attr != null && !string.IsNullOrEmpty(attr.Value)) {
@@ -247,7 +247,7 @@ ${
         if(c.BaseClass == null && c.Attributes.Any(a => a.Name == "JsonDerivedType"))
         {
             var discriminator = GetDiscriminator(c.Attributes);
-            returnValue = $"{Environment.NewLine}    {discriminator}?: string | number;";
+            returnValue = $"{Environment.NewLine}  {discriminator}?: string | number;";
         }
         return returnValue;
     }
@@ -257,7 +257,7 @@ ${
         if(r.BaseRecord == null && r.Attributes.Any(a => a.Name == "JsonDerivedType"))
         {
             var discriminator = GetDiscriminator(r.Attributes);
-            returnValue = $"{Environment.NewLine}    {discriminator}?: string | number;";
+            returnValue = $"{Environment.NewLine}  {discriminator}?: string | number;";
         }
         return returnValue;
     }
@@ -267,7 +267,7 @@ ${
         if(c.BaseClass == null && c.Attributes.Any(a => a.Name == "JsonDerivedType"))
         {
             var discriminator = GetDiscriminator(c.Attributes);
-            returnValue = $"{Environment.NewLine}    public {discriminator}?: string | number;";
+            returnValue = $"{Environment.NewLine}  public {discriminator}?: string | number;";
         }
         return returnValue;
     }
@@ -277,24 +277,23 @@ ${
         if(r.BaseRecord == null && r.Attributes.Any(a => a.Name == "JsonDerivedType"))
         {
             var discriminator = GetDiscriminator(r.Attributes);
-            returnValue = $"{Environment.NewLine}    public {discriminator}?: string | number;";
+            returnValue = $"{Environment.NewLine}  public {discriminator}?: string | number;";
         }
         return returnValue;
     }
 
     string GenerateTypeInitForClass(Class c){
-        var baseClass = c.BaseClass;
+        var baseClass = c;
         while (baseClass?.BaseClass != null) {
             baseClass = baseClass.BaseClass;
         }
 
-        string discriminator;
-        if(baseClass == null) {
-            discriminator = GetDiscriminator(c.Attributes);
-            return $"this.{discriminator} = undefined;";
+        if(!baseClass.Attributes.Any(a => a.Name == "JsonDerivedType"))
+        {
+            return string.Empty;
         }
-       
-        discriminator = GetDiscriminator(baseClass.Attributes);
+
+        var discriminator = GetDiscriminator(baseClass.Attributes);
         
         var attrs = baseClass.Attributes.Where(p => p.Name == "JsonDerivedType");
         var regex1 = new Regex(@"\s*typeof\s*[(]\s*([^)\s]+)[)].*");
@@ -314,16 +313,41 @@ ${
             }
         }
 
-        return $"this.{discriminator} = undefined;";
+        return $"this.{discriminator} = '';";
     }
 
     string GenerateTypeInitForRecord(Record r){
-        var dllName = r.Namespace;
-        var attr = r.Attributes.FirstOrDefault(p => p.Name == "GenerateFrontendType");
-        if(attr != null && !string.IsNullOrEmpty(attr.Value)) {
-            dllName = attr.Value;
+        var baseRecord = r;
+        while (baseRecord?.BaseRecord != null) {
+            baseRecord = baseRecord.BaseRecord;
         }
-        return $"this.$type = '{r.FullName},'\r\n            + '{dllName}';";
+
+        if(!baseRecord.Attributes.Any(a => a.Name == "JsonDerivedType"))
+        {
+            return string.Empty;
+        }
+
+        var discriminator = GetDiscriminator(baseRecord.Attributes);
+        
+        var attrs = baseRecord.Attributes.Where(p => p.Name == "JsonDerivedType");
+        var regex1 = new Regex(@"\s*typeof\s*[(]\s*([^)\s]+)[)].*");
+        var regexString = new Regex(@"[^,]*[,]\s*[""]([^""]*)[""].*");
+        var regexNumber = new Regex(@"[^,]*[,]\s*(\d).*");
+        foreach (var attr in attrs) {
+            var typeName = regex1.Replace(attr.Value, "$1");
+            if(typeName == r.FullName) {
+                if (regexString.IsMatch(attr.Value)) {
+                  var value = regexString.Replace(attr.Value, "$1");
+                  return $"this.{discriminator} = '{value}';";
+                }
+                else if (regexNumber.IsMatch(attr.Value)) {
+                  var value = regexNumber.Replace(attr.Value, "$1");
+                  return $"this.{discriminator} = {value};";
+                }
+            }
+        }
+
+        return $"this.{discriminator} = '';";
     }
 
     string NullableMark(Property property) {
@@ -369,68 +393,73 @@ ${
 // Do not modify it.
 $Enums($IncludeEnums)[
 export enum $Name {$Values[
-    $Name = $GetEnumAsStringIfItsStringable][,
-    ]
+  $Name = $GetEnumAsStringIfItsStringable][,
+]
 }
 
+// eslint-disable-next-line @typescript-eslint/no-namespace
 export namespace $Name {
-    export function getLabel(value: $Name): string {
-        var toReturn = '';
-        switch(value) {$Values[
-            case $Parent[$Name].$Name: toReturn = '$GetAttributeValueOrReturnEnumNameIfNoAttribute'; break;][
-            ]
-        }
-        return toReturn;
-    } $IsEnumAsNumber[
-    export function getKeys(): Array<number> {
-        var list = new Array<number>();
-        for (var enumMember in $Name) { 
-            if (parseInt(enumMember, 10) < 0) {
-                  continue;
-            }
-            list.push(parseInt(enumMember, 10));
-        }
+  export function getLabel(value: $Name): string {
+    let toReturn = '';
+    switch(value) {$Values[
+      case $Parent[$Name].$Name:
+        toReturn = '$GetAttributeValueOrReturnEnumNameIfNoAttribute';
+        break;][]
+    }
+    return toReturn;
+  }$IsEnumAsNumber[
 
-        return list;
-    }]
+  export function getKeys(): Array<number> {
+    const list = new Array<number>();
+    for (const enumMember in $Name) {
+      const parsed = parseInt(enumMember, 10);
+      if (parsed < 0) {
+        continue;
+      }
+
+      list.push(parsed);
+    }
+
+    return list;
+  }]
 }
 ]
 $Classes($IncludeClass)[
 $ImportClass
 
 export interface I$Name$TypeParameters$InheritInterfaceForClass {$GenerateTypeForInterfaceByClass$Properties($IncludeProperty)[
-    $name?: $Type[$Name];]
+  $name?: $Type[$Name];]
 }
 
 export class $Name$TypeParameters$InheritClass$ImplementsInterfaceForClass {$GenerateTypeForClass$Properties($IncludeProperty)[
-    public $name$NullableMark: $Type[$Name];]
+  public $name$NullableMark: $Type[$Name];]
 
-    constructor(initObj?: I$Name$TypeParameters) {$SuperClass
-        $GenerateTypeInitForClass
-        if (initObj) {$Properties($IncludeProperty)[
-            this.$name = initObj.$name || $Type[$Default];]
-        } else {$Properties($IncludeProperty)[
-            this.$name = $Type[$Default];]
-        }
+  constructor(initObj?: I$Name$TypeParameters) {$SuperClass
+    $GenerateTypeInitForClass
+    if (initObj) {$Properties($IncludeProperty)[
+      this.$name = initObj.$name ?? $Type[$Default];]
+    } else {$Properties($IncludeProperty)[
+      this.$name = $Type[$Default];]
     }
+  }
 }]
 $Records($IncludeRecord)[
 $ImportRecord
 
 export interface I$Name$TypeParameters$InheritInterfaceForRecord {$GenerateTypeForInterfaceByRecord$Properties($IncludeProperty)[
-    $name?: $Type[$Name];]
+  $name?: $Type[$Name];]
 }
 
 export class $Name$TypeParameters$InheritRecord$ImplementsInterfaceForRecord {$GenerateTypeForRecord$Properties($IncludeProperty)[
-    public $name$NullableMark: $Type[$Name];]
+  public $name$NullableMark: $Type[$Name];]
 
-    constructor(initObj?: I$Name$TypeParameters) {$SuperRecord
-        $GenerateTypeInitForRecord
-        if (initObj) {$Properties($IncludeProperty)[
-            this.$name = initObj.$name || $Type[$Default];]
-        } else {$Properties($IncludeProperty)[
-            this.$name = $Type[$Default];]
-        }
+  constructor(initObj?: I$Name$TypeParameters) {$SuperRecord
+    $GenerateTypeInitForRecord
+    if (initObj) {$Properties($IncludeProperty)[
+      this.$name = initObj.$name ?? $Type[$Default];]
+    } else {$Properties($IncludeProperty)[
+      this.$name = $Type[$Default];]
     }
+  }
 }]
 

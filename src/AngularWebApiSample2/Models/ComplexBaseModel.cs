@@ -5,6 +5,7 @@ namespace AngularWebApiSample2.Models;
 
 [GenerateFrontendType]
 [JsonPolymorphic(TypeDiscriminatorPropertyName = "$case")]
+[JsonDerivedType(typeof(ComplexBaseModel), "base")]
 [JsonDerivedType(typeof(ComplexAModel), nameof(ComplexAModel))]
 [JsonDerivedType(typeof(ComplexBModel), "BModel")]
 [JsonDerivedType(typeof(ComplexCModel), 3)]

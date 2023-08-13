@@ -201,10 +201,10 @@ export function App() {
         <details open>
           <summary>Add UI library</summary>
           <pre>{`# Generate UI lib
-nx g @nrwl/react:lib ui
+nx g @nx/react:lib ui
 
 # Add a component
-nx g @nrwl/react:component xyz --project ui`}</pre>
+nx g @nx/react:component xyz --project ui`}</pre>
         </details>
         <details>
           <summary>View dependency graph</summary>

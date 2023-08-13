@@ -5,22 +5,22 @@
 
 
 export interface IComplexBaseModel {
-    $case?: string | number;
-    id?: number;
+  $case?: string | number;
+  id?: number;
 }
 
 export class ComplexBaseModel implements IComplexBaseModel {
-    public $case?: string | number;
-    public id: number;
+  public $case?: string | number;
+  public id: number;
 
-    constructor(initObj?: IComplexBaseModel) {
-        this.$case = undefined;
-        if (initObj) {
-            this.id = initObj.id || 0;
-        } else {
-            this.id = 0;
-        }
+  constructor(initObj?: IComplexBaseModel) {
+    this.$case = 'base';
+    if (initObj) {
+      this.id = initObj.id ?? 0;
+    } else {
+      this.id = 0;
     }
+  }
 }
 
 

@@ -5,39 +5,39 @@
 import { SimpleModel } from './SimpleModel';
 
 export interface ICombinedQueryModel {
-    $type?: string;
-    id?: number;
-    simpleModels?: SimpleModel[];
-    firstName?: string;
-    middleName?: string | null;
-    lastName?: string;
+  $type?: string;
+  id?: number;
+  simpleModels?: SimpleModel[];
+  firstName?: string;
+  middleName?: string | null;
+  lastName?: string;
 }
 
 export class CombinedQueryModel implements ICombinedQueryModel {
-    public $type: string;
-    public id: number;
-    public simpleModels: SimpleModel[];
-    public firstName: string;
-    public middleName?: string | null;
-    public lastName: string;
+  public $type: string;
+  public id: number;
+  public simpleModels: SimpleModel[];
+  public firstName: string;
+  public middleName?: string | null;
+  public lastName: string;
 
-    constructor(initObj?: ICombinedQueryModel) {
-        this.$type = 'AngularWebApiSample.Models.CombinedQueryModel,'
+  constructor(initObj?: ICombinedQueryModel) {
+    this.$type = 'AngularWebApiSample.Models.CombinedQueryModel,'
             + 'AngularWebApiSample.Models';
-        if (initObj) {
-            this.id = initObj.id || 0;
-            this.simpleModels = initObj.simpleModels || [];
-            this.firstName = initObj.firstName || '';
-            this.middleName = initObj.middleName || null;
-            this.lastName = initObj.lastName || '';
-        } else {
-            this.id = 0;
-            this.simpleModels = [];
-            this.firstName = '';
-            this.middleName = null;
-            this.lastName = '';
-        }
+    if (initObj) {
+      this.id = initObj.id ?? 0;
+      this.simpleModels = initObj.simpleModels ?? [];
+      this.firstName = initObj.firstName ?? '';
+      this.middleName = initObj.middleName ?? null;
+      this.lastName = initObj.lastName ?? '';
+    } else {
+      this.id = 0;
+      this.simpleModels = [];
+      this.firstName = '';
+      this.middleName = null;
+      this.lastName = '';
     }
+  }
 }
 
 

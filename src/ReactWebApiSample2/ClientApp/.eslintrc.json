@@ -1,12 +1,12 @@
 {
   "root": true,
   "ignorePatterns": ["**/*"],
-  "plugins": ["@nrwl/nx"],
+  "plugins": ["@nx"],
   "overrides": [
     {
       "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
       "rules": {
-        "@nrwl/nx/enforce-module-boundaries": [
+        "@nx/enforce-module-boundaries": [
           "error",
           {
             "enforceBuildableLibDependency": true,
@@ -23,20 +23,20 @@
     },
     {
       "files": ["*.ts", "*.tsx"],
-      "extends": ["plugin:@nrwl/nx/typescript"],
+      "extends": ["plugin:@nx/typescript"],
       "rules": {}
     },
     {
       "files": ["*.js", "*.jsx"],
-      "extends": ["plugin:@nrwl/nx/javascript"],
+      "extends": ["plugin:@nx/javascript"],
       "rules": {}
     },
     {
-            "files": ["*.spec.ts", "*.spec.tsx"],
-	  "env": {
-	    "jest": true
-	  },
-	  "plugins": ["jest", "jest-formatting", "jest-async", "jest-dom"],
+      "files": ["*.spec.ts", "*.spec.tsx"],
+      "env": {
+        "jest": true
+      },
+      "plugins": ["jest", "jest-formatting", "jest-async", "jest-dom"],
       "extends": [
         "plugin:jest/style",
         "plugin:jest-formatting/strict",

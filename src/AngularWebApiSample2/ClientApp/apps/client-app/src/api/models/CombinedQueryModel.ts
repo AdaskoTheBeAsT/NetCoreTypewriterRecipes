@@ -5,24 +5,24 @@
 import { SimpleModel } from './SimpleModel';
 
 export interface ICombinedQueryModel {
-    id?: number;
-    simpleModels?: SimpleModel[];
+  id?: number;
+  simpleModels?: SimpleModel[];
 }
 
 export class CombinedQueryModel implements ICombinedQueryModel {
-    public id: number;
-    public simpleModels: SimpleModel[];
+  public id: number;
+  public simpleModels: SimpleModel[];
 
-    constructor(initObj?: ICombinedQueryModel) {
-        this.$type = undefined;
-        if (initObj) {
-            this.id = initObj.id || 0;
-            this.simpleModels = initObj.simpleModels || [];
-        } else {
-            this.id = 0;
-            this.simpleModels = [];
-        }
+  constructor(initObj?: ICombinedQueryModel) {
+    
+    if (initObj) {
+      this.id = initObj.id ?? 0;
+      this.simpleModels = initObj.simpleModels ?? [];
+    } else {
+      this.id = 0;
+      this.simpleModels = [];
     }
+  }
 }
 
 

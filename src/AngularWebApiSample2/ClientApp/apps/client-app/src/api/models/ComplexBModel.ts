@@ -5,21 +5,21 @@
 import { IComplexBaseModel, ComplexBaseModel } from './ComplexBaseModel';
 
 export interface IComplexBModel extends IComplexBaseModel {
-    isActive?: boolean;
+  isActive?: boolean;
 }
 
 export class ComplexBModel extends ComplexBaseModel implements IComplexBModel {
-    public isActive: boolean;
+  public isActive: boolean;
 
-    constructor(initObj?: IComplexBModel) {
-        super(initObj);
-        this.$case = 'BModel';
-        if (initObj) {
-            this.isActive = initObj.isActive || false;
-        } else {
-            this.isActive = false;
-        }
+  constructor(initObj?: IComplexBModel) {
+    super(initObj);
+    this.$case = 'BModel';
+    if (initObj) {
+      this.isActive = initObj.isActive ?? false;
+    } else {
+      this.isActive = false;
     }
+  }
 }
 
 
