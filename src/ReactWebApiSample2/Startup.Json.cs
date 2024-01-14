@@ -23,11 +23,6 @@ public partial class Startup
             : base(message, innerException)
         {
         }
-
-        protected TypeNotWhitelistedException(SerializationInfo serializationInfo, StreamingContext streamingContext)
-            : base(serializationInfo, streamingContext)
-        {
-        }
     }
 
     [Serializable]
@@ -45,11 +40,6 @@ public partial class Startup
 
         public TypeNotFoundException(string message, Exception innerException)
             : base(message, innerException)
-        {
-        }
-
-        protected TypeNotFoundException(SerializationInfo serializationInfo, StreamingContext streamingContext)
-            : base(serializationInfo, streamingContext)
         {
         }
     }

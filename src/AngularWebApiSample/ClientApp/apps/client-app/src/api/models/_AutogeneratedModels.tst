@@ -1,5 +1,9 @@
 ${
     using Typewriter.Extensions.Types;
+    using System.Text.RegularExpressions;
+    using Typewriter.Extensions.Types;
+
+    static char separator;
     
     Template(Settings settings)
     {
@@ -7,7 +11,9 @@ ${
             .IncludeCurrentProject()
             .IncludeReferencedProjects()
             .UseStringLiteralCharacter('\'')
+            .DisableUtf8BomGeneration()
             ;
+        separator = settings.StringLiteralCharacter;
     }
 
     bool IncludeClass(Class c){
@@ -29,6 +35,20 @@ ${
             return false;
           }
         }        
+
+        return true;
+    }
+
+    bool IncludeInterface(Interface i){
+        if(!i.Namespace.StartsWith("AngularWebApiSample"))
+        {
+            return false;
+        }
+
+        var attr = i.Attributes.FirstOrDefault(p => p.Name == "GenerateFrontendType");
+        if(attr == null){
+            return false;
+        }
 
         return true;
     }
@@ -73,20 +93,62 @@ ${
     string ImportClass(Class c)
     {
         var neededImports = c.Properties
-          .Where(p => (!p.Type.IsPrimitive || p.Type.IsEnum) && (p.Type.ClassName() != "string" && p.Type.ClassName() != "any" && p.Type.ClassName() != "T") && IncludeProperty(p))
-          .Select(p => $"import {{ {p.Type.ClassName()} }} from './{p.Type.ClassName()}';").ToList();
+          .Where(p => (!p.Type.IsPrimitive || p.Type.IsEnum)
+                      && !p.Type.IsDictionary
+                      && !p.Type.IsDynamic
+                      && (p.Type.ClassName() != "string"
+                      && p.Type.ClassName() != "any"
+                      && p.Type.ClassName() != "Record<string, string>"
+                      && p.Type.ClassName() != "T")
+                      && IncludeProperty(p)
+                      && p.Type.ClassName() != c.Name)
+          .Select(p => $"import {{ {p.Type.ClassName()} }} from {separator}./{p.Type.ClassName()}{separator};").ToList();
     
         if(c.BaseClass != null && c.BaseClass.TypeArguments != null)
         {
             foreach(var typeArgument in c.BaseClass.TypeArguments)
             {
-                neededImports.Add($"import {{ I{typeArgument.Name}, {typeArgument.Name} }} from './{typeArgument.Name}';");
+                neededImports.Add($"import {{ I{typeArgument.Name}, {typeArgument.Name} }} from {separator}./{typeArgument.Name}{separator};");
             }
         }
 
         if(c.BaseClass != null)
         {
-            neededImports.Add($"import {{ I{c.BaseClass.ToString()}, {c.BaseClass.ToString()} }} from './{c.BaseClass.ToString()}';");
+            neededImports.Add($"import {{ I{c.BaseClass.ToString()}, {c.BaseClass.ToString()} }} from {separator}./{c.BaseClass.ToString()}{separator};");
+        }
+
+        return String.Join(Environment.NewLine, neededImports.Distinct());
+    }
+
+    string ImportInterface(Interface i)
+    {
+        var neededImports = i.Properties
+          .Where(p => (!p.Type.IsPrimitive || p.Type.IsEnum)
+                      && !p.Type.IsDictionary && !p.Type.IsDynamic
+                      && (p.Type.ClassName() != "string"
+                      && p.Type.ClassName() != "any"
+                      && p.Type.ClassName() != "Record<string, string>"
+                      && p.Type.ClassName() != "T")
+                      && IncludeProperty(p)
+                      && p.Type.ClassName() != i.Name)
+          .Select(p => $"import {{ {p.Type.ClassName()} }} from {separator}./{p.Type.ClassName()}{separator};").ToList();
+    
+        if(i.IsGeneric && i.TypeArguments != null)
+        {
+            foreach(var typeArgument in i.TypeArguments)
+            {
+                if(typeArgument.IsDynamic || typeArgument.IsDictionary)
+                {
+                    continue;
+                }
+
+                neededImports.Add($"import {{ I{typeArgument.Name}, {typeArgument.Name} }} from {separator}./{typeArgument.Name}{separator};");
+            }
+        }
+
+        foreach(var baseInterface in i.Interfaces)
+        {
+            neededImports.Add($"import {{ {baseInterface.ToString()} }} from {separator}./{baseInterface.ToString()}{separator};");
         }
 
         return String.Join(Environment.NewLine, neededImports.Distinct());
@@ -95,20 +157,28 @@ ${
     string ImportRecord(Record r)
     {
         var neededImports = r.Properties
-          .Where(p => (!p.Type.IsPrimitive || p.Type.IsEnum) && (p.Type.ClassName() != "string" && p.Type.ClassName() != "any" && p.Type.ClassName() != "T") && IncludeProperty(p))
-          .Select(p => $"import {{ {p.Type.ClassName()} }} from './{p.Type.ClassName()}';").ToList();
+          .Where(p => (!p.Type.IsPrimitive || p.Type.IsEnum)
+                      && !p.Type.IsDictionary
+                      && !p.Type.IsDynamic
+                      && (p.Type.ClassName() != "string"
+                      && p.Type.ClassName() != "any"
+                      && p.Type.ClassName() != "Record<string, string>"
+                      && p.Type.ClassName() != "T")
+                      && IncludeProperty(p)
+                      && p.Type.ClassName() != r.Name)
+          .Select(p => $"import {{ {p.Type.ClassName()} }} from {separator}./{p.Type.ClassName()}{separator};").ToList();
     
         if(r.BaseRecord != null && r.BaseRecord.TypeArguments != null)
         {
             foreach(var typeArgument in r.BaseRecord.TypeArguments)
             {
-                neededImports.Add($"import {{ I{typeArgument.Name}, {typeArgument.Name} }} from './{typeArgument.Name}';");
+                neededImports.Add($"import {{ I{typeArgument.Name}, {typeArgument.Name} }} from {separator}./{typeArgument.Name}{separator};");
             }
         }
 
         if(r.BaseRecord != null)
         {
-            neededImports.Add($"import {{ I{r.BaseRecord.ToString()}, {r.BaseRecord.ToString()} }} from './{r.BaseRecord.ToString()}';");
+            neededImports.Add($"import {{ I{r.BaseRecord.ToString()}, {r.BaseRecord.ToString()} }} from {separator}./{r.BaseRecord.ToString()}{separator};");
         }
 
         return String.Join(Environment.NewLine, neededImports.Distinct());
@@ -171,6 +241,26 @@ ${
         }
     }
 
+    string InheritInterfaceForInterfaces(Interface i)
+    {
+        var list = new List<string>();
+        foreach(var si in i.Interfaces) {
+            if(si.IsGeneric)
+            {
+                list.Add($"{si.Name}<{si.TypeArguments.First()}>");
+            }
+            else
+            {
+                list.Add($"{si.Name}");
+            }
+        }
+        if(list.Count == 0){
+            return string.Empty;
+        }
+        
+        return $" extends {string.Join(" ,", list)}";
+    }
+
     string InheritInterfaceForRecord(Record r)
     {
         if(r.BaseRecord != null)
@@ -230,42 +320,172 @@ ${
         return $"{Environment.NewLine}    super(initObj);";
     }
 
-    string GenerateTypeForInterfaceByClass(Class c){
-        return c.BaseClass == null ? $"{Environment.NewLine}  $type?: string;" : string.Empty;
+    string GetDiscriminator(IAttributeCollection attributes) {
+        var discriminator = "$type";
+        var attr = attributes.FirstOrDefault(p => p.Name == "JsonPolymorphic");
+        if(attr != null && !string.IsNullOrEmpty(attr.Value)) {
+            var regex = new Regex(@"TypeDiscriminatorPropertyName\s*=\s*[""]([^""]*)[""]");
+            discriminator = regex.Replace(attr.Value, "$1");
+        }
+        return discriminator;
+    }
+
+   string GenerateTypeForInterfaceByClass(Class c){
+        var returnValue = string.Empty;
+        if(c.BaseClass == null)
+        {
+            var discriminator = GetDiscriminator(c.Attributes);
+            if(c.Attributes.Any(a => a.Name == "JsonDerivedType"))
+            {
+                returnValue = $"{Environment.NewLine}  {discriminator}?: string | number;";
+            }            
+        }
+        return returnValue;
     }
 
     string GenerateTypeForInterfaceByRecord(Record r){
-        return r.BaseRecord == null ? $"{Environment.NewLine}  $type?: string;" : string.Empty;
+        var returnValue = string.Empty;
+        if(r.BaseRecord == null)
+        {
+            var discriminator = GetDiscriminator(r.Attributes);
+            if(r.Attributes.Any(a => a.Name == "JsonDerivedType"))
+            {
+                returnValue = $"{Environment.NewLine}  {discriminator}?: string | number;";
+            }
+        }
+        return returnValue;
     }
 
     string GenerateTypeForClass(Class c){
-        return c.BaseClass == null ? $"{Environment.NewLine}  public $type: string;" : string.Empty;
+        var discriminator = GetDiscriminator(c.Attributes);
+        return c.BaseClass == null ? $"{Environment.NewLine}  public {discriminator}: string;" : string.Empty;
     }
 
     string GenerateTypeForRecord(Record r){
-        return r.BaseRecord == null ? $"{Environment.NewLine}  public $type: string;" : string.Empty;
+        var discriminator = GetDiscriminator(r.Attributes);
+        return r.BaseRecord == null ? $"{Environment.NewLine}  public {discriminator}: string;" : string.Empty;
+    }
+
+    string GenerateTypeForClass2(Class c){
+        var returnValue = string.Empty;
+        if(c.BaseClass == null)
+        {
+            var discriminator = GetDiscriminator(c.Attributes);
+            if(c.Attributes.Any(a => a.Name == "JsonDerivedType"))
+            {
+                returnValue = $"{Environment.NewLine}  public {discriminator}?: string | number;";
+            }
+        }
+        return returnValue;
+    }
+
+    string GenerateTypeForRecord2(Record r){
+        var returnValue = string.Empty;
+        if(r.BaseRecord == null)
+        {
+            var discriminator = GetDiscriminator(r.Attributes);
+            if(r.Attributes.Any(a => a.Name == "JsonDerivedType"))
+            {
+                returnValue = $"{Environment.NewLine}  public {discriminator}?: string | number;";
+            }
+        }
+        return returnValue;
     }
 
     string GenerateTypeInitForClass(Class c){
-        var dllName = c.Namespace;
+        var dllName = c.AssemblyName;
         var attr = c.Attributes.FirstOrDefault(p => p.Name == "GenerateFrontendType");
         if(attr != null && !string.IsNullOrEmpty(attr.Value)) {
             dllName = attr.Value;
         }
-        return $"this.$type = '{c.FullName},'\r\n            + '{dllName}';";
+        var discriminator = GetDiscriminator(c.Attributes);
+        return $"{Environment.NewLine}    this.{discriminator} = {separator}{c.FullName},{separator}\r\n            + {separator}{dllName}{separator};";
     }
 
     string GenerateTypeInitForRecord(Record r){
-        var dllName = r.Namespace;
+        var dllName = r.AssemblyName;
         var attr = r.Attributes.FirstOrDefault(p => p.Name == "GenerateFrontendType");
         if(attr != null && !string.IsNullOrEmpty(attr.Value)) {
             dllName = attr.Value;
         }
-        return $"this.$type = '{r.FullName},'\r\n            + '{dllName}';";
+        var discriminator = GetDiscriminator(r.Attributes);
+        return $"{Environment.NewLine}    this.{discriminator} = {separator}{r.FullName},{separator}\r\n            + {separator}{dllName}{separator};";
+    }
+
+    string GenerateTypeInitForClass2(Class c){
+        var baseClass = c;
+        while (baseClass?.BaseClass != null) {
+            baseClass = baseClass.BaseClass;
+        }
+
+        if(!baseClass.Attributes.Any(a => a.Name == "JsonDerivedType"))
+        {
+            return string.Empty;
+        }
+
+        var discriminator = GetDiscriminator(baseClass.Attributes);
+        
+        var attrs = baseClass.Attributes.Where(p => p.Name == "JsonDerivedType");
+        var regex1 = new Regex(@"\s*typeof\s*[(]\s*([^)\s]+)[)].*");
+        var regexString = new Regex(@"[^,]*[,]\s*[""]([^""]*)[""].*");
+        var regexNumber = new Regex(@"[^,]*[,]\s*(\d).*");
+        foreach (var attr in attrs) {
+            var typeName = regex1.Replace(attr.Value, "$1");
+            if(typeName == c.FullName) {
+                if (regexString.IsMatch(attr.Value)) {
+                  var value = regexString.Replace(attr.Value, "$1");
+                  return $"{Environment.NewLine}    this.{discriminator} = {separator}{value}{separator};";
+                }
+                else if (regexNumber.IsMatch(attr.Value)) {
+                  var value = regexNumber.Replace(attr.Value, "$1");
+                  return $"{Environment.NewLine}    this.{discriminator} = {value};";
+                }
+            }
+        }
+
+        return $"{Environment.NewLine}    this.{discriminator} = {separator}{separator};";
+    }
+
+    string GenerateTypeInitForRecord2(Record r){
+        var baseRecord = r;
+        while (baseRecord?.BaseRecord != null) {
+            baseRecord = baseRecord.BaseRecord;
+        }
+
+        if(!baseRecord.Attributes.Any(a => a.Name == "JsonDerivedType"))
+        {
+            return string.Empty;
+        }
+
+        var discriminator = GetDiscriminator(baseRecord.Attributes);
+        
+        var attrs = baseRecord.Attributes.Where(p => p.Name == "JsonDerivedType");
+        var regex1 = new Regex(@"\s*typeof\s*[(]\s*([^)\s]+)[)].*");
+        var regexString = new Regex(@"[^,]*[,]\s*[""]([^""]*)[""].*");
+        var regexNumber = new Regex(@"[^,]*[,]\s*(\d).*");
+        foreach (var attr in attrs) {
+            var typeName = regex1.Replace(attr.Value, "$1");
+            if(typeName == r.FullName) {
+                if (regexString.IsMatch(attr.Value)) {
+                  var value = regexString.Replace(attr.Value, "$1");
+                  return $"{Environment.NewLine}    this.{discriminator} = {separator}{value}{separator};";
+                }
+                else if (regexNumber.IsMatch(attr.Value)) {
+                  var value = regexNumber.Replace(attr.Value, "$1");
+                  return $"{Environment.NewLine}    this.{discriminator} = {value};";
+                }
+            }
+        }
+
+        return $"{Environment.NewLine}    this.{discriminator} = {separator}{separator};";
     }
 
     string NullableMark(Property property) {
       return property.Type.IsNullable ? "?" : string.Empty;
+    }
+
+    string ReturnTypeDefault(Type type) {
+        return type.Default().Replace("\"", $"{(char)39}");
     }
 
     string GetAttributeValueOrReturnEnumNameIfNoAttribute(EnumValue enumObj) {
@@ -286,7 +506,7 @@ ${
     string GetEnumAsStringIfItsStringable(EnumValue enumObj) {
         var parent = (enumObj.Parent as Enum);
         if(parent.Attributes.Any(a=>a.Name=="AsString")){
-            return "'"+enumObj.Name+"'";
+            return $"{separator}"+enumObj.Name+$"{separator}";
         } else {
             return enumObj.Value.ToString();
         }
@@ -299,7 +519,66 @@ ${
         }
         return true;
     }
-}// This file has been AUTOGENERATED by TypeWriter (https://github.com/adaskothebeast/Typewriter).
+
+    string GetPropertyName(Property property){
+        var attr1 = property.Attributes.FirstOrDefault(p => p.Name == "JsonPropertyName");
+        if(attr1 != null && !string.IsNullOrEmpty(attr1.Value)) {
+            var regex1 = new Regex(@".*nameof[(]([^)]*)[)].*");
+            var match1 = regex1.Match(attr1.Value);
+            if(match1.Success){
+                return match1.Groups[1].Value;
+            } else {
+                return attr1.Value;
+            }
+        }
+
+        var attr2 = property.Attributes.FirstOrDefault(p => p.Name == "JsonProperty");
+        if(attr2 != null &&
+            !string.IsNullOrEmpty(attr2.Value)) {
+            var regex2 = new Regex(@"(.*PropertyName\s*=\s*)?[""]([^""]*)[""].*");
+            var match2 = regex2.Match(attr2.Value);
+            if(match2.Success){
+                return match2.Groups[2].Value;
+            }
+
+            var regex3 = new Regex(@"(.*PropertyName\s*=\s*)?nameof[(]([^)]*)[)].*");
+            var match3 = regex3.Match(attr2.Value);
+            if(match3.Success){
+                return match3.Groups[2].Value;
+            }
+
+            var regex4 = new Regex(@".*nameof[(]([^)]*)[)].*");
+            var match4 = regex4.Match(attr2.Value);
+            if(match4.Success){
+                return match4.Groups[1].Value;
+            }
+
+            if(attr2.Value.IndexOf("=")<0){
+                return attr2.Value;
+            }
+        }
+
+        return property.name;
+    }
+
+    char Sep(Enum e){
+        return separator;
+    }
+
+    char Sep(EnumValue e){
+        return separator;
+    }
+
+    string SanitizeDefault(Type t){
+        var d = t.Default();
+        if(d.StartsWith("new ")){
+            return "null";
+        }
+
+        return d;
+    }
+}/* eslint-disable @typescript-eslint/no-explicit-any */
+// This file has been AUTOGENERATED by TypeWriter (https://github.com/adaskothebeast/Typewriter).
 // Do not modify it.
 $Enums($IncludeEnums)[
 export enum $Name {$Values[
@@ -310,10 +589,10 @@ export enum $Name {$Values[
 // eslint-disable-next-line @typescript-eslint/no-namespace
 export namespace $Name {
   export function getLabel(value: $Name): string {
-    let toReturn = '';
+    let toReturn = $Sep$Sep;
     switch(value) {$Values[
       case $Parent[$Name].$Name:
-        toReturn = '$GetAttributeValueOrReturnEnumNameIfNoAttribute';
+        toReturn = $Sep$GetAttributeValueOrReturnEnumNameIfNoAttribute$Sep;
         break;][]
     }
     return toReturn;
@@ -334,22 +613,28 @@ export namespace $Name {
   }]
 }
 ]
+$Interfaces($IncludeInterface)[
+$ImportInterface
+
+export interface $Name$TypeParameters$InheritInterfaceForInterfaces {$Properties($IncludeProperty)[
+  $GetPropertyName?: $Type[$Name];]
+}
+]
 $Classes($IncludeClass)[
 $ImportClass
 
 export interface I$Name$TypeParameters$InheritInterfaceForClass {$GenerateTypeForInterfaceByClass$Properties($IncludeProperty)[
-  $name?: $Type[$Name];]
+  $GetPropertyName?: $Type[$Name];]
 }
 
 export class $Name$TypeParameters$InheritClass$ImplementsInterfaceForClass {$GenerateTypeForClass$Properties($IncludeProperty)[
-  public $name$NullableMark: $Type[$Name];]
+  public $GetPropertyName$NullableMark: $Type[$Name];]
 
-  constructor(initObj?: I$Name$TypeParameters) {$SuperClass
-    $GenerateTypeInitForClass
+  constructor(initObj?: I$Name$TypeParameters) {$SuperClass$GenerateTypeInitForClass
     if (initObj) {$Properties($IncludeProperty)[
-      this.$name = initObj.$name ?? $Type[$Default];]
+      this.$GetPropertyName = initObj.$GetPropertyName ?? $Type[$SanitizeDefault];]
     } else {$Properties($IncludeProperty)[
-      this.$name = $Type[$Default];]
+      this.$GetPropertyName = $Type[$SanitizeDefault];]
     }
   }
 }]
@@ -357,18 +642,17 @@ $Records($IncludeRecord)[
 $ImportRecord
 
 export interface I$Name$TypeParameters$InheritInterfaceForRecord {$GenerateTypeForInterfaceByRecord$Properties($IncludeProperty)[
-  $name?: $Type[$Name];]
+  $GetPropertyName?: $Type[$Name];]
 }
 
 export class $Name$TypeParameters$InheritRecord$ImplementsInterfaceForRecord {$GenerateTypeForRecord$Properties($IncludeProperty)[
-  public $name$NullableMark: $Type[$Name];]
+  public $GetPropertyName$NullableMark: $Type[$Name];]
 
-  constructor(initObj?: I$Name$TypeParameters) {$SuperRecord
-    $GenerateTypeInitForRecord
+  constructor(initObj?: I$Name$TypeParameters) {$SuperRecord$GenerateTypeInitForRecord
     if (initObj) {$Properties($IncludeProperty)[
-      this.$name = initObj.$name ?? $Type[$Default];]
+      this.$GetPropertyName = initObj.$GetPropertyName ?? $Type[$SanitizeDefault];]
     } else {$Properties($IncludeProperty)[
-      this.$name = $Type[$Default];]
+      this.$GetPropertyName = $Type[$SanitizeDefault];]
     }
   }
 }]

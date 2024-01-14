@@ -21,6 +21,7 @@ ${
             _name = "null";
         }
         public override string name => _name;
+        public override string AssemblyName => string.Empty;
         public override string FullName => string.Empty;
         public override bool HasDefaultValue => false;
         public override string DefaultValue => string.Empty;

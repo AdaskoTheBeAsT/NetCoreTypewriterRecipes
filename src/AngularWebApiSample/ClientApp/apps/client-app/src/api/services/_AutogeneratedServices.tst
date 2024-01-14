@@ -28,7 +28,7 @@ ${
         public override string Name => string.Empty;
         public override IAttributeCollection Attributes => null;
         public override Item Parent => null;
-
+        public override string AssemblyName => string.Empty;
     }
 
     public class AdvancedTypeInfo

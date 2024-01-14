@@ -4,6 +4,7 @@ using AngularWebApiSample2.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AngularWebApiSample2.Controllers;
+
 #pragma warning disable RCS1163,CA1801 // Unused parameter.
 [GenerateFrontendType]
 [Route("api/[controller]")]

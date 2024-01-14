@@ -1,8 +1,4 @@
 using System;
-using System.Collections.Generic;
-using System.Runtime.Serialization;
-using AngularWebApiSample2.Models;
-using Newtonsoft.Json.Serialization;
 
 namespace AngularWebApiSample;
 
@@ -26,11 +22,6 @@ public partial class Startup
             : base(message, innerException)
         {
         }
-
-        protected TypeNotWhitelistedException(SerializationInfo serializationInfo, StreamingContext streamingContext)
-            : base(serializationInfo, streamingContext)
-        {
-        }
     }
 
     [Serializable]
@@ -48,11 +39,6 @@ public partial class Startup
 
         public TypeNotFoundException(string message, Exception innerException)
             : base(message, innerException)
-        {
-        }
-
-        protected TypeNotFoundException(SerializationInfo serializationInfo, StreamingContext streamingContext)
-            : base(serializationInfo, streamingContext)
         {
         }
     }
