@@ -1,3 +1,5 @@
+import '@testing-library/jest-dom';
+
 import { render } from '@testing-library/react';
 
 import App from './app';
@@ -12,6 +14,6 @@ describe('App', () => {
   it('should have a greeting as the title', () => {
     const { getByText } = render(<App />);
 
-    expect(getByText('Welcome to client-app!')).toBeTruthy();
+    expect(getByText('Welcome to client-app!')).toBeInTheDocument();
   });
 });

@@ -16,7 +16,7 @@ export interface AppStateEntity {
   id: number;
 }
 
-export interface AppStateState extends EntityState<AppStateEntity> {
+export interface AppStateState extends EntityState<AppStateEntity, number> {
   loadingStatus: 'not loaded' | 'loading' | 'loaded' | 'error';
   error: string | null | undefined;
 }

@@ -9,6 +9,7 @@ ${
             .IncludeCurrentProject()
             .IncludeReferencedProjects()
             .UseStringLiteralCharacter('\'')
+            .DisableUtf8BomGeneration()
             ;
     }
 

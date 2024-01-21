@@ -2,6 +2,7 @@ const { merge } = require('webpack-merge');
 const CompressionPlugin = require('compression-webpack-plugin');
 const zlib = require('zlib');
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 module.exports = (config, context) => {
   return merge(config, {
     plugins: [

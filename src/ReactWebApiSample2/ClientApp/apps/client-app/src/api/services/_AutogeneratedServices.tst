@@ -7,7 +7,11 @@ ${
     // setting template
     Template(Settings settings)
     {
-        settings.IncludeCurrentProject();
+        settings
+            .IncludeCurrentProject()
+            .IncludeReferencedProjects()
+            .UseStringLiteralCharacter('\'')
+            .DisableUtf8BomGeneration();
 
         // file should be named same as controller name with 'Service' suffix
         settings.OutputFilenameFactory = file => $"{Hyphenated(file.Classes.First().Name.Replace("Controller", string.Empty))}.api.ts";
