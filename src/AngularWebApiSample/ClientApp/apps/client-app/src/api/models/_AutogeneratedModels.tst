@@ -1,9 +1,9 @@
 ${
     using Typewriter.Extensions.Types;
     using System.Text.RegularExpressions;
-    using Typewriter.Extensions.Types;
 
     static char separator;
+    static string templatePath;
     
     Template(Settings settings)
     {
@@ -14,6 +14,7 @@ ${
             .DisableUtf8BomGeneration()
             ;
         separator = settings.StringLiteralCharacter;
+        templatePath = settings.TemplatePath;
     }
 
     bool IncludeClass(Class c){

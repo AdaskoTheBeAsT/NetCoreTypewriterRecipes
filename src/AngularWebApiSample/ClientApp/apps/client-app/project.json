@@ -1,6 +1,6 @@
 {
-  "name": "client-app",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "name": "client-app",
   "projectType": "application",
   "prefix": "atb",
   "sourceRoot": "apps/client-app/src",
@@ -16,8 +16,10 @@
         "polyfills": ["zone.js"],
         "tsConfig": "apps/client-app/tsconfig.app.json",
         "assets": [
-          "apps/client-app/src/favicon.ico",
-          "apps/client-app/src/assets"
+          {
+            "glob": "**/*",
+            "input": "apps/ui/public"
+          }
         ],
         "styles": ["apps/client-app/src/styles.scss"],
         "scripts": [],
@@ -91,8 +93,7 @@
       }
     },
     "lint": {
-      "executor": "@nx/eslint:lint",
-      "outputs": ["{options.outputFile}"]
+      "executor": "@nx/eslint:lint"
     },
     "test": {
       "executor": "@nx/jest:jest",

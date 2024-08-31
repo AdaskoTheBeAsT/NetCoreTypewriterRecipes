@@ -9,3 +9,15 @@ $bootstrap-sass-asset-helper: true;
 @import 'bootswatch/dist/cerulean/variables';
 @import 'bootstrap/scss/bootstrap';
 @import 'bootswatch/dist/cerulean/bootswatch';
+
+#main {
+  background-image: url('assets/purple-669046_1920.jpg');
+  width: 1920px;
+  height: 1024px;
+}
+
+#main2 {
+  background-image: url('assets/purple-669046_1920.real.jpg');
+  width: 1920px;
+  height: 1024px;
+}

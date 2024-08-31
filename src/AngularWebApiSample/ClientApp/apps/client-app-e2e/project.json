@@ -3,6 +3,8 @@
   "$schema": "..\\..\\node_modules\\nx\\schemas\\project-schema.json",
   "sourceRoot": "apps/client-app-e2e/src",
   "projectType": "application",
+  "tags": [],
+  "implicitDependencies": ["client-app"],
   "targets": {
     "e2e": {
       "executor": "angular-testcafe:testcafe",
@@ -28,10 +30,7 @@
       }
     },
     "lint": {
-      "executor": "@nx/eslint:lint",
-      "outputs": ["{options.outputFile}"]
+      "executor": "@nx/eslint:lint"
     }
-  },
-  "tags": [],
-  "implicitDependencies": ["client-app"]
+  }
 }

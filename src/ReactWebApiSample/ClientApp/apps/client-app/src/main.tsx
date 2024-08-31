@@ -1,6 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { StrictMode } from 'react';
-import * as ReactDOM from 'react-dom/client';
+import { createRoot } from 'react-dom/client';
 import { Provider } from 'react-redux';
 
 import App from './app/app';
@@ -11,13 +11,13 @@ const store = configureStore({
   devTools: process.env.NODE_ENV !== 'production',
 });
 
-const root = ReactDOM.createRoot(
-  document.getElementById('root') as HTMLElement
+const root = createRoot(
+  document.getElementById('root') as HTMLElement,
 );
 root.render(
   <Provider store={store}>
     <StrictMode>
       <App />
     </StrictMode>
-  </Provider>
+  </Provider>,
 );
