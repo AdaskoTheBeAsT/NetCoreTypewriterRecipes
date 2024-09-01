@@ -8,16 +8,6 @@ export class ImageFormatService {
     avif: 'data:image/avif;base64,AAAAIGZ0eXBhdmlmAAAAAGF2aWZtaWYxbWlhZk1BMUIAAADybWV0YQAAAAAAAAAoaGRscgAAAAAAAAAAcGljdAAAAAAAAAAAAAAAAGxpYmF2aWYAAAAADnBpdG0AAAAAAAEAAAAeaWxvYwAAAABEAAABAAEAAAABAAABGgAAAB0AAAAoaWluZgAAAAAAAQAAABppbmZlAgAAAAABAABhdjAxQ29sb3IAAAAAamlwcnAAAABLaXBjbwAAABRpc3BlAAAAAAAAAAIAAAACAAAAEHBpeGkAAAAAAwgICAAAAAxhdjFDgQ0MAAAAABNjb2xybmNseAACAAIAAYAAAAAXaXBtYQAAAAAAAAABAAEEAQKDBAAAACVtZGF0EgAKCBgANogQEAwgMg8f8D///8WfhwB8+ErK42A=',
     webp: 'data:image/webp;base64,UklGRhoAAABXRUJQVlA4TA0AAAAvAAAAEAcQERGIiP4HAA==',
   };
-  constructor() {}
-
-  private isValidUrl(url: string): boolean {
-    try {
-      new URL(url);
-      return true;
-    } catch (e) {
-      return false;
-    }
-  }
 
   checkWebPSupport(): Promise<boolean> {
     return new Promise((resolve) => {
@@ -56,29 +46,29 @@ export class ImageFormatService {
   replaceImageUrlsInCSS(format: string): void {
     const cssRules = Array.from(document.styleSheets)
       .flatMap((styleSheet: CSSStyleSheet) =>
-        Array.from(styleSheet.rules || []),
+        Array.from(styleSheet.cssRules || []),
       )
       .filter((rule: CSSRule) => rule instanceof CSSStyleRule);
 
     const propertiesToCheck = [
-      'backgroundImage',
-      'borderImageSource',
-      'listStyleImage',
+      'background-image',
+      'border-image-source',
+      'list-style-image',
       'content',
       'cursor',
-      'maskImage',
-      'clipPath',
+      'mask-image',
+      'clip-path',
       'filter',
-      'shapeOutside',
+      'shape-outside',
     ];
 
     cssRules.forEach((rule: CSSStyleRule) => {
-      propertiesToCheck.forEach((property) => {
-        const value = rule.style[property as any];
-        if (value && value.includes('url(')) {
-          const urlMatch = value.match(/url\(["']?(.*?)["']?\)/);
-          if (urlMatch && urlMatch[1]) {
-            let url = urlMatch[1];
+      propertiesToCheck.forEach((property: string) => {
+        const value = rule.style.getPropertyValue(property);
+        if (value?.includes('url(')) {
+          const urlMatch = /url\(["']?(.*?)["']?\)/.exec(value);
+          if (urlMatch?.[1]) {
+            const url = urlMatch[1];
             if (
               url.endsWith('.png') ||
               url.endsWith('.jpg') ||
@@ -89,9 +79,9 @@ export class ImageFormatService {
               //   `.${format}`,
               // );
               const newUrl = url
-                .replace(/([^\/]+)(\.[^\.]+)$/, '$1.real$2')
+                .replace(/(\.[^.]+)(\.[^.]+)$/, '.real$1$2')
                 .replace(/\.(png|jpg|jpeg)$/, `.${format}`);
-              rule.style[property as any] = value.replace(url, newUrl);
+              rule.style.setProperty(property, value.replace(url, newUrl));
             }
           }
         }

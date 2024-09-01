@@ -1,0 +1,9 @@
+Dockerfile
+Dockerfile.dockerignore
+node_modules/
+.git/
+.gitignore
+.sonar/
+.nx/
+.husky/
+.anuglar/

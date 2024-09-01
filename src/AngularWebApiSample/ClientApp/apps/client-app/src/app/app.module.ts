@@ -11,7 +11,7 @@ import { TopNavComponent } from './ui/top-nav/top-nav.component';
 @NgModule({
   declarations: [AppComponent, MainComponent, TopNavComponent],
   imports: [BrowserModule, AppRoutingModule],
-  providers: [{ provide: API_BASE_URL, useValue: environment.apiBaseUrl }],
+  providers: [{ provide: API_BASE_URL, useValue: window._env_.API_BASE_URL }],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

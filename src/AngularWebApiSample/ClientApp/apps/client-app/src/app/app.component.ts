@@ -1,4 +1,4 @@
-import { Component, OnInit, Renderer2 } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 import { ImageFormatService } from './image-format.service';
 
@@ -6,13 +6,10 @@ import { ImageFormatService } from './image-format.service';
   selector: 'atb-root',
   templateUrl: './app.component.html',
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   title = 'ClientApp';
 
-  constructor(
-    private imageFormatService: ImageFormatService,
-    private renderer: Renderer2,
-  ) {}
+  constructor(private imageFormatService: ImageFormatService) {}
 
   async ngOnInit() {
     const format = await this.imageFormatService.getSupportedFormat();

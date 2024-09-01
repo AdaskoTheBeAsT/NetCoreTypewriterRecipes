@@ -1,11 +1,17 @@
 {
   "extends": [
     "stylelint-config-standard-scss",
+    "stylelint-config-prettier-scss",
     "stylelint-config-standard",
     "stylelint-config-sass-guidelines",
     "stylelint-config-prettier"
   ],
   "rules": {
+    "scss/at-import-partial-extension": null,
+    "selector-max-id": 0,
+    "color-hex-case": "lower",
+    "string-quotes": "double",
+    "block-no-empty": true,
     "no-empty-source": null,
     "selector-type-no-unknown": null,
     "selector-pseudo-element-no-unknown": [

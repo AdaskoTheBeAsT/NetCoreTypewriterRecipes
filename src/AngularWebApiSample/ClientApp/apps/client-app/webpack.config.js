@@ -7,6 +7,11 @@ const fs = require('fs');
 const path = require('path');
 const os = require('os'); // Correctly import the os module
 const sharp = require('sharp'); // Import sharp for image processing
+const crypto = require('crypto'); // Import crypto for hash generation
+
+function generateHash(buffer) {
+  return crypto.createHash('md5').update(buffer).digest('hex').slice(0, 8);
+}
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 module.exports = (config, context) => {
@@ -81,6 +86,7 @@ module.exports = (config, context) => {
       }),
       // AVIF Image Compression
       new CompressionPlugin({
+        //'[path][name].avif',
         filename: '[path][name].avif',
         algorithm(input, options, callback) {
           sharp(input)
@@ -93,12 +99,13 @@ module.exports = (config, context) => {
             });
         },
         deleteOriginalAssets: false,
-        test: /\.real\.(png|jpg|jpeg)$/, // Apply only to image files
+        test: /\.[^.]+\.(png|jpg|jpeg)$/, // Apply only to image files
         threshold: 1024,
         minRatio: 0.8,
       }),
       // WebP Image Compression
       new CompressionPlugin({
+        //'[path][name].webp',
         filename: '[path][name].webp',
         algorithm(input, options, callback) {
           sharp(input)
@@ -111,7 +118,7 @@ module.exports = (config, context) => {
             });
         },
         deleteOriginalAssets: false,
-        test: /\.real\.(png|jpg|jpeg)$/, // Apply only to image files
+        test: /\.[^.]+\.(png|jpg|jpeg)$/, // Apply only to image files
         threshold: 1024,
         minRatio: 0.8,
       }),

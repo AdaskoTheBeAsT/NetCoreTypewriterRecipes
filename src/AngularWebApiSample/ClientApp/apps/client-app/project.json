@@ -18,11 +18,17 @@
         "assets": [
           {
             "glob": "**/*",
-            "input": "apps/ui/public"
+            "input": "apps/client-app/public"
           }
         ],
         "styles": ["apps/client-app/src/styles.scss"],
-        "scripts": [],
+        "scripts": [
+          {
+            "input": "apps/client-app/src/app/config.js",
+            "bundleName": "env-config",
+            "inject": true
+          }
+        ],
         "customWebpackConfig": {
           "path": "apps/client-app/webpack.config.js"
         }
