@@ -1,17 +1,24 @@
 #!/bin/sh
 
-# Define the directory where the cache-busted file is located
+# Define the directory where the config file is located
 CONFIG_DIR="/var/www"
 BASENAME="env-config"
 
-# Find the current cache-busted file (e.g., env-config.[hash].js)
+# Try to find the current cache-busted file (e.g., env-config.[hash].js)
 CURRENT_FILE=$(ls $CONFIG_DIR/$BASENAME.*.js 2>/dev/null)
 
+# If no cache-busted file is found, fall back to the default name
 if [ -z "$CURRENT_FILE" ]; then
-  echo "No existing cache-busted file found. Using default name."
+  echo "No cache-busted file found. Checking for the default config file."
+  CURRENT_FILE="$CONFIG_DIR/$BASENAME.js"
+fi
+
+# If neither cache-busted nor default file exists, use the default name for output
+if [ ! -f "$CURRENT_FILE" ]; then
+  echo "No existing config file found. Using default name."
   CACHE_BUSTED_FILE="$CONFIG_DIR/$BASENAME.js"
 else
-  echo "Found existing cache-busted file: $CURRENT_FILE"
+  echo "Found existing config file: $CURRENT_FILE"
   CACHE_BUSTED_FILE="$CURRENT_FILE"
 fi
 
