@@ -1,9 +1,11 @@
 ${
     using Typewriter.Extensions.Types;
     using System.Text.RegularExpressions;
+    using Typewriter.VisualStudio;
 
     static char separator;
     static string templatePath;
+    static ILog log;
     
     Template(Settings settings)
     {
@@ -15,6 +17,7 @@ ${
             ;
         separator = settings.StringLiteralCharacter;
         templatePath = settings.TemplatePath;
+        log = settings.Log;
     }
 
     bool IncludeClass(Class c){
@@ -35,7 +38,9 @@ ${
           {
             return false;
           }
-        }        
+        }
+
+        log.LogInfo($"Processing class {c.Name}");
 
         return true;
     }
@@ -91,13 +96,6 @@ ${
         return true;
     }
 
-    string ExtractClassName(Property property) {
-        return property.Type.ClassName()
-            .Replace(" | null", string.Empty)
-            .Replace("[]", string.Empty)
-            .Replace("(", string.Empty)
-            .Replace(")", string.Empty);
-    }
 
     string ImportClass(Class c)
     {
@@ -105,13 +103,13 @@ ${
           .Where(p => (!p.Type.IsPrimitive || p.Type.IsEnum)
                       && !p.Type.IsDictionary
                       && !p.Type.IsDynamic
-                      && (ExtractClassName(p) != "string"
-                      && ExtractClassName(p) != "any"
-                      && ExtractClassName(p) != "Record<string, string>"
-                      && ExtractClassName(p) != "T")
+                      && (p.Type.ClassName() != "string"
+                      && p.Type.ClassName() != "any"
+                      && p.Type.ClassName() != "Record<string, string>"
+                      && p.Type.ClassName() != "T")
                       && IncludeProperty(p)
-                      && ExtractClassName(p) != c.Name)
-          .Select(p => $"import {{ {ExtractClassName(p)} }} from {separator}./{ExtractClassName(p)}{separator};").ToList();
+                      && p.Type.ClassName() != c.Name)
+          .Select(p => $"import {{ {p.Type.ClassName()} }} from {separator}./{p.Type.ClassName()}{separator};").ToList();
     
         if(c.BaseClass != null && c.BaseClass.TypeArguments != null)
         {
@@ -134,13 +132,13 @@ ${
         var neededImports = i.Properties
           .Where(p => (!p.Type.IsPrimitive || p.Type.IsEnum)
                       && !p.Type.IsDictionary && !p.Type.IsDynamic
-                      && (ExtractClassName(p) != "string"
-                      && ExtractClassName(p) != "any"
-                      && ExtractClassName(p) != "Record<string, string>"
-                      && ExtractClassName(p) != "T")
+                      && (p.Type.ClassName() != "string"
+                      && p.Type.ClassName() != "any"
+                      && p.Type.ClassName() != "Record<string, string>"
+                      && p.Type.ClassName() != "T")
                       && IncludeProperty(p)
-                      && ExtractClassName(p) != i.Name)
-          .Select(p => $"import {{ {ExtractClassName(p)} }} from {separator}./{ExtractClassName(p)}{separator};").ToList();
+                      && p.Type.ClassName() != i.Name)
+          .Select(p => $"import {{ {p.Type.ClassName()} }} from {separator}./{p.Type.ClassName()}{separator};").ToList();
     
         if(i.IsGeneric && i.TypeArguments != null)
         {
@@ -169,13 +167,13 @@ ${
           .Where(p => (!p.Type.IsPrimitive || p.Type.IsEnum)
                       && !p.Type.IsDictionary
                       && !p.Type.IsDynamic
-                      && (ExtractClassName(p) != "string"
-                      && ExtractClassName(p) != "any"
-                      && ExtractClassName(p) != "Record<string, string>"
-                      && ExtractClassName(p) != "T")
+                      && (p.Type.ClassName() != "string"
+                      && p.Type.ClassName() != "any"
+                      && p.Type.ClassName() != "Record<string, string>"
+                      && p.Type.ClassName() != "T")
                       && IncludeProperty(p)
-                      && ExtractClassName(p) != r.Name)
-          .Select(p => $"import {{ {ExtractClassName(p)} }} from {separator}./{ExtractClassName(p)}{separator};").ToList();
+                      && p.Type.ClassName() != r.Name)
+          .Select(p => $"import {{ {p.Type.ClassName()} }} from {separator}./{p.Type.ClassName()}{separator};").ToList();
     
         if(r.BaseRecord != null && r.BaseRecord.TypeArguments != null)
         {
