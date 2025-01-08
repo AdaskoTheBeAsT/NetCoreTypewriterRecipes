@@ -26,3 +26,4 @@ export class ComplexBModel extends ComplexBaseModel implements IComplexBModel {
 }
 
 
+
