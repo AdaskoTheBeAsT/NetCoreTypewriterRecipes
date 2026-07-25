@@ -4,7 +4,10 @@
   "include": [],
   "references": [
     {
-      "path": "./tsconfig.e2e.json"
-    }
-  ]
+      "path": "./tsconfig.e2e.json",
+    },
+  ],
+  "compilerOptions": {
+    "ignoreDeprecations": "6.0",
+  },
 }

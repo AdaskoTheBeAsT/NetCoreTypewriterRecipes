@@ -1,4 +1,5 @@
 import { configureStore } from '@reduxjs/toolkit';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import { Provider } from 'react-redux';
@@ -10,14 +11,17 @@ const store = configureStore({
   reducer: { [APP_STATE_FEATURE_KEY]: appStateReducer },
   devTools: process.env.NODE_ENV !== 'production',
 });
+const queryClient = new QueryClient();
 
 const root = createRoot(
   document.getElementById('root') as HTMLElement,
 );
 root.render(
   <Provider store={store}>
-    <StrictMode>
-      <App />
-    </StrictMode>
+    <QueryClientProvider client={queryClient}>
+      <StrictMode>
+        <App />
+      </StrictMode>
+    </QueryClientProvider>
   </Provider>,
 );

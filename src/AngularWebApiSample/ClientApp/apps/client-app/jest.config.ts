@@ -1,7 +1,7 @@
 /* eslint-disable */
 const reportPath = '../.reports/frontendunittest/apps/client-app/';
 
-export default {
+module.exports = {
   displayName: 'client-app',
   preset: '../../jest.preset.js',
   setupFilesAfterEnv: ['<rootDir>/src/test-setup.ts'],

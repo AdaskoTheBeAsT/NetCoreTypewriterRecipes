@@ -1,5 +1,7 @@
 ${
     using Typewriter.Extensions.Types;
+
+    static string dateLibraryImports = string.Empty;
     
     Template(Settings settings)
     {
@@ -8,7 +10,13 @@ ${
             .IncludeReferencedProjects()
             .UseStringLiteralCharacter('\'')
             .DisableUtf8BomGeneration()
+            .UseDateLibrary(DateLibrary.Temporal)
+            .UseGuidType("Uint8Array")
+            .UseGuidInitializer("auto")
+            .UseDecimalType("Decimal")
+            .UseDecimalInitializer("auto")
             ;
+        dateLibraryImports = settings.DateLibraryImportsGeneration;
     }
 
     bool IncludeClass(Class c){
@@ -76,6 +84,8 @@ ${
         var neededImports = c.Properties
           .Where(p => (!p.Type.IsPrimitive || p.Type.IsEnum) && (p.Type.ClassName() != "string" && p.Type.ClassName() != "any" && p.Type.ClassName() != "T") && IncludeProperty(p))
           .Select(p => $"import {{ {p.Type.ClassName()} }} from './{p.Type.ClassName()}';").ToList();
+
+        AddRuntimeValueImports(neededImports, c.Properties.Where(IncludeProperty).Select(p => p.Type));
     
         if(c.BaseClass != null && c.BaseClass.TypeArguments != null)
         {
@@ -98,6 +108,8 @@ ${
         var neededImports = r.Properties
           .Where(p => (!p.Type.IsPrimitive || p.Type.IsEnum) && (p.Type.ClassName() != "string" && p.Type.ClassName() != "any" && p.Type.ClassName() != "T") && IncludeProperty(p))
           .Select(p => $"import {{ {p.Type.ClassName()} }} from './{p.Type.ClassName()}';").ToList();
+
+        AddRuntimeValueImports(neededImports, r.Properties.Where(IncludeProperty).Select(p => p.Type));
     
         if(r.BaseRecord != null && r.BaseRecord.TypeArguments != null)
         {
@@ -113,6 +125,34 @@ ${
         }
 
         return String.Join(Environment.NewLine, neededImports.Distinct());
+    }
+
+    void AddRuntimeValueImports(List<string> imports, IEnumerable<Type> types)
+    {
+        if(types.Any(UsesDate) && !string.IsNullOrEmpty(dateLibraryImports))
+        {
+            imports.Add(dateLibraryImports);
+        }
+
+        if(types.Any(UsesDecimal))
+        {
+            imports.Add("import Decimal from 'decimal.js';");
+        }
+    }
+
+    bool UsesDate(Type type)
+    {
+        return type.IsDate
+            || type.FullName == "System.TimeSpan"
+            || (type.ElementType != null && UsesDate(type.ElementType))
+            || type.TypeArguments.Any(UsesDate);
+    }
+
+    bool UsesDecimal(Type type)
+    {
+        return type.FullName == "System.Decimal"
+            || (type.ElementType != null && UsesDecimal(type.ElementType))
+            || type.TypeArguments.Any(UsesDecimal);
     }
 
     string InheritClass(Class c)

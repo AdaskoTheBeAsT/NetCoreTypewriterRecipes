@@ -14,7 +14,22 @@
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
-    "paths": {}
+    "paths": {
+      "@adaskothebeast/typewriter-http-fetch": [
+        "../../../../date-interceptors/dist/libs/typewriter-http-fetch"
+      ],
+      "@adaskothebeast/typewriter-runtime": [
+        "../../../../date-interceptors/dist/libs/typewriter-runtime"
+      ],
+      "@adaskothebeast/typewriter-schema": [
+        "../../../../date-interceptors/dist/libs/typewriter-schema"
+      ]
+    },
+    "strict": false,
+    "noUncheckedSideEffectImports": false,
+    "types": ["*"],
+    "esModuleInterop": false,
+    "ignoreDeprecations": "6.0"
   },
   "exclude": ["node_modules", "tmp"]
 }

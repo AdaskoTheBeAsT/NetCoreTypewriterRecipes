@@ -28,7 +28,7 @@ ${
         public override string Name => string.Empty;
         public override IAttributeCollection Attributes => null;
         public override Item Parent => null;
-
+        public override string AssemblyName => string.Empty;
     }
 
     public class AdvancedTypeInfo
@@ -95,6 +95,237 @@ ${
 
         // if there is only IActionResult return void as type
         return m.Type.Name == "IActionResult" ? "void" : m.Type.Name;
+    }
+
+    Type ResponseSchemaType(Method method)
+    {
+        var responseAttribute = method.Attributes
+            .FirstOrDefault(attribute => attribute.Name == "ProducesResponseType");
+        var responseType = responseAttribute?.Arguments
+            .FirstOrDefault(argument => argument.TypeValue != null)
+            ?.TypeValue;
+        if (responseType != null)
+        {
+            return responseType;
+        }
+
+        return method.Type == null
+            || method.Type.Name == "IActionResult"
+            || method.Type.Name == "ActionResult"
+            ? null
+            : method.Type.Unwrap();
+    }
+
+    Parameter BodyParameter(Method method)
+    {
+        var parameters = SkipParameters(method);
+        var explicitBody = parameters.FirstOrDefault(
+            parameter => parameter.Attributes.Any(attribute => attribute.Name == "FromBody"));
+        if (explicitBody != null)
+        {
+            return explicitBody;
+        }
+
+        var httpMethod = method.HttpMethod();
+        return httpMethod == "get" || httpMethod == "delete"
+            ? null
+            : parameters.FirstOrDefault();
+    }
+
+    string SchemaExpression(Type type)
+    {
+        var core = SchemaExpressionCore(type);
+        return type != null && type.IsNullable
+            ? $"schema.nullable({core})"
+            : core;
+    }
+
+    string SchemaExpressionCore(Type type)
+    {
+        if (type == null)
+        {
+            return "schema.unknown()";
+        }
+
+        if (type.IsDictionary)
+        {
+            var valueType = type.TypeArguments.Count > 1 ? type.TypeArguments[1] : null;
+            return valueType == null
+                ? "schema.record(schema.unknown())"
+                : $"schema.record({SchemaExpression(valueType)})";
+        }
+
+        if (type.IsEnumerable)
+        {
+            return type.ElementType == null
+                ? "schema.array(schema.unknown())"
+                : $"schema.array({SchemaExpression(type.ElementType)})";
+        }
+
+        if (type.IsGuid)
+        {
+            return "schema.uuid()";
+        }
+
+        if (IsDecimalType(type))
+        {
+            return "schema.decimal('string')";
+        }
+
+        if (type.IsTimeSpan)
+        {
+            return "schema.duration()";
+        }
+
+        if (type.IsDate)
+        {
+            return DateSchema(type);
+        }
+
+        if (type.IsEnum)
+        {
+            return "schema.number()";
+        }
+
+        var original = type.OriginalName ?? type.Name ?? string.Empty;
+        if (original.Equals("String", StringComparison.OrdinalIgnoreCase)
+            || original.Equals("string", StringComparison.OrdinalIgnoreCase))
+        {
+            return "schema.string()";
+        }
+
+        if (original.Equals("Boolean", StringComparison.OrdinalIgnoreCase)
+            || original.Equals("bool", StringComparison.OrdinalIgnoreCase))
+        {
+            return "schema.boolean()";
+        }
+
+        return type.IsPrimitive
+            ? "schema.number()"
+            : type.Name + "Schema";
+    }
+
+    bool IsDecimalType(Type type)
+    {
+        var original = type?.OriginalName ?? string.Empty;
+        return original.Equals("decimal", StringComparison.OrdinalIgnoreCase)
+            || original.Equals("System.Decimal", StringComparison.Ordinal);
+    }
+
+    string DateSchema(Type type)
+    {
+        return (type.OriginalName ?? string.Empty) switch
+        {
+            "DateTimeOffset" => "schema.instant()",
+            "DateOnly" => "schema.plainDate()",
+            "TimeOnly" => "schema.plainTime()",
+            _ => "schema.plainDateTime()",
+        };
+    }
+
+    string SchemaContext(Method method)
+    {
+        var responseType = ResponseSchemaType(method);
+        var body = BodyParameter(method);
+        if (responseType != null && body != null)
+        {
+            return "context: withTypewriterResponseSchema("
+                + SchemaExpression(responseType)
+                + ", { context: withTypewriterRequestSchema("
+                + SchemaExpression(body.Type)
+                + ", { registry: apiTypeRegistry }), registry: apiTypeRegistry }),";
+        }
+
+        if (responseType != null)
+        {
+            return "context: withTypewriterResponseSchema("
+                + SchemaExpression(responseType)
+                + ", { registry: apiTypeRegistry }),";
+        }
+
+        return body == null
+            ? string.Empty
+            : "context: withTypewriterRequestSchema("
+                + SchemaExpression(body.Type)
+                + ", { registry: apiTypeRegistry }),";
+    }
+
+    string SchemaImports(Class c)
+    {
+        var names = new SortedSet<string>(StringComparer.Ordinal);
+        foreach (var method in c.Methods)
+        {
+            AddSchemaModel(ResponseSchemaType(method), names);
+            AddSchemaModel(BodyParameter(method)?.Type, names);
+        }
+
+        return string.Join(
+            Environment.NewLine,
+            names.Select(name => $"import {{ {name}Schema }} from '../models/{name}.schema';"));
+    }
+
+    void AddSchemaModel(Type type, ISet<string> names)
+    {
+        if (type == null)
+        {
+            return;
+        }
+
+        if (type.IsDictionary)
+        {
+            if (type.TypeArguments.Count > 1)
+            {
+                AddSchemaModel(type.TypeArguments[1], names);
+            }
+            return;
+        }
+
+        if (type.IsEnumerable)
+        {
+            AddSchemaModel(type.ElementType, names);
+            return;
+        }
+
+        if (!type.IsPrimitive
+            && !type.IsEnum
+            && !type.IsDate
+            && !type.IsGuid
+            && !type.IsTimeSpan
+            && !IsDecimalType(type)
+            && !string.IsNullOrWhiteSpace(type.Name))
+        {
+            names.Add(type.Name);
+        }
+    }
+
+    bool UsesInlineSchema(Class c)
+    {
+        return c.Methods.Any(method =>
+            UsesInlineSchema(ResponseSchemaType(method))
+            || UsesInlineSchema(BodyParameter(method)?.Type));
+    }
+
+    bool UsesInlineSchema(File file)
+    {
+        return file.Classes.Any(UsesInlineSchema);
+    }
+
+    bool UsesInlineSchema(Type type)
+    {
+        if (type == null)
+        {
+            return false;
+        }
+
+        return type.IsDictionary
+            || type.IsEnumerable
+            || type.IsPrimitive
+            || type.IsEnum
+            || type.IsDate
+            || type.IsGuid
+            || type.IsTimeSpan
+            || IsDecimalType(type)
+            || string.IsNullOrWhiteSpace(type.Name);
     }
 
     // get angular service name based on controller class name
@@ -390,18 +621,25 @@ ${
         }
         return result;
     }
-}// This file has been AUTOGENERATED by TypeWriter (https://github.com/adaskothebeast/Typewriter).
-// Do not modify it.
+}/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Inject, Injectable, Optional } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import {
+  withTypewriterRequestSchema,
+  withTypewriterResponseSchema
+} from '@adaskothebeast/typewriter-http-angular';
+$UsesInlineSchema[import { schema } from '@adaskothebeast/typewriter-schema';
+]
 
 import { Observable } from 'rxjs';
 
 import { API_BASE_URL } from '../../app/app-config.module';
+import { apiTypeRegistry } from '../models/typewriter-registry';
 
 $Classes($IncludeClass)[
 $IsGetOrDeleteMethod[import { HttpParamsProcessorService } from '@adaskothebeast/http-params-processor';]
 $Imports
+$SchemaImports
 
 $IsGetOrDeleteMethod[
 interface Object {
@@ -445,6 +683,7 @@ $SkipParameters[
         return this.http.get<$ReturnType>(
             this.$Parent[$UrlFieldName] + '$HttpGetActionNameByAttribute',
             {
+                $SchemaContext
                 headers,
                 params
             });
@@ -460,6 +699,7 @@ $IsPutMethod[
             this.$Parent[$UrlFieldName] + '$HttpPutActionNameByAttribute',
             $SkipParametersForBody[$name],
             {
+                $SchemaContext
                 headers,
                 responseType: 'text'
             });
@@ -475,6 +715,7 @@ $IsPutMethodWithResult[
             this.$Parent[$UrlFieldName] + '$HttpPutActionNameByAttribute',
             $SkipParametersForBody[$name],
             {
+                $SchemaContext
                 headers
             });
     }]
@@ -489,6 +730,7 @@ $IsPostMethod[
             this.$Parent[$UrlFieldName] + '$HttpPostActionNameByAttribute',
             $SkipParametersForBody[$name],
             {
+                $SchemaContext
                 headers,
                 responseType: 'text'
             });
@@ -504,6 +746,7 @@ $IsPostMethodWithResult[
             this.$Parent[$UrlFieldName] + '$HttpPostActionNameByAttribute',
             $SkipParametersForBody[$name],
             {
+                $SchemaContext
                 headers
             });
     }]
@@ -523,6 +766,7 @@ $SkipParameters[
         return this.http.delete<$ReturnType>(
             this.$Parent[$UrlFieldName] + '$HttpDeleteActionNameByAttribute',
             {
+                $SchemaContext
                 headers,
                 params
             });

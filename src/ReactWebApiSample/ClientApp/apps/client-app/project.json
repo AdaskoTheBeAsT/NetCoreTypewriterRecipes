@@ -3,9 +3,11 @@
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "apps/client-app/src",
   "projectType": "application",
+  "tags": [],
   "targets": {
     "build": {
       "executor": "@nx/webpack:webpack",
+      "cache": false,
       "outputs": ["{options.outputPath}"],
       "defaultConfiguration": "production",
       "options": {
@@ -81,6 +83,5 @@
         "jestConfig": "apps/client-app/jest.config.ts"
       }
     }
-  },
-  "tags": []
+  }
 }

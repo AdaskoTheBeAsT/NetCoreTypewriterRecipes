@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using AngularWebApiSample.Attributes;
 
@@ -17,4 +18,6 @@ public class CombinedQueryModel
     public string? MiddleName { get; set; }
 
     public string LastName { get; set; } = string.Empty;
+
+    public DateTime Age2 { get; set; }
 }

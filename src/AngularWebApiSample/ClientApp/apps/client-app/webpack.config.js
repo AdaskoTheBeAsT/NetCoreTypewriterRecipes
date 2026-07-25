@@ -1,17 +1,40 @@
 /* eslint-disable @typescript-eslint/no-require-imports */
 const { merge } = require('webpack-merge');
 const CompressionPlugin = require('compression-webpack-plugin');
-const zlib = require('zlib');
-const { exec } = require('child_process');
-const fs = require('fs');
-const path = require('path');
-const os = require('os'); // Correctly import the os module
+const zlib = require('node:zlib');
 const sharp = require('sharp'); // Import sharp for image processing
-const crypto = require('crypto'); // Import crypto for hash generation
 
-function generateHash(buffer) {
-  return crypto.createHash('md5').update(buffer).digest('hex').slice(0, 8);
-}
+// env-config*.js is rewritten by env.sh at container startup, so it must stay uncompressed.
+const skipRuntimeConfig = /env-config(.*)\.js$/;
+
+// Zstandard through Node's zlib (Node.js 22.15+ / 24+), no zstd CLI required.
+const zstdPlugins =
+  typeof zlib.zstdCompress === 'function'
+    ? [
+        new CompressionPlugin({
+          filename: '[path][base].zst',
+          algorithm(input, options, callback) {
+            zlib.zstdCompress(
+              input,
+              {
+                params: {
+                  [zlib.constants.ZSTD_c_compressionLevel]: options.level ?? 19,
+                },
+              },
+              callback,
+            );
+          },
+          deleteOriginalAssets: false,
+          exclude: skipRuntimeConfig,
+          test: /\.(js|css|html|svg|ttf)$/,
+          threshold: 1024,
+          minRatio: 0.8,
+          compressionOptions: {
+            level: 19, // Zstandard compression level (1-22)
+          },
+        }),
+      ]
+    : [];
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 module.exports = (config, context) => {
@@ -40,50 +63,7 @@ module.exports = (config, context) => {
           },
         },
       }),
-      new CompressionPlugin({
-        filename: '[path][base].zst',
-        algorithm(input, options, callback) {
-          // Use system temp directory
-          const tempDir = os.tmpdir();
-          const tempInputPath = path.join(tempDir, `temp-input-${Date.now()}`);
-          const tempOutputPath = path.join(
-            tempDir,
-            `temp-output-${Date.now()}.zst`,
-          );
-
-          // Write the input buffer to a temporary file
-          fs.writeFileSync(tempInputPath, input);
-
-          // Run the Zstandard command using exec
-          exec(
-            `zstd -o ${tempOutputPath} ${tempInputPath} -${options.level || 3}`,
-            (err) => {
-              if (err) {
-                return callback(err);
-              }
-
-              // Read the compressed file back into a buffer
-              const compressed = fs.readFileSync(tempOutputPath);
-              callback(null, compressed);
-
-              // Clean up the temporary files
-              try {
-                fs.unlinkSync(tempInputPath);
-                fs.unlinkSync(tempOutputPath);
-              } catch (unlinkErr) {
-                console.error('Error cleaning up temp files:', unlinkErr);
-              }
-            },
-          );
-        },
-        deleteOriginalAssets: false,
-        test: /\.(js|css|html|svg|ttf)$/,
-        threshold: 1024,
-        minRatio: 0.8,
-        compressionOptions: {
-          level: 22, // Zstandard compression level (1-22)
-        },
-      }),
+      ...zstdPlugins,
       // AVIF Image Compression
       new CompressionPlugin({
         //'[path][name].avif',

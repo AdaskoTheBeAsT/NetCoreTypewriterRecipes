@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
 
     <PropertyGroup Label="Build">
-        <TargetFramework>net9.0</TargetFramework>
+        <TargetFramework>net10.0</TargetFramework>
         <TypeScriptToolsVersion>4.2</TypeScriptToolsVersion>
         <TypeScriptCompileBlocked>true</TypeScriptCompileBlocked>
         <SpaRoot>ClientApp\</SpaRoot>
@@ -18,56 +18,18 @@
     </PropertyGroup>
 
     <ItemGroup Label="Package References">
-        <PackageReference Include="AdaskoTheBeAsT.AutoMapper.SimpleInjector" Version="10.0.0" />
-        <PackageReference Include="AdaskoTheBeAsT.FluentValidation.MediatR" Version="11.2.0" />
-        <PackageReference Include="AdaskoTheBeAsT.FluentValidation.SimpleInjector" Version="9.2.0" />
-        <PackageReference Include="AdaskoTheBeAsT.MediatR.SimpleInjector.AspNetCore" Version="9.2.0" />
-        <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="9.0.0" />
-        <PackageReference Include="Microsoft.Extensions.Configuration" Version="9.0.0" />
-        <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="9.0.0" />
-        <PackageReference Include="SimpleInjector" Version="5.5.0" />
+        <PackageReference Include="AdaskoTheBeAsT.AutoMapper.SimpleInjector" Version="13.1.0" />
+        <PackageReference Include="AdaskoTheBeAsT.FluentValidation.MediatR" Version="13.0.0" />
+        <PackageReference Include="AdaskoTheBeAsT.FluentValidation.SimpleInjector" Version="11.0.0" />
+        <PackageReference Include="AdaskoTheBeAsT.MediatR.SimpleInjector.AspNetCore" Version="12.0.0" />
+    <PackageReference Include="AdaskoTheBeAsT.Typewriter.Annotations" Version="4.8.0" />
+        <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="10.0.9" />
+        <PackageReference Include="Microsoft.Extensions.Configuration" Version="10.0.9" />
+        <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="10.0.9" />
+        <PackageReference Include="SimpleInjector" Version="5.5.2" />
         <PackageReference Include="SimpleInjector.Integration.AspNetCore.Mvc.Core" Version="5.5.0" />
-        <PackageReference Include="Swashbuckle.AspNetCore" Version="7.2.0" />
-        <PackageReference Include="System.Text.Json" Version="9.0.0" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <None Update="ClientApp\apps\client-app\src\api\models\CombinedQueryModel.ts">
-        <CustomToolNamespace>Models\CombinedQueryModel.cs</CustomToolNamespace>
-      </None>
-      <None Update="ClientApp\apps\client-app\src\api\models\CombinedResultModel.ts">
-        <CustomToolNamespace>Models\CombinedResultModel.cs</CustomToolNamespace>
-      </None>
-      <None Update="ClientApp\apps\client-app\src\api\models\ComplexAModel.ts">
-        <CustomToolNamespace>Models\ComplexAModel.cs</CustomToolNamespace>
-      </None>
-      <None Update="ClientApp\apps\client-app\src\api\models\ComplexBaseModel.ts">
-        <CustomToolNamespace>Models\ComplexBaseModel.cs</CustomToolNamespace>
-      </None>
-      <None Update="ClientApp\apps\client-app\src\api\models\ComplexBModel.ts">
-        <CustomToolNamespace>Models\ComplexBModel.cs</CustomToolNamespace>
-      </None>
-      <None Update="ClientApp\apps\client-app\src\api\models\ComplexCModel.ts">
-        <CustomToolNamespace>Models\ComplexCModel.cs</CustomToolNamespace>
-      </None>
-      <None Update="ClientApp\apps\client-app\src\api\models\FirstSet.ts">
-        <CustomToolNamespace>Models\FirstSet.cs</CustomToolNamespace>
-      </None>
-      <None Update="ClientApp\apps\client-app\src\api\models\SecondSet.ts">
-        <CustomToolNamespace>Models\SecondSet.cs</CustomToolNamespace>
-      </None>
-      <None Update="ClientApp\apps\client-app\src\api\models\SimpleModel.ts">
-        <CustomToolNamespace>Models\SimpleModel.cs</CustomToolNamespace>
-      </None>
-      <None Update="ClientApp\apps\client-app\src\api\services\api-complex.service.ts">
-        <CustomToolNamespace>Controllers\ComplexController.cs</CustomToolNamespace>
-      </None>
-      <None Update="ClientApp\apps\client-app\src\api\services\api-mid.service.ts">
-        <CustomToolNamespace>Controllers\MidController.cs</CustomToolNamespace>
-      </None>
-      <None Update="ClientApp\apps\client-app\src\api\services\api-simple.service.ts">
-        <CustomToolNamespace>Controllers\SimpleController.cs</CustomToolNamespace>
-      </None>
+        <PackageReference Include="Swashbuckle.AspNetCore" Version="10.2.1" />
+        <PackageReference Include="System.Text.Json" Version="10.0.9" />
     </ItemGroup>
 
 </Project>

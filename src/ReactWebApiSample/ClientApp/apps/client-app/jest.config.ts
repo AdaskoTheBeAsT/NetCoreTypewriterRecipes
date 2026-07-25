@@ -1,5 +1,5 @@
 /* eslint-disable */
-export default {
+module.exports = {
   displayName: 'client-app',
   preset: '../../jest.preset.js',
   transform: {
@@ -7,5 +7,5 @@ export default {
     '^.+\\.[tj]sx?$': ['babel-jest', { presets: ['@nx/react/babel'] }],
   },
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx'],
-  coverageDirectory: '../../coverage/apps/client-app'
+  coverageDirectory: '../../coverage/apps/client-app',
 };

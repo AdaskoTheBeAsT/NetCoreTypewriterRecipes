@@ -7,7 +7,11 @@ ${
     // setting template
     Template(Settings settings)
     {
-        settings.IncludeCurrentProject();
+        settings
+            .IncludeCurrentProject()
+            .IncludeReferencedProjects()
+            .UseStringLiteralCharacter('\'')
+            .DisableUtf8BomGeneration();
 
         // file should be named same as controller name with 'Service' suffix
         settings.OutputFilenameFactory = file => $"{Hyphenated(file.Classes.First().Name.Replace("Controller", string.Empty))}.api.ts";
@@ -21,6 +25,7 @@ ${
             _name = "null";
         }
         public override string name => _name;
+        public override string AssemblyName => string.Empty;
         public override string FullName => string.Empty;
         public override bool HasDefaultValue => false;
         public override string DefaultValue => string.Empty;

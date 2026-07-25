@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-import { ReactComponent as Logo } from './logo.svg';
+import logo from './logo.svg';
 import star from './star.svg';
 
 const StyledApp = styled.div`
@@ -136,7 +136,7 @@ export function App() {
   return (
     <StyledApp>
       <header className="flex">
-        <Logo width="75" height="75" />
+        <img src={logo} width="75" height="75" alt="" />
         <h1>Welcome to client-app!</h1>
       </header>
       <main>
