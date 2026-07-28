@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using ReactWebApiSample.Attributes;
+using AdaskoTheBeAsT.Typewriter.Annotations;
 
 namespace ReactWebApiSample.Models;
 

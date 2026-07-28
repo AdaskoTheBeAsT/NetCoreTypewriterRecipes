@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
+using AdaskoTheBeAsT.Typewriter.Annotations;
 using Microsoft.AspNetCore.Mvc;
-using ReactWebApiSample.Attributes;
 using ReactWebApiSample.Models;
 
 namespace ReactWebApiSample.Controllers;

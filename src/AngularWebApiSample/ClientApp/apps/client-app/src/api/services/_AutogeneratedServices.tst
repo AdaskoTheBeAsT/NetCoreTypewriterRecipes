@@ -637,7 +637,7 @@ import { API_BASE_URL } from '../../app/app-config.module';
 import { apiTypeRegistry } from '../models/typewriter-registry';
 
 $Classes($IncludeClass)[
-$IsGetOrDeleteMethod[import { HttpParamsProcessorService } from '@adaskothebeast/http-params-processor';]
+$IsGetOrDeleteMethod[import { HttpParamsProcessorService } from '@adaskothebeast/http-params-processor-angular';]
 $Imports
 $SchemaImports
 

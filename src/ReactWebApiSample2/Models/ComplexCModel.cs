@@ -1,4 +1,4 @@
-using ReactWebApiSample2.Attributes;
+using AdaskoTheBeAsT.Typewriter.Annotations;
 
 namespace ReactWebApiSample2.Models;
 

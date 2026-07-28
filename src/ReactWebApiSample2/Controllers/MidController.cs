@@ -1,6 +1,6 @@
 using System;
+using AdaskoTheBeAsT.Typewriter.Annotations;
 using Microsoft.AspNetCore.Mvc;
-using ReactWebApiSample2.Attributes;
 using ReactWebApiSample2.Models;
 
 namespace ReactWebApiSample2.Controllers;

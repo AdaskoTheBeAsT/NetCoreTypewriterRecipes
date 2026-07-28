@@ -18,7 +18,7 @@ import { API_BASE_URL } from '../../app/app-config.module';
 import { apiTypeRegistry } from '../models/typewriter-registry';
 
 
-import { HttpParamsProcessorService } from '@adaskothebeast/http-params-processor';
+import { HttpParamsProcessorService } from '@adaskothebeast/http-params-processor-angular';
 import { SimpleModel } from '../models/SimpleModel';
 
 import { SimpleModelSchema } from '../models/SimpleModel.schema';

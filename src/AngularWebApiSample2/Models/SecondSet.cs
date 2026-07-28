@@ -1,5 +1,5 @@
 using System.Text.Json.Serialization;
-using AngularWebApiSample2.Attributes;
+using AdaskoTheBeAsT.Typewriter.Annotations;
 
 namespace AngularWebApiSample2.Models;
 

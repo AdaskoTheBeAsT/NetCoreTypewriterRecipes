@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-using AngularWebApiSample2.Attributes;
+using AdaskoTheBeAsT.Typewriter.Annotations;
 using AngularWebApiSample2.Models;
 using Microsoft.AspNetCore.Mvc;
 

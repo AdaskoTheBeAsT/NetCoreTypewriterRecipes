@@ -48,7 +48,11 @@
   },
   "private": true,
   "dependencies": {
-    "@adaskothebeast/http-params-processor": "^10.0.0",
+    "@adaskothebeast/http-params-processor-angular": "12.0.0",
+    "@adaskothebeast/http-params-processor-core": "12.0.0",
+    "@adaskothebeast/typewriter-http-angular": "10.0.2",
+    "@adaskothebeast/typewriter-runtime": "10.0.2",
+    "@adaskothebeast/typewriter-schema": "10.0.2",
     "@angular/animations": "22.0.8",
     "@angular/common": "22.0.8",
     "@angular/compiler": "22.0.8",

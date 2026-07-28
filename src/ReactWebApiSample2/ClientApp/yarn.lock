@@ -12,6 +12,36 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@adaskothebeast/typewriter-http-fetch@npm:10.0.2":
+  version: 10.0.2
+  resolution: "@adaskothebeast/typewriter-http-fetch@npm:10.0.2"
+  dependencies:
+    "@adaskothebeast/typewriter-runtime": "npm:^10.0.0"
+    "@adaskothebeast/typewriter-schema": "npm:^10.0.0"
+  checksum: 10c0/895b5ea619e8bee777b071ba01e2ba080640e6780292862ebd17908a3332919708a3e68c9ff95561e308c1bb60e711c2c761443716847b26797f6042f7b54923
+  languageName: node
+  linkType: hard
+
+"@adaskothebeast/typewriter-runtime@npm:10.0.2, @adaskothebeast/typewriter-runtime@npm:^10.0.0":
+  version: 10.0.2
+  resolution: "@adaskothebeast/typewriter-runtime@npm:10.0.2"
+  dependencies:
+    "@adaskothebeast/typewriter-schema": "npm:^10.0.0"
+  peerDependencies:
+    "@js-temporal/polyfill": ^0.5.1
+    decimal.js: ^10.6.0
+    uuid: ^14.0.1
+  checksum: 10c0/54736a104077ba558f31ad4015c966c2768ef30ef9420ae49d923b795347bd8601bc02d399240d7065becab506ca34254c64bf1356fc44ba3a38dcbb988f9497
+  languageName: node
+  linkType: hard
+
+"@adaskothebeast/typewriter-schema@npm:10.0.2, @adaskothebeast/typewriter-schema@npm:^10.0.0":
+  version: 10.0.2
+  resolution: "@adaskothebeast/typewriter-schema@npm:10.0.2"
+  checksum: 10c0/8307fefa88ae9be55a3dbf90c82ea4530fe279abee57519bedafb9b13eeb85c935ee0f4199ff0c070c3e306a2f6207a1be36256dce6eb07ad1c92db43ad00e7e
+  languageName: node
+  linkType: hard
+
 "@adobe/css-tools@npm:^4.4.0":
   version: 4.5.0
   resolution: "@adobe/css-tools@npm:4.5.0"
@@ -7344,6 +7374,9 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "adaskothebeast@workspace:."
   dependencies:
+    "@adaskothebeast/typewriter-http-fetch": "npm:10.0.2"
+    "@adaskothebeast/typewriter-runtime": "npm:10.0.2"
+    "@adaskothebeast/typewriter-schema": "npm:10.0.2"
     "@babel/core": "npm:^7.29.7"
     "@babel/preset-react": "npm:^7.29.7"
     "@eslint/eslintrc": "npm:^3.3.6"

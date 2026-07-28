@@ -5,15 +5,57 @@ __metadata:
   version: 10
   cacheKey: 10c0
 
-"@adaskothebeast/http-params-processor@npm:^10.0.0":
-  version: 10.0.0
-  resolution: "@adaskothebeast/http-params-processor@npm:10.0.0"
+"@adaskothebeast/http-params-processor-angular@npm:12.0.0":
+  version: 12.0.0
+  resolution: "@adaskothebeast/http-params-processor-angular@npm:12.0.0"
   dependencies:
     tslib: "npm:^2.3.0"
   peerDependencies:
-    "@angular/common": ^19.0.5
-    "@angular/core": ^19.0.5
-  checksum: 10c0/807cb307b32156df4703dba6799ef4761903bb260ffc2d9909c0328c246b4f63bc4cb6ef01b309097d4a2298803cb9088f6008c969e211f3465e254c3c00eec7
+    "@adaskothebeast/http-params-processor-core": ^12.0.0
+    "@angular/common": ">=22.0.8"
+    "@angular/core": ">=22.0.8"
+  checksum: 10c0/066caf7ce003dea11cdde716231d272e813f7840ecee5a84b2b681905a24615fd26909364c6f6a0b5b1df3784a649077d8cb215ba47b2cf99f5b81e7c9bca452
+  languageName: node
+  linkType: hard
+
+"@adaskothebeast/http-params-processor-core@npm:12.0.0":
+  version: 12.0.0
+  resolution: "@adaskothebeast/http-params-processor-core@npm:12.0.0"
+  checksum: 10c0/df81b6fc67090e0041a0b25198f7ee15102b6847e76dd4f61ab2476f3189a5618b67c9789694776dec7503235a6418556c53c16d795b2d20486ca9202673407a
+  languageName: node
+  linkType: hard
+
+"@adaskothebeast/typewriter-http-angular@npm:10.0.2":
+  version: 10.0.2
+  resolution: "@adaskothebeast/typewriter-http-angular@npm:10.0.2"
+  dependencies:
+    tslib: "npm:^2.3.0"
+  peerDependencies:
+    "@adaskothebeast/typewriter-runtime": ^10.0.0
+    "@adaskothebeast/typewriter-schema": ^10.0.0
+    "@angular/common": ^22.0.8
+    rxjs: ^7.8.2
+  checksum: 10c0/a1d0dab58c93c8c8f9de939a098b3af46197836e052bad63e2439a8fdc96d0f4490498875bf3a75e52c68025a754ff75bdf06d09b9dac59dc39c867e760d43d9
+  languageName: node
+  linkType: hard
+
+"@adaskothebeast/typewriter-runtime@npm:10.0.2":
+  version: 10.0.2
+  resolution: "@adaskothebeast/typewriter-runtime@npm:10.0.2"
+  dependencies:
+    "@adaskothebeast/typewriter-schema": "npm:^10.0.0"
+  peerDependencies:
+    "@js-temporal/polyfill": ^0.5.1
+    decimal.js: ^10.6.0
+    uuid: ^14.0.1
+  checksum: 10c0/54736a104077ba558f31ad4015c966c2768ef30ef9420ae49d923b795347bd8601bc02d399240d7065becab506ca34254c64bf1356fc44ba3a38dcbb988f9497
+  languageName: node
+  linkType: hard
+
+"@adaskothebeast/typewriter-schema@npm:10.0.2, @adaskothebeast/typewriter-schema@npm:^10.0.0":
+  version: 10.0.2
+  resolution: "@adaskothebeast/typewriter-schema@npm:10.0.2"
+  checksum: 10c0/8307fefa88ae9be55a3dbf90c82ea4530fe279abee57519bedafb9b13eeb85c935ee0f4199ff0c070c3e306a2f6207a1be36256dce6eb07ad1c92db43ad00e7e
   languageName: node
   linkType: hard
 
@@ -7279,7 +7321,11 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "adaskothebeast@workspace:."
   dependencies:
-    "@adaskothebeast/http-params-processor": "npm:^10.0.0"
+    "@adaskothebeast/http-params-processor-angular": "npm:12.0.0"
+    "@adaskothebeast/http-params-processor-core": "npm:12.0.0"
+    "@adaskothebeast/typewriter-http-angular": "npm:10.0.2"
+    "@adaskothebeast/typewriter-runtime": "npm:10.0.2"
+    "@adaskothebeast/typewriter-schema": "npm:10.0.2"
     "@angular-devkit/build-angular": "npm:^22.0.8"
     "@angular-devkit/core": "npm:22.0.8"
     "@angular-devkit/schematics": "npm:22.0.8"

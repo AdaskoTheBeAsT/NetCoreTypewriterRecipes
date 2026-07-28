@@ -1,5 +1,5 @@
 using System;
-using AngularWebApiSample.Attributes;
+using AdaskoTheBeAsT.Typewriter.Annotations;
 using AngularWebApiSample.Models;
 using Microsoft.AspNetCore.Mvc;
 

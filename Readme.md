@@ -2,7 +2,7 @@
 
 This is part of the presentation how to generate automatically models, runtime schemas and services from controllers and model classes in .net core web api for angular>22.x.x and react>19.x.x using [Typewriter Unofficial Fork 4.9.0](https://github.com/AdaskoTheBeAsT/Typewriter/releases/tag/v4.9.0) (available for Visual Studio 2022, Rider and VS Code).
 
-Classes, records and controllers taken into generation are marked with `[GenerateFrontendType]` from [AdaskoTheBeAsT.Typewriter.Annotations](https://www.nuget.org/packages/AdaskoTheBeAsT.Typewriter.Annotations) (4.8.0).
+Classes, records and controllers taken into generation are marked with `[GenerateFrontendType]` from [AdaskoTheBeAsT.Typewriter.Annotations](https://www.nuget.org/packages/AdaskoTheBeAsT.Typewriter.Annotations) (4.9.0).
 
 All samples target `net10.0` (sdk 10.0.100).
 
@@ -35,6 +35,23 @@ settings
 ```
 
 which means dates are emitted as `Temporal` types (`@js-temporal/polyfill`) and decimals as `Decimal` (`decimal.js`), both with automatically generated initializers.
+
+## Runtime packages
+
+The frontend clients consume the published Typewriter runtime packages at `10.0.2`; no local checkout or TypeScript path mapping to `date-interceptors` is required.
+
+| Client | Packages |
+| --- | --- |
+| Angular | `@adaskothebeast/typewriter-http-angular`, `@adaskothebeast/typewriter-runtime`, `@adaskothebeast/typewriter-schema` |
+| React | `@adaskothebeast/typewriter-http-fetch`, `@adaskothebeast/typewriter-runtime`, `@adaskothebeast/typewriter-schema` |
+
+The Angular generated services also serialize query parameters with [HttpParamsProcessor](https://www.npmjs.com/package/@adaskothebeast/http-params-processor-angular) `12.0.0` and its `@adaskothebeast/http-params-processor-core` peer dependency.
+
+Each client has its own lockfile. Install its dependencies from the corresponding `ClientApp` directory:
+
+```sh
+yarn install --immutable
+```
 
 ## .NET 10 Newtonsoft.Json
 

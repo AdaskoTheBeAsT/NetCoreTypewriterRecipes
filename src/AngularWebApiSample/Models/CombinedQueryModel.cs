@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-using AngularWebApiSample.Attributes;
+using AdaskoTheBeAsT.Typewriter.Annotations;
 
 namespace AngularWebApiSample.Models;
 

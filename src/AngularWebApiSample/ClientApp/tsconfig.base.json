@@ -14,17 +14,6 @@
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
-    "paths": {
-      "@adaskothebeast/typewriter-http-angular": [
-        "../../../../date-interceptors/dist/libs/typewriter-http-angular"
-      ],
-      "@adaskothebeast/typewriter-runtime": [
-        "../../../../date-interceptors/dist/libs/typewriter-runtime"
-      ],
-      "@adaskothebeast/typewriter-schema": [
-        "../../../../date-interceptors/dist/libs/typewriter-schema"
-      ]
-    },
     "strict": false,
     "noUncheckedSideEffectImports": false,
     "types": ["*"],
